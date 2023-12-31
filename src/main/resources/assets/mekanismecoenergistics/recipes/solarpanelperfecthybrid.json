@@ -1,0 +1,39 @@
+{
+  "result": {
+    "item": "mekanismecoenergistics:ecogenerator",
+    "data": 2
+  },
+  "pattern": [
+    "PPP",
+    "ISI",
+    "CTC"
+  ],
+  "type": "forge:ore_shaped",
+  "key":
+  {
+    "P":
+    {
+      "item": "mekanismecoenergistics:moresolarcell",
+      "data": 2
+    },
+    "I":
+    {
+      "item": "mekanism:ingot",
+      "data": 1
+    },
+    "S":
+    {
+      "item": "mekanismecoenergistics:ecogenerator",
+      "data": 1
+    },
+    "C":
+    {
+      "item": "mekanismecoenergistics:morecontrolcircuit",
+      "data": 2
+    },
+    "T":
+    {
+      "item": "mekanismecoenergistics:energytabletperfecthybrid"
+    }
+  }
+}

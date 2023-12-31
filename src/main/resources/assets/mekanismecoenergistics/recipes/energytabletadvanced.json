@@ -1,0 +1,33 @@
+{
+  "result": {
+    "item": "mekanismecoenergistics:energytabletadvanced"
+  },
+  "pattern": [
+    "CIC",
+    "ATA",
+    "CIC"
+  ],
+  "type": "forge:ore_shaped",
+  "key":
+  {
+    "A":
+    {
+      "item": "mekanismecoenergistics:morealloy",
+      "data": 0
+    },
+    "C":
+    {
+      "item": "mekanismecoenergistics:morecontrolcircuit",
+      "data": 0
+    },
+    "I":
+    {
+      "item": "mekanism:ingot",
+      "data": 6
+    },
+    "T":
+    {
+      "item": "mekanism:energytablet"
+    }
+  }
+}

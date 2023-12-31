@@ -1,0 +1,32 @@
+{
+  "result": {
+    "item": "mekanismecoenergistics:energytabletperfecthybrid"
+  },
+  "pattern": [
+    "CIC",
+    "ATA",
+    "CIC"
+  ],
+  "type": "forge:ore_shaped",
+  "key":
+  {
+    "A":
+    {
+      "item": "mekanismecoenergistics:morealloy",
+      "data": 2
+    },
+    "C":
+    {
+      "item": "mekanismecoenergistics:morecontrolcircuit",
+      "data": 2
+    },
+    "I":
+    {
+      "item": "mekanism:compresseddiamond"
+    },
+    "T":
+    {
+      "item": "mekanismecoenergistics:energytablethybrid"
+    }
+  }
+}

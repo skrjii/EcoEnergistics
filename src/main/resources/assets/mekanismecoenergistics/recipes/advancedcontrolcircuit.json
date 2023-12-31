@@ -1,0 +1,26 @@
+{
+  "result": {
+    "item": "mekanismecoenergistics:morecontrolcircuit",
+    "data": 0
+  },
+  "pattern": [
+    "   ",
+    "ACA",
+    "   "
+  ],
+  "type": "forge:ore_shaped",
+  "key":
+  {
+    "A":
+    {
+      "item": "mekanismecoenergistics:morealloy",
+      "data": 0
+    },
+    "C":
+    {
+      "item": "mekanism:controlcircuit",
+      "data": 2
+    }
+
+  }
+}

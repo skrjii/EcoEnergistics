@@ -1,0 +1,195 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = "forge"
+            url = "http://maven.minecraftforge.net/"
+        }
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+        maven {
+            name 'ic2'
+            url 'https://maven.ic2.player.to'
+        }
+        flatDir {
+            dirs 'libs'
+        }
+        maven {
+            url "https://cursemaven.com"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath 'com.matthewprenger:CurseGradle:1.0-SNAPSHOT'
+        classpath "gradle.plugin.net.kyori:blossom:1.1.0"
+    }
+}
+
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: "net.kyori.blossom"
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'com.matthewprenger.cursegradle'
+apply plugin: 'maven'
+
+ext.configFile = file('build.properties')
+
+ext.config = parseConfig(configFile)
+ext.priv = parseConfig(file('private.properties'))
+
+version = "${config.version}"
+group = "aeternal.mekanismecoenergistics" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = config.mod_name
+
+
+minecraft {
+    version = "${config.mc_version}-${config.forge_version}"
+    runDir = "run"
+
+    mappings = config.mc_mappings
+    //This, does the token replacement.
+    //Though, I reccomend this to be replaced with a token such as @VERSION@
+    replace 'GRADLE:BUILD', config.build_number
+    replace 'GRADLE:VERSION', config.version
+
+    replaceIn 'LibMisc.java' //I may have missed another file, though I can only find it in here.
+    useDepAts = true
+    makeObfSourceJar = false
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://www.cursemaven.com"
+    }
+    maven {
+        name 'ic2'
+        url 'https://maven.ic2.player.to'
+    }
+
+}
+//This here is for SCP
+configurations {
+    sshAntTask
+}
+
+//End of the SCP config
+
+dependencies {
+    compileOnly "org.jetbrains:annotations:17.0.0"
+    compileOnly 'javax.annotation:javax.annotation-api:1.3.2'
+    runtimeOnly "curse.maven:mekanism-268560:2835175"
+    compileOnly "curse.maven:mekanism-268560:2835175"
+    compileOnly "curse.maven:MekanismGenerators-268566:2835177"
+    runtimeOnly "curse.maven:MekanismGenerators-268566:2835177"
+    compileOnly "curse.maven:industrial-craft-242638:2746894"
+    runtimeOnly "curse.maven:industrial-craft-242638:2746894"
+    compileOnly "curse.maven:redstoneflux-270789:2623090"
+    runtimeOnly "curse.maven:redstoneflux-270789:2623090"
+    compileOnly "curse.maven:tesla-244651:2487959"
+    runtimeOnly "curse.maven:tesla-244651:2487959"
+
+    //and a bit more for SCP
+    sshAntTask "org.apache.ant:ant-jsch:1.7.1", "jsch:jsch:0.1.29"
+}
+
+compileJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
+processResources {
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+
+        // replace version and mcversion
+        expand 'version': project.version, 'mcversion': project.minecraft.version
+    }
+
+    // copy everything else, thats not the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
+
+jar {
+    manifest {
+        attributes 'FMLAT': 'mee_at.cfg'
+    }
+
+    //rename the default output, for some better... sanity with scipts
+    archiveName = "${baseName}${version}-${config.build_number}${config.buildtype}.${extension}"
+
+    exclude "**/*.bat"
+    exclude "**/*.psd"
+    exclude "**/*.exe"
+}
+
+task deobfJar(type: Jar) {
+    from(sourceSets.main.output)
+    archiveName = "${baseName}${version}-${config.build_number}${config.buildtype}-deobf.${extension}"
+    manifest {
+        attributes 'FMLAT': 'mee_at.cfg'
+    }
+}
+
+task srcJar(type: Jar) {
+    from(sourceSets.main.java)
+    classifier = 'sources'
+    archiveName = "${baseName}${version}-${config.build_number}${config.buildtype}-sources.${extension}"
+    manifest {
+        attributes 'FMLAT': 'mee_at.cfg'
+    }
+}
+
+artifacts {
+    archives deobfJar
+    archives srcJar
+}
+
+import java.util.regex.Pattern
+
+task sortArtifacts(type: Copy) {
+    from jar.destinationDir
+    into config.dir_output
+    //Put each jar with a classifier in a subfolder with the classifier as its name
+    eachFile {
+        //This matcher is used to get the classifier of the jar
+        def matcher = Pattern.compile("$config.mod_name $version-(?<classifier>\\w+).jar").matcher(it.name)
+        //Only change the destination for full matches, i.e jars with classifiers
+        if (matcher.matches())
+        {
+            def classifier = matcher.group('classifier')
+            /* Set the relative path to change the destination, since
+             * Gradle doesn't seem to like the absolute path being set*/
+            it.relativePath = it.relativePath.parent.append(false, classifier, it.name)
+        }
+    }
+}
+
+
+def parseConfig(File config) {
+    if(config.exists()){
+        config.withReader {
+            def prop = new Properties()
+            prop.load(it)
+            return (new ConfigSlurper().parse(prop))
+        }
+    } else {
+        return null
+    }
+}
+
+
+
+
+defaultTasks 'clean', 'build', 'sortArtifacts', 'incrementBuildNumber'

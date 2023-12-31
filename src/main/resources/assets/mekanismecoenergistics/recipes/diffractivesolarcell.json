@@ -1,0 +1,37 @@
+{
+  "result": {
+    "item": "mekanismecoenergistics:moresolarcell",
+    "data": 7
+  },
+  "pattern": [
+    "GGG",
+    "PAP",
+    "DID"
+  ],
+  "type": "forge:ore_shaped",
+  "key":
+  {
+    "A":
+    {
+      "item": "mekanismecoenergistics:morealloy",
+      "data": 7
+    },
+    "P":
+    {
+      "item": "mekanism:compressedobsidian"
+    },
+    "D":
+    {
+      "item": "mekanism:polyethene",
+      "data": 2
+    },
+    "G": {
+      "item": "minecraft:stained_glass_pane",
+      "data": 14
+    },
+    "I":
+    {
+      "item": "mekanism:compressedredstone"
+    }
+  }
+}

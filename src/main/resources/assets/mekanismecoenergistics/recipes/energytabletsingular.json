@@ -1,0 +1,32 @@
+{
+  "result": {
+    "item": "mekanismecoenergistics:energytabletsingular"
+  },
+  "pattern": [
+    "CIC",
+    "ATA",
+    "CIC"
+  ],
+  "type": "forge:ore_shaped",
+  "key":
+  {
+    "A":
+    {
+      "item": "mekanismecoenergistics:morealloy",
+      "data": 6
+    },
+    "C":
+    {
+      "item": "mekanismecoenergistics:morecontrolcircuit",
+      "data": 6
+    },
+    "I":
+    {
+      "item": "mekanism:compressedobsidian"
+    },
+    "T":
+    {
+      "item": "mekanismecoenergistics:energytabletprotonic"
+    }
+  }
+}

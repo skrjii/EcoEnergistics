@@ -1,0 +1,34 @@
+{
+  "result": {
+    "item": "mekanismecoenergistics:ecogeneratoradd",
+    "data": 8
+  },
+  "pattern": [
+    "SAS",
+    "SAS",
+    "PHP"
+  ],
+  "type": "forge:ore_shaped",
+  "key":
+  {
+    "S":
+    {
+      "item": "mekanismecoenergistics:ecogenerator",
+      "data": 8
+    },
+    "A":
+    {
+      "item": "mekanismecoenergistics:morealloy",
+      "data": 8
+    },
+    "P":
+    {
+      "item": "mekanism:compressedobsidian"
+    },
+    "H":
+    {
+      "item": "mekanism:polyethene",
+      "data": 1
+    }
+  }
+}

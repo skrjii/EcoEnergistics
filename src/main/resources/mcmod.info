@@ -1,0 +1,16 @@
+[
+{
+  "modid": "mekanismecoenergistics",
+  "name": "Mekanism Eco Energistics",
+  "description": "",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["AETERNAL"],
+  "dependencies": ["Mekanism"]
+}
+]
+
+
+

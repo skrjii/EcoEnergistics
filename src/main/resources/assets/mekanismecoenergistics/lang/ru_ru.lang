@@ -1,0 +1,72 @@
+# Header
+itemGroup.tabEcoEnergistics=Eco Energistics
+
+#Items
+item.advancedAlloy.name=Продвинутый сплав
+item.hybridAlloy.name=Гибридный сплав
+item.perfecthybridAlloy.name=Совершенный гибридный сплав
+item.quantumAlloy.name=Квантовый сплав
+item.spectralAlloy.name=Спектральный сплав
+item.protonicAlloy.name=Протонный сплав
+item.singularAlloy.name=Сингулярный сплав
+item.diffractiveAlloy.name=Дифракционный сплав
+item.photonicAlloy.name=Фотонный сплав
+item.neutronAlloy.name=Нейтронный сплав
+
+item.AdvancedSolarCell.name=Продвинутая солнечная ячейка
+item.HybridSolarCell.name=Гибридная солнечная ячейка
+item.PerfectHybridSolarCell.name=Совершенная гибридная солнечная ячейка
+item.QuantumSolarCell.name=Квантовая солнечная ячейка
+item.SpectralSolarCell.name=Спектральная солнечная ячейка
+item.ProtonicSolarCell.name=Протонная солнечная ячейка
+item.SingularSolarCell.name=Сингулярная солнечная ячейка
+item.DiffractiveSolarCell.name=Дифракционная солнечная ячейка
+item.PhotonicSolarCell.name=Фотонная солнечная ячейка
+item.NeutronSolarCell.name=Нейтронная солнечная ячейка
+
+item.AdvancedControlCircuit.name=Продвинутая схема управления
+item.HybridControlCircuit.name=Гибридная схема управления
+item.PerfectHybridControlCircuit.name=Совершенная гибридная схема управления
+item.QuantumControlCircuit.name=Квантовая схема управления
+item.SpectralControlCircuit.name=Спектральная схема управления
+item.ProtonicControlCircuit.name=Протонная схема управления
+item.SingularControlCircuit.name=Сингулярная схема управления
+item.DiffractiveControlCircuit.name=Дифракционная схема управления
+item.PhotonicControlCircuit.name=Фотонная схема управления
+item.NeutronControlCircuit.name=Нейтронная схема управления
+
+item.EnergyTabletAdvanced.name=Продвинутый энергетический планшет
+item.EnergyTabletHybrid.name=Гибридный энергетический планшет
+item.EnergyTabletPerfectHybrid.name=Совершенный гибридный энергетический планшет
+item.EnergyTabletQuantum.name=Квантовый энергетический планшет
+item.EnergyTabletSpectral.name=Спектральный энергетический планшет
+item.EnergyTabletProtonic.name=Протонный энергетический планшет
+item.EnergyTabletSingular.name=Сингулярный энергетический планшет
+item.EnergyTabletDiffractive.name=Дифракционный энергетический планшет
+item.EnergyTabletPhotonic.name=Фотонный энергетический планшет
+item.EnergyTabletNeutron.name=Нейтронный энергетический планшет
+
+
+#Tiles
+tile.EcoGenerator.SolarPanelAdvanced.name=Продвинутая солнечная панель
+tile.EcoGenerator.SolarPanelHybrid.name=Гибридная солнечная панель
+tile.EcoGenerator.SolarPanelPerfectHybrid.name=Совершенная гибридная солнечная панель
+tile.EcoGenerator.SolarPanelQuantum.name=Квантовая солнечная панель
+tile.EcoGenerator.SolarPanelSpectral.name=Спектральная солнечная панель
+tile.EcoGenerator.SolarPanelProtonic.name=Протонная солнечная панель
+tile.EcoGenerator.SolarPanelSingular.name=Сингулярная солнечная панель
+tile.EcoGenerator.SolarPanelDiffractive.name=Дифракционная солнечная панель
+tile.EcoGenerator.SolarPanelPhotonic.name=Фотонная солнечная панель
+tile.EcoGenerator.SolarPanelNeutron.name=Нейтронная солнечная панель
+
+
+tile.EcoGeneratorAdd.SolarStationAdvanced.name=Продвинутая солнечная станция
+tile.EcoGeneratorAdd.SolarStationHybrid.name=Гибридная солнечная станция
+tile.EcoGeneratorAdd.SolarStationPerfectHybrid.name=Совершенная гибридная солнечная станция
+tile.EcoGeneratorAdd.SolarStationQuantum.name=Квантовая солнечная станция
+tile.EcoGeneratorAdd.SolarStationSpectral.name=Спектральная солнечная станция
+tile.EcoGeneratorAdd.SolarStationProtonic.name=Протонная солнечная станция
+tile.EcoGeneratorAdd.SolarStationSingular.name=Сингулярная солнечная станция
+tile.EcoGeneratorAdd.SolarStationDiffractive.name=Дифракционная солнечная станция
+tile.EcoGeneratorAdd.SolarStationPhotonic.name=Фотонная солнечная станция
+tile.EcoGeneratorAdd.SolarStationNeutron.name=Нейтронная солнечная станция
