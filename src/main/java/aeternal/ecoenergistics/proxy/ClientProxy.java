@@ -1,34 +1,32 @@
 package aeternal.ecoenergistics.proxy;
 
 //import aeternal.ecoenergistics.client.gui.GuiSolarPanel;
+
+import aeternal.ecoenergistics.Constants;
 import aeternal.ecoenergistics.client.render.EcoERender;
+import aeternal.ecoenergistics.client.render.item.RenderEcoGeneratorItem;
 import aeternal.ecoenergistics.client.render.item.RenderEcoGeneratorItemAdd;
 import aeternal.ecoenergistics.client.render.solar.panel.*;
 import aeternal.ecoenergistics.client.render.solar.station.*;
+import aeternal.ecoenergistics.common.EcoGeneratorsBlocks;
+import aeternal.ecoenergistics.common.block.states.BlockStateBasic;
 import aeternal.ecoenergistics.common.block.states.BlockStateEcoGenerator;
+import aeternal.ecoenergistics.common.block.states.BlockStateEcoGenerator.EcoGeneratorType;
 import aeternal.ecoenergistics.common.block.states.BlockStateEcoGeneratorAdd;
 import aeternal.ecoenergistics.common.block.states.BlockStateEcoGeneratorAdd.EcoGeneratorTypeAdd;
+import aeternal.ecoenergistics.common.block.states.BlockStateOre;
+import aeternal.ecoenergistics.common.block.states.BlockStateOre.EnumOreType;
 import aeternal.ecoenergistics.common.item.EcoEnergisticsItems;
 import aeternal.ecoenergistics.common.tile.solar.panel.*;
 import aeternal.ecoenergistics.common.tile.solar.station.*;
-import mekanism.client.render.MekanismRenderer;
+import aeternal.ecoenergistics.common.block.states.BlockStateBasic.EnumBasicType;
 import mekanism.client.render.item.ItemLayerWrapper;
-
-import aeternal.ecoenergistics.Constants;
-//import aeternal.ecoenergistics.client.gui.GuiSolarPanel;
-import aeternal.ecoenergistics.client.render.item.RenderEcoGeneratorItem;
-import aeternal.ecoenergistics.common.EcoGeneratorsBlocks;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.IRegistry;
-import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoader;
@@ -37,7 +35,6 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import aeternal.ecoenergistics.common.block.states.BlockStateEcoGenerator.EcoGeneratorType;
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
 
@@ -77,6 +74,13 @@ public class ClientProxy extends CommonProxy {
         Item.getItemFromBlock(EcoGeneratorsBlocks.EcoGeneratorAdd).setTileEntityItemStackRenderer(new RenderEcoGeneratorItemAdd());
         registerItemRender(EcoEnergisticsItems.MoreControlCircuit);
         registerItemRender(EcoEnergisticsItems.MoreAlloy);
+        registerItemRender(EcoEnergisticsItems.MoreDust);
+        registerItemRender(EcoEnergisticsItems.MoreCompressed);
+        registerItemRender(EcoEnergisticsItems.MoreRod);
+        registerItemRender(EcoEnergisticsItems.MoreIngot);
+        registerItemRender(EcoEnergisticsItems.MoreCrystal);
+        registerItemRender(EcoEnergisticsItems.MoreClump);
+        registerItemRender(EcoEnergisticsItems.MoreDirtyDust);
         registerItemRender(EcoEnergisticsItems.MoreSolarCell);
         registerItemRender(EcoEnergisticsItems.EnergyTabletAdvanced);
         registerItemRender(EcoEnergisticsItems.EnergyTabletHybrid);
@@ -100,6 +104,12 @@ public class ClientProxy extends CommonProxy {
         }
         for (EcoGeneratorTypeAdd type : EcoGeneratorTypeAdd.values()) {
             ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(type.blockType.getBlock()), type.meta, new ModelResourceLocation(new ResourceLocation(Constants.MOD_ID, type.getName()), "inventory"));
+        }
+        for (EnumOreType ore : BlockStateOre.EnumOreType.values()) {
+            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(EcoGeneratorsBlocks.OreBlock), ore.ordinal(), new ModelResourceLocation(new ResourceLocation(Constants.MOD_ID, "OreBlock"), "type=" + ore.getName()));
+        }
+        for (EnumBasicType block : BlockStateBasic.EnumBasicType.values()) {
+            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(EcoGeneratorsBlocks.BlockBasic), block.ordinal(), new ModelResourceLocation(new ResourceLocation(Constants.MOD_ID, "BlockBasic"), "type=" + block.getName()));
         }
     }
 

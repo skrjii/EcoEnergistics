@@ -1,16 +1,21 @@
 package aeternal.ecoenergistics;
 
 import aeternal.ecoenergistics.common.EcoGeneratorsBlocks;
+import aeternal.ecoenergistics.common.Infusers;
 import aeternal.ecoenergistics.common.creativetab.EcoEnergisticsCreativeTab;
+import aeternal.ecoenergistics.common.enums.MoreDust;
+import aeternal.ecoenergistics.common.enums.Ingot;
 import aeternal.ecoenergistics.common.item.EcoEnergisticsItems;
+import aeternal.ecoenergistics.common.recipes.Infuser;
+import aeternal.ecoenergistics.common.world.GenHandler;
 import aeternal.ecoenergistics.proxy.CommonProxy;
 import io.netty.buffer.ByteBuf;
 import mekanism.api.MekanismAPI;
-import mekanism.api.infuse.InfuseObject;
 import mekanism.api.infuse.InfuseRegistry;
 import mekanism.api.infuse.InfuseType;
 import mekanism.common.Mekanism;
 import mekanism.common.MekanismItems;
+import mekanism.common.Resource;
 import mekanism.common.Version;
 import mekanism.common.base.IModule;
 import mekanism.common.block.states.BlockStateMachine;
@@ -18,8 +23,9 @@ import mekanism.common.config.MekanismConfig;
 import mekanism.common.network.PacketSimpleGui;
 import mekanism.common.recipe.BinRecipe;
 import mekanism.common.recipe.RecipeHandler;
-import mekanism.generators.common.GeneratorsGuiHandler;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -38,9 +44,17 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.io.File;
+
+import static aeternal.ecoenergistics.common.Infusers.*;
+import static aeternal.ecoenergistics.common.recipes.Crusher.InitCustomCrusherRecipes;
+import static aeternal.ecoenergistics.common.recipes.Enrichment.InitCustomEnrichmentRecipes;
+import static aeternal.ecoenergistics.common.recipes.Infuser.InitCustomInfuserRecipes;
+import static aeternal.ecoenergistics.common.recipes.Purification.InitCustomPurificationRecipes;
+
 
 @Mod(modid = EcoEnergistics.MOD_ID, useMetadata = true, guiFactory = "mekanism.generators.client.gui.GeneratorsGuiFactory", dependencies = "required-after:mekanism;required-after:mekanismgenerators")
 @Mod.EventBusSubscriber()
@@ -58,7 +72,7 @@ public class EcoEnergistics implements IModule {
 
     public static Version versionNumber = new Version(999, 999, 999);
     public static final int DATA_VERSION = 1;
-
+    public static GenHandler genHandler = new GenHandler();
 
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
@@ -69,18 +83,21 @@ public class EcoEnergistics implements IModule {
     public static void registerItems(RegistryEvent.Register<Item> event) {
         EcoEnergisticsItems.registerItems(event.getRegistry());
         EcoGeneratorsBlocks.registerItemBlocks(event.getRegistry());
+        registerOreDict();
     }
 
     @SubscribeEvent
     public static void registerModels(ModelRegistryEvent event) {
         proxy.registerBlockRenders();
         proxy.registerItemRenders();
+
     }
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+    //    InfuseRegistry.registerInfuseType(new InfuseType("GOLD", new ResourceLocation(Constants.MOD_ID, "blocks/infuse/InfuseGold")).setTranslationKey("gold"));
+        registerInfuseType();
         File config = event.getSuggestedConfigurationFile();
-
         //Set the mod's configuration
         configuration = new Configuration(config);
 
@@ -88,6 +105,9 @@ public class EcoEnergistics implements IModule {
         proxy.loadConfiguration();
 
         proxy.preInit();
+
+
+
     }
 
     @EventHandler
@@ -105,6 +125,7 @@ public class EcoEnergistics implements IModule {
 
         proxy.registerTileEntities();
         proxy.registerTESRs();
+        GameRegistry.registerWorldGenerator(genHandler, 1);
 
         CompoundDataFixer fixer = FMLCommonHandler.instance().getDataFixer();
         ModFixs fixes = fixer.init(MOD_ID, DATA_VERSION);
@@ -114,47 +135,48 @@ public class EcoEnergistics implements IModule {
     @SubscribeEvent
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
         event.getRegistry().register(new BinRecipe());
-        addRecipes();
-
+        InitCustomInfuserRecipes();
+        InitCustomEnrichmentRecipes();
+        InitCustomPurificationRecipes();
+        InitCustomCrusherRecipes();
+        registerInfuseObject();
     }
-    public static void addRecipes() {
-        if (MekanismConfig.current().general.machinesManager.isEnabled(BlockStateMachine.MachineType.METALLURGIC_INFUSER)) {
-            InfuseType carbon = InfuseRegistry.get("CARBON");
-            InfuseType diamond = InfuseRegistry.get("DIAMOND");
-            InfuseType obsidian = InfuseRegistry.get("OBSIDIAN");
-         //   InfuseType gold = InfuseRegistry.get("GOLD");
+
+/*    public static void addRecipes() {
+
+        //Crusher
+        *//*if (MekanismConfig.current().general.machinesManager.isEnabled(BlockStateMachine.MachineType.CRUSHER)) {
+            RecipeHandler.addCrusherRecipe(new ItemStack(Items.DYE,1,4), new ItemStack(EcoEnergisticsItems.MoreDust, 1, MoreDust.LAPIS.ordinal()));
+            RecipeHandler.addCrusherRecipe(new ItemStack(EcoEnergisticsItems.MoreIngot,1,Ingot.ACTIVATEDGLOWSTONE.ordinal()), new ItemStack(EcoEnergisticsItems.MoreDust, 1, MoreDust.ACTIVATEDGLOWSTONE.ordinal()));
+            RecipeHandler.addCrusherRecipe(new ItemStack(Items.EMERALD), new ItemStack(EcoEnergisticsItems.MoreDust, 1, MoreDust.EMERALD.ordinal()));
+            RecipeHandler.addCrusherRecipe(new ItemStack(EcoEnergisticsItems.MoreIngot, 1, Ingot.ACTIVATEDGLOWSTONE.ordinal()), new ItemStack(EcoEnergisticsItems.MoreDust, 1, MoreDust.ACTIVATEDGLOWSTONE.ordinal()));
+        }*//*
 
 
-            //Infuse Objects
-         //   ItemStack goldDust = new ItemStack(MekanismItems.Dust, 1, 1);
-         //   InfuseRegistry.registerInfuseObject(goldDust, new InfuseObject(gold, 80));
+        //Enrichment
+        *//*if (Constants.ENRICHMENT_ENABLED) {
+            RecipeHandler.addEnrichmentChamberRecipe(new ItemStack(EcoEnergisticsItems.MoreDust, 1, MoreDust.LAPIS.ordinal()), new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, 0));
+            RecipeHandler.addEnrichmentChamberRecipe(new ItemStack(EcoEnergisticsItems.MoreDust, 1, MoreDust.EMERALD.ordinal()), new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, 1));
+            RecipeHandler.addEnrichmentChamberRecipe(new ItemStack(EcoEnergisticsItems.MoreDust, 1, MoreDust.ACTIVATEDGLOWSTONE.ordinal()), new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, 2));
+            RecipeHandler.addEnrichmentChamberRecipe(new ItemStack(MekanismItems.Dust,1,Resource.GOLD.ordinal()), new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, 3));
+         //   RecipeHandler.addEnrichmentChamberRecipe(new ItemStack(MekanismItems.Ingot,1,3), new ItemStack(EcoEnergisticsItems.MoreIngot, 1, Ingot.ACTIVATEDGLOWSTONE.ordinal()));
+        }*//*
 
-
-            ItemStack advancedAlloy = new ItemStack(EcoEnergisticsItems.MoreAlloy, 1, 0);
-            ItemStack hybridAlloy = new ItemStack(EcoEnergisticsItems.MoreAlloy, 1, 1);
-            ItemStack perfecthybridAlloy = new ItemStack(EcoEnergisticsItems.MoreAlloy, 1, 2);
-            ItemStack quantumAlloy = new ItemStack(EcoEnergisticsItems.MoreAlloy, 1, 3);
-            ItemStack spectralAlloy = new ItemStack(EcoEnergisticsItems.MoreAlloy, 1, 4);
-            ItemStack protonicAlloy = new ItemStack(EcoEnergisticsItems.MoreAlloy, 1, 5);
-            ItemStack singularAlloy = new ItemStack(EcoEnergisticsItems.MoreAlloy, 1, 6);
-            ItemStack diffractiveAlloy = new ItemStack(EcoEnergisticsItems.MoreAlloy, 1, 7);
-            ItemStack photonicAlloy = new ItemStack(EcoEnergisticsItems.MoreAlloy, 1, 8);
-            ItemStack neutronAlloy = new ItemStack(EcoEnergisticsItems.MoreAlloy, 1, 9);
-
-
-            //Metallurgic Infuser Recipes
-            // Metallurgic Infuser Recipes
-            RecipeHandler.addMetallurgicInfuserRecipe(diamond, 10, new ItemStack(MekanismItems.ReinforcedAlloy), advancedAlloy);
-            RecipeHandler.addMetallurgicInfuserRecipe(diamond, 15, advancedAlloy, hybridAlloy);
-            RecipeHandler.addMetallurgicInfuserRecipe(diamond, 20, hybridAlloy, perfecthybridAlloy);
-            RecipeHandler.addMetallurgicInfuserRecipe(diamond, 25, perfecthybridAlloy, quantumAlloy);
-            RecipeHandler.addMetallurgicInfuserRecipe(diamond, 30, quantumAlloy, spectralAlloy);
-            RecipeHandler.addMetallurgicInfuserRecipe(obsidian, 15, spectralAlloy, protonicAlloy);
-            RecipeHandler.addMetallurgicInfuserRecipe(obsidian, 20, protonicAlloy, singularAlloy);
-            RecipeHandler.addMetallurgicInfuserRecipe(obsidian, 25, singularAlloy, diffractiveAlloy);
-            RecipeHandler.addMetallurgicInfuserRecipe(obsidian, 30, diffractiveAlloy, photonicAlloy);
-            RecipeHandler.addMetallurgicInfuserRecipe(obsidian, 35, photonicAlloy, neutronAlloy);
+        //Purification Chamber Recipes
+        if (MekanismConfig.current().general.machinesManager.isEnabled(BlockStateMachine.MachineType.PURIFICATION_CHAMBER)) {
+            RecipeHandler.addPurificationChamberRecipe(new ItemStack(Blocks.GRAVEL), new ItemStack(Items.FLINT));
         }
+    }*/
+    public static void registerOreDict() {
+
+        OreDictionary.registerOre("dustLapisCrushed", new ItemStack(EcoEnergisticsItems.MoreDust, 1, 0));
+        OreDictionary.registerOre("dustEmeraldCrushed", new ItemStack(EcoEnergisticsItems.MoreDust, 1, 1));
+        OreDictionary.registerOre("dustEnrichedGlowstone", new ItemStack(EcoEnergisticsItems.MoreDust, 1, 2));
+        OreDictionary.registerOre("itemCompressedLapis", new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, 0));
+        OreDictionary.registerOre("itemCompressedEmerald", new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, 1));
+        OreDictionary.registerOre("itemCompressedGlowstone", new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, 2));
+        OreDictionary.registerOre("itemCompressedGold", new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, 3));
+
     }
     @Override
     public Version getVersion() {

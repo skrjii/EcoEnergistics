@@ -1,5 +1,7 @@
 package aeternal.ecoenergistics;
 
+import mekanism.common.block.states.BlockStateMachine;
+import mekanism.common.config.MekanismConfig;
 import net.minecraft.util.ResourceLocation;
 
 public class Constants {
@@ -12,6 +14,12 @@ public class Constants {
     public static final String PREFIX_MODEL = PREFIX_MOD + "textures/model/";
     public static final String PREFIX_MISC = PREFIX_MOD + "textures/misc/";
     public static final String PREFIX_OBJ_MODEL = PREFIX_MOD + "model/";
+
+    public static final boolean PURIFICATION_ENABLED = MekanismConfig.current().general.machinesManager.isEnabled(BlockStateMachine.MachineType.PURIFICATION_CHAMBER);
+    public static final boolean INJECTION_ENABLED = MekanismConfig.current().general.machinesManager.isEnabled(BlockStateMachine.MachineType.CHEMICAL_INJECTION_CHAMBER);
+    public static final boolean INFUSION_ENABLED = MekanismConfig.current().general.machinesManager.isEnabled(BlockStateMachine.MachineType.METALLURGIC_INFUSER);
+    public static final boolean ENRICHMENT_ENABLED = MekanismConfig.current().general.machinesManager.isEnabled(BlockStateMachine.MachineType.ENRICHMENT_CHAMBER);
+    public static final boolean CRUSHER_ENABLED = MekanismConfig.current().general.machinesManager.isEnabled(BlockStateMachine.MachineType.CRUSHER);
 
     public static final String EMTPY_TEXTURE = "emptyTexture";
 
@@ -38,4 +46,5 @@ public class Constants {
             return this.prefix + "/";
         }
     }
+
 }

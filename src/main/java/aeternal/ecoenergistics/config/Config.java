@@ -1,6 +1,8 @@
 package aeternal.ecoenergistics.config;
 
+import aeternal.ecoenergistics.config.options.IntOption;
 import io.netty.buffer.ByteBuf;
+
 import net.minecraftforge.common.config.Configuration;
 
 public class Config extends BaseConfig {
@@ -30,8 +32,12 @@ public class Config extends BaseConfig {
     public final DoubleOption solarStationNeutronGeneration = new DoubleOption(this, "generation", "NeutronSolarStationGeneration", 1152000.0, "Peak output for the Advanced Solar Station. Note: It can go higher than this value in some extreme environments.");
 
 
-
-
+    public final IntOption titaniumPerChunk = new IntOption(this, "oregen", "TitaniumPerChunk", 12, "Chance that titanium generates in a chunk. (0 to Disable)", 0, Integer.MAX_VALUE);
+    public final IntOption uraniumPerChunk = new IntOption(this, "oregen", "UraniumPerChunk", 6, "Chance that uranium generates in a chunk. (0 to Disable)", 0, Integer.MAX_VALUE);
+    public final IntOption iridiumPerChunk = new IntOption(this, "oregen", "IridiumPerChunk", 6, "Chance that iridium generates in a chunk. (0 to Disable)", 0, Integer.MAX_VALUE);
+    public final IntOption titaniumMaxVeinSize = new IntOption(this, "oregen", "TitaniumVeinSize", 10, "Max number of blocks in a Titanium vein.", 1, Integer.MAX_VALUE);
+    public final IntOption uraniumMaxVeinSize = new IntOption(this, "oregen", "UraniumVeinSize", 2, "Max number of blocks in an Uranium vein.", 1, Integer.MAX_VALUE);
+    public final IntOption iridiumMaxVeinSize = new IntOption(this, "oregen", "IridiumVeinSize", 4, "Max number of blocks in an Iridium vein.", 1, Integer.MAX_VALUE);
 
 //    public TypeConfigManager<BlockStateEcoGenerator.EcoGeneratorType> generatorsManager = new TypeConfigManager(this, "generators", BlockStateEcoGenerator.EcoGeneratorType.class, BlockStateEcoGenerator.EcoGeneratorType::getGeneratorsForConfig, BlockStateEcoGenerator.EcoGeneratorType::getBlockName);
 

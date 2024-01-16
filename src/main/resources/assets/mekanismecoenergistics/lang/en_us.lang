@@ -12,6 +12,15 @@ item.singularAlloy.name=Singular Alloy
 item.diffractiveAlloy.name=Diffractive Alloy
 item.photonicAlloy.name=Photonic Alloy
 item.neutronAlloy.name=Neutron Alloy
+item.lapisDust.name=Lapis Dust
+item.emeraldDust.name=Emerald Dust
+item.activatedglowstoneDust.name=Activated Glowstone Dust
+item.lapisCompressed.name=Compressed Lapis
+item.emeraldCompressed.name=Compressed Emerald
+item.glowstoneCompressed.name=Compressed Glowstone
+item.goldCompressed.name=Compressed Gold
+item.steelRod.name=Steel Rod
+item.activatedglowstoneIngot.name=Activated Glowstone Ingot
 
 item.AdvancedSolarCell.name=Advanced Solar Cell
 item.HybridSolarCell.name=Hybrid Solar Cell
@@ -46,6 +55,13 @@ item.EnergyTabletDiffractive.name=Diffractive Energy Tablet
 item.EnergyTabletPhotonic.name=Photonic Energy Tablet
 item.EnergyTabletNeutron.name=Neutron Energy Tablet
 
+#Infusers
+infuse.glowstone=Glowstone
+infuse.lapis=Lapis
+infuse.emerald=Emerald
+infuse.gold=Gold
+infuse.steel=Steel
+
 
 #Tiles
 tile.EcoGenerator.SolarPanelAdvanced.name=Advanced Solar Panel
@@ -70,3 +86,8 @@ tile.EcoGeneratorAdd.SolarStationSingular.name=Singular Solar Station
 tile.EcoGeneratorAdd.SolarStationDiffractive.name=Diffractive Solar Station
 tile.EcoGeneratorAdd.SolarStationPhotonic.name=Photonic Solar Station
 tile.EcoGeneratorAdd.SolarStationNeutron.name=Neutron Solar Station
+
+#Tooltips
+tooltip.TitaniumOre=Titanium
+tooltip.UraniumOre=Uranium
+tooltip.IridiumOre=Iridium
