@@ -1,0 +1,15 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "mekanism:basic_cube"
+  },
+  "variants": {
+    "type": {
+      "titanium": {"textures": {"all": "mekanismecoenergistics:blocks/titaniumore"}},
+      "uranium": {"textures": {"all": "mekanismecoenergistics:blocks/uraniumore"}},
+      "iridium": {"textures": {"all": "mekanismecoenergistics:blocks/iridiumore"}}
+    },
+    "inventory": [{}]
+  }
+}
+

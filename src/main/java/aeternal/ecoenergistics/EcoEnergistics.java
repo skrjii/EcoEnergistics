@@ -118,7 +118,6 @@ public class EcoEnergistics implements IModule {
 
         CompoundDataFixer fixer = FMLCommonHandler.instance().getDataFixer();
         ModFixs fixes = fixer.init(MOD_ID, DATA_VERSION);
-        
         Mekanism.logger.info("Loaded MekanismEcoEnergistics module.");
     }
     @SubscribeEvent
@@ -132,31 +131,6 @@ public class EcoEnergistics implements IModule {
         registerInfuseObject();
     }
 
-/*    public static void addRecipes() {
-
-        //Crusher
-        *//*if (MekanismConfig.current().general.machinesManager.isEnabled(BlockStateMachine.MachineType.CRUSHER)) {
-            RecipeHandler.addCrusherRecipe(new ItemStack(Items.DYE,1,4), new ItemStack(EcoEnergisticsItems.MoreDust, 1, MoreDust.LAPIS.ordinal()));
-            RecipeHandler.addCrusherRecipe(new ItemStack(EcoEnergisticsItems.MoreIngot,1,Ingot.ACTIVATEDGLOWSTONE.ordinal()), new ItemStack(EcoEnergisticsItems.MoreDust, 1, MoreDust.ACTIVATEDGLOWSTONE.ordinal()));
-            RecipeHandler.addCrusherRecipe(new ItemStack(Items.EMERALD), new ItemStack(EcoEnergisticsItems.MoreDust, 1, MoreDust.EMERALD.ordinal()));
-            RecipeHandler.addCrusherRecipe(new ItemStack(EcoEnergisticsItems.MoreIngot, 1, Ingot.ACTIVATEDGLOWSTONE.ordinal()), new ItemStack(EcoEnergisticsItems.MoreDust, 1, MoreDust.ACTIVATEDGLOWSTONE.ordinal()));
-        }*//*
-
-
-        //Enrichment
-        *//*if (Constants.ENRICHMENT_ENABLED) {
-            RecipeHandler.addEnrichmentChamberRecipe(new ItemStack(EcoEnergisticsItems.MoreDust, 1, MoreDust.LAPIS.ordinal()), new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, 0));
-            RecipeHandler.addEnrichmentChamberRecipe(new ItemStack(EcoEnergisticsItems.MoreDust, 1, MoreDust.EMERALD.ordinal()), new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, 1));
-            RecipeHandler.addEnrichmentChamberRecipe(new ItemStack(EcoEnergisticsItems.MoreDust, 1, MoreDust.ACTIVATEDGLOWSTONE.ordinal()), new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, 2));
-            RecipeHandler.addEnrichmentChamberRecipe(new ItemStack(MekanismItems.Dust,1,Resource.GOLD.ordinal()), new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, 3));
-         //   RecipeHandler.addEnrichmentChamberRecipe(new ItemStack(MekanismItems.Ingot,1,3), new ItemStack(EcoEnergisticsItems.MoreIngot, 1, Ingot.ACTIVATEDGLOWSTONE.ordinal()));
-        }*//*
-
-        //Purification Chamber Recipes
-        if (MekanismConfig.current().general.machinesManager.isEnabled(BlockStateMachine.MachineType.PURIFICATION_CHAMBER)) {
-            RecipeHandler.addPurificationChamberRecipe(new ItemStack(Blocks.GRAVEL), new ItemStack(Items.FLINT));
-        }
-    }*/
     public static void registerOreDict() {
 
         OreDictionary.registerOre("dustLapisCrushed", new ItemStack(EcoEnergisticsItems.MoreDust, 1, 0));
