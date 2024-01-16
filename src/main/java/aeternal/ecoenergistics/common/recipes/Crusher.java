@@ -30,6 +30,10 @@ public class Crusher {
             ItemStack uraniumDirty = new ItemStack(EcoEnergisticsItems.MoreDirtyDust,1,1);
             ItemStack iridiumDirty = new ItemStack(EcoEnergisticsItems.MoreDirtyDust,1,2);
 
+            ItemStack titaniumIngot = new ItemStack(EcoEnergisticsItems.MoreIngot,1,1);
+            ItemStack uraniumIngot = new ItemStack(EcoEnergisticsItems.MoreIngot,1,2);
+            ItemStack iridiumIngot = new ItemStack(EcoEnergisticsItems.MoreIngot,1,3);
+
             ItemStack titaniumDust = new ItemStack(EcoEnergisticsItems.Dust,1,0);
             ItemStack titaniumDust2 = titaniumDust.copy();
             titaniumDust2.setCount(titaniumDust2.getCount() *2);
@@ -48,6 +52,10 @@ public class Crusher {
             RecipeHandler.addCrusherRecipe(titaniumClump,titaniumDirty);
             RecipeHandler.addCrusherRecipe(uraniumClump,uraniumDirty);
             RecipeHandler.addCrusherRecipe(iridiumClump,iridiumDirty);
+
+            RecipeHandler.addCrusherRecipe(titaniumIngot,titaniumDust);
+            RecipeHandler.addCrusherRecipe(uraniumIngot,uraniumDust);
+            RecipeHandler.addCrusherRecipe(iridiumIngot,iridiumDust);
 
 
 
