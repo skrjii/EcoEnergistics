@@ -1,7 +1,5 @@
 package aeternal.ecoenergistics.common.block.states;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -13,7 +11,7 @@ import mekanism.common.base.IBlockType;
 import mekanism.common.block.states.BlockStateFacing;
 import mekanism.common.block.states.BlockStateUtils;
 import mekanism.common.util.LangUtils;
-import aeternal.ecoenergistics.common.EcoGeneratorsBlocks;
+import aeternal.ecoenergistics.common.EcoEnergisticsBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -52,7 +50,7 @@ public class BlockStateEcoGeneratorAdd extends ExtendedBlockState {
 
         public Block getBlock() {
             if (this == EcoGeneratorBlock.GENERATOR_BLOCK_ECO2) {
-                return EcoGeneratorsBlocks.EcoGeneratorAdd;
+                return EcoEnergisticsBlocks.EcoGeneratorAdd;
             }
             return null;
         }
@@ -153,7 +151,7 @@ public class BlockStateEcoGeneratorAdd extends ExtendedBlockState {
         }
 
         public ItemStack getStack() {
-            return new ItemStack(EcoGeneratorsBlocks.EcoGeneratorAdd, 1, meta);
+            return new ItemStack(EcoEnergisticsBlocks.EcoGeneratorAdd, 1, meta);
         }
 
         public boolean canRotateTo(EnumFacing side) {

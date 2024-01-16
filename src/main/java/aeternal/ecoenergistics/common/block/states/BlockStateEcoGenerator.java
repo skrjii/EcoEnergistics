@@ -1,7 +1,7 @@
 package aeternal.ecoenergistics.common.block.states;
 
 import aeternal.ecoenergistics.Constants;
-import aeternal.ecoenergistics.common.EcoGeneratorsBlocks;
+import aeternal.ecoenergistics.common.EcoEnergisticsBlocks;
 import aeternal.ecoenergistics.common.block.BlockEcoGenerator;
 import aeternal.ecoenergistics.common.tile.solar.panel.*;
 import mekanism.common.base.IBlockType;
@@ -51,7 +51,7 @@ public class BlockStateEcoGenerator extends ExtendedBlockState {
 
         public Block getBlock() {
             if (this == EcoGeneratorBlock.GENERATOR_BLOCK_ECO) {
-                return EcoGeneratorsBlocks.EcoGenerator;
+                return EcoEnergisticsBlocks.EcoGenerator;
             }
             return null;
         }
@@ -151,7 +151,7 @@ public class BlockStateEcoGenerator extends ExtendedBlockState {
         }
 
         public ItemStack getStack() {
-            return new ItemStack(EcoGeneratorsBlocks.EcoGenerator, 1, meta);
+            return new ItemStack(EcoEnergisticsBlocks.EcoGenerator, 1, meta);
         }
 
         public boolean canRotateTo(EnumFacing side) {

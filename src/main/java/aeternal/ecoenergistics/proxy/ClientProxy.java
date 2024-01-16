@@ -8,7 +8,7 @@ import aeternal.ecoenergistics.client.render.item.RenderEcoGeneratorItem;
 import aeternal.ecoenergistics.client.render.item.RenderEcoGeneratorItemAdd;
 import aeternal.ecoenergistics.client.render.solar.panel.*;
 import aeternal.ecoenergistics.client.render.solar.station.*;
-import aeternal.ecoenergistics.common.EcoGeneratorsBlocks;
+import aeternal.ecoenergistics.common.EcoEnergisticsBlocks;
 import aeternal.ecoenergistics.common.block.states.BlockStateBasic;
 import aeternal.ecoenergistics.common.block.states.BlockStateEcoGenerator;
 import aeternal.ecoenergistics.common.block.states.BlockStateEcoGenerator.EcoGeneratorType;
@@ -70,16 +70,19 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void registerItemRenders() {
-        Item.getItemFromBlock(EcoGeneratorsBlocks.EcoGenerator).setTileEntityItemStackRenderer(new RenderEcoGeneratorItem());
-        Item.getItemFromBlock(EcoGeneratorsBlocks.EcoGeneratorAdd).setTileEntityItemStackRenderer(new RenderEcoGeneratorItemAdd());
+        Item.getItemFromBlock(EcoEnergisticsBlocks.EcoGenerator).setTileEntityItemStackRenderer(new RenderEcoGeneratorItem());
+        Item.getItemFromBlock(EcoEnergisticsBlocks.EcoGeneratorAdd).setTileEntityItemStackRenderer(new RenderEcoGeneratorItemAdd());
         registerItemRender(EcoEnergisticsItems.MoreControlCircuit);
         registerItemRender(EcoEnergisticsItems.MoreAlloy);
         registerItemRender(EcoEnergisticsItems.MoreDust);
+        registerItemRender(EcoEnergisticsItems.Dust);
         registerItemRender(EcoEnergisticsItems.MoreCompressed);
         registerItemRender(EcoEnergisticsItems.MoreRod);
         registerItemRender(EcoEnergisticsItems.MoreIngot);
+        registerItemRender(EcoEnergisticsItems.MoreNugget);
         registerItemRender(EcoEnergisticsItems.MoreCrystal);
         registerItemRender(EcoEnergisticsItems.MoreClump);
+        registerItemRender(EcoEnergisticsItems.MoreShard);
         registerItemRender(EcoEnergisticsItems.MoreDirtyDust);
         registerItemRender(EcoEnergisticsItems.MoreSolarCell);
         registerItemRender(EcoEnergisticsItems.EnergyTabletAdvanced);
@@ -96,8 +99,8 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void registerBlockRenders() {
-        ModelLoader.setCustomStateMapper(EcoGeneratorsBlocks.EcoGenerator, generatorMapper);
-        ModelLoader.setCustomStateMapper(EcoGeneratorsBlocks.EcoGeneratorAdd, generatorMapperAdd);
+        ModelLoader.setCustomStateMapper(EcoEnergisticsBlocks.EcoGenerator, generatorMapper);
+        ModelLoader.setCustomStateMapper(EcoEnergisticsBlocks.EcoGeneratorAdd, generatorMapperAdd);
 
         for (EcoGeneratorType type : EcoGeneratorType.values()) {
             ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(type.blockType.getBlock()), type.meta, new ModelResourceLocation(new ResourceLocation(Constants.MOD_ID, type.getName()), "inventory"));
@@ -106,10 +109,10 @@ public class ClientProxy extends CommonProxy {
             ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(type.blockType.getBlock()), type.meta, new ModelResourceLocation(new ResourceLocation(Constants.MOD_ID, type.getName()), "inventory"));
         }
         for (EnumOreType ore : BlockStateOre.EnumOreType.values()) {
-            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(EcoGeneratorsBlocks.OreBlock), ore.ordinal(), new ModelResourceLocation(new ResourceLocation(Constants.MOD_ID, "OreBlock"), "type=" + ore.getName()));
+            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(EcoEnergisticsBlocks.OreBlock), ore.ordinal(), new ModelResourceLocation(new ResourceLocation(Constants.MOD_ID, "OreBlock"), "type=" + ore.getName()));
         }
         for (EnumBasicType block : BlockStateBasic.EnumBasicType.values()) {
-            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(EcoGeneratorsBlocks.BlockBasic), block.ordinal(), new ModelResourceLocation(new ResourceLocation(Constants.MOD_ID, "BlockBasic"), "type=" + block.getName()));
+            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(EcoEnergisticsBlocks.BlockBasic), block.ordinal(), new ModelResourceLocation(new ResourceLocation(Constants.MOD_ID, "BlockBasic"), "type=" + block.getName()));
         }
     }
 

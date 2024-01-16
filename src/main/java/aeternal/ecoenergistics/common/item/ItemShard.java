@@ -1,6 +1,5 @@
 package aeternal.ecoenergistics.common.item;
 
-
 import aeternal.ecoenergistics.common.enums.Dust;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
@@ -9,16 +8,16 @@ import net.minecraft.util.NonNullList;
 import javax.annotation.Nonnull;
 import java.util.Locale;
 
-public class ItemDust extends ItemMEE implements IMetaItem {
+public class ItemShard extends ItemMEE implements IMetaItem {
 
-    public ItemDust() {
+    public ItemShard() {
         super();
         setHasSubtypes(true);
     }
 
     @Override
     public String getTexture(int meta) {
-        return Dust.values()[meta].getName() + "Dust";
+        return Dust.values()[meta].getName() + "Shard";
     }
 
     @Override
@@ -39,7 +38,7 @@ public class ItemDust extends ItemMEE implements IMetaItem {
     @Override
     public String getTranslationKey(ItemStack item) {
         if (item.getItemDamage() <= Dust.values().length - 1) {
-            return "item." + Dust.values()[item.getItemDamage()].getName().toLowerCase(Locale.ROOT) + "Dust";
+            return "item." + Dust.values()[item.getItemDamage()].getName().toLowerCase(Locale.ROOT) + "Shard";
         }
         return "Invalid";
     }

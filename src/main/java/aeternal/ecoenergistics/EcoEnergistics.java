@@ -1,31 +1,19 @@
 package aeternal.ecoenergistics;
 
-import aeternal.ecoenergistics.common.EcoGeneratorsBlocks;
-import aeternal.ecoenergistics.common.Infusers;
+import aeternal.ecoenergistics.common.EcoEnergisticsBlocks;
 import aeternal.ecoenergistics.common.creativetab.EcoEnergisticsCreativeTab;
-import aeternal.ecoenergistics.common.enums.MoreDust;
-import aeternal.ecoenergistics.common.enums.Ingot;
 import aeternal.ecoenergistics.common.item.EcoEnergisticsItems;
-import aeternal.ecoenergistics.common.recipes.Infuser;
 import aeternal.ecoenergistics.common.world.GenHandler;
 import aeternal.ecoenergistics.proxy.CommonProxy;
 import io.netty.buffer.ByteBuf;
 import mekanism.api.MekanismAPI;
-import mekanism.api.infuse.InfuseRegistry;
-import mekanism.api.infuse.InfuseType;
 import mekanism.common.Mekanism;
-import mekanism.common.MekanismItems;
-import mekanism.common.Resource;
 import mekanism.common.Version;
 import mekanism.common.base.IModule;
-import mekanism.common.block.states.BlockStateMachine;
 import mekanism.common.config.MekanismConfig;
 import mekanism.common.network.PacketSimpleGui;
 import mekanism.common.recipe.BinRecipe;
-import mekanism.common.recipe.RecipeHandler;
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -53,6 +41,7 @@ import static aeternal.ecoenergistics.common.Infusers.*;
 import static aeternal.ecoenergistics.common.recipes.Crusher.InitCustomCrusherRecipes;
 import static aeternal.ecoenergistics.common.recipes.Enrichment.InitCustomEnrichmentRecipes;
 import static aeternal.ecoenergistics.common.recipes.Infuser.InitCustomInfuserRecipes;
+import static aeternal.ecoenergistics.common.recipes.Injection.InitCustomInjectionRecipes;
 import static aeternal.ecoenergistics.common.recipes.Purification.InitCustomPurificationRecipes;
 
 
@@ -76,13 +65,13 @@ public class EcoEnergistics implements IModule {
 
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
-        EcoGeneratorsBlocks.registerBlocks(event.getRegistry());
+        EcoEnergisticsBlocks.registerBlocks(event.getRegistry());
     }
 
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
         EcoEnergisticsItems.registerItems(event.getRegistry());
-        EcoGeneratorsBlocks.registerItemBlocks(event.getRegistry());
+        EcoEnergisticsBlocks.registerItemBlocks(event.getRegistry());
         registerOreDict();
     }
 
@@ -139,6 +128,7 @@ public class EcoEnergistics implements IModule {
         InitCustomEnrichmentRecipes();
         InitCustomPurificationRecipes();
         InitCustomCrusherRecipes();
+        InitCustomInjectionRecipes();
         registerInfuseObject();
     }
 
@@ -212,6 +202,6 @@ public class EcoEnergistics implements IModule {
 
     @SubscribeEvent
     public void onBlacklistUpdate(MekanismAPI.BoxBlacklistEvent event) {
-        MekanismAPI.addBoxBlacklist(EcoGeneratorsBlocks.EcoGenerator, 2); // Advanced Solar Station
+        MekanismAPI.addBoxBlacklist(EcoEnergisticsBlocks.EcoGenerator, 2); // Advanced Solar Station
     }
 }

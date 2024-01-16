@@ -4,7 +4,7 @@ import java.util.Random;
 import javax.annotation.Nonnull;
 
 import aeternal.ecoenergistics.EcoEnergistics;
-import aeternal.ecoenergistics.common.EcoGeneratorsBlocks;
+import aeternal.ecoenergistics.common.EcoEnergisticsBlocks;
 import aeternal.ecoenergistics.common.block.states.BlockStateEcoGenerator;
 import aeternal.ecoenergistics.common.tile.BlockEcoContainer;
 import aeternal.ecoenergistics.common.tile.TileEntityEcoBasicBlock;
@@ -367,7 +367,7 @@ public abstract class BlockEcoGenerator extends BlockEcoContainer {
     @Override
     protected ItemStack getDropItem(@Nonnull IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
         TileEntityEcoBasicBlock tileEntity = (TileEntityEcoBasicBlock) world.getTileEntity(pos);
-        ItemStack itemStack = new ItemStack(EcoGeneratorsBlocks.EcoGenerator, 1, state.getBlock().getMetaFromState(state));
+        ItemStack itemStack = new ItemStack(EcoEnergisticsBlocks.EcoGenerator, 1, state.getBlock().getMetaFromState(state));
         if (tileEntity == null) {
             return ItemStack.EMPTY;
         }
