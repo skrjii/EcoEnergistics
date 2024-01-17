@@ -6,21 +6,23 @@ import aeternal.ecoenergistics.Constants;
 import aeternal.ecoenergistics.client.render.EcoERender;
 import aeternal.ecoenergistics.client.render.item.RenderEcoGeneratorItem;
 import aeternal.ecoenergistics.client.render.item.RenderEcoGeneratorItemAdd;
+import aeternal.ecoenergistics.client.render.obj.TransmitterModel;
 import aeternal.ecoenergistics.client.render.solar.panel.*;
 import aeternal.ecoenergistics.client.render.solar.station.*;
+import aeternal.ecoenergistics.client.render.transmitter.RenderUniversalCable;
 import aeternal.ecoenergistics.common.EcoEnergisticsBlocks;
-import aeternal.ecoenergistics.common.block.states.BlockStateBasic;
-import aeternal.ecoenergistics.common.block.states.BlockStateEcoGenerator;
+import aeternal.ecoenergistics.common.block.states.*;
+import aeternal.ecoenergistics.common.block.states.BlockStateBasic.EnumBasicType;
 import aeternal.ecoenergistics.common.block.states.BlockStateEcoGenerator.EcoGeneratorType;
-import aeternal.ecoenergistics.common.block.states.BlockStateEcoGeneratorAdd;
 import aeternal.ecoenergistics.common.block.states.BlockStateEcoGeneratorAdd.EcoGeneratorTypeAdd;
-import aeternal.ecoenergistics.common.block.states.BlockStateOre;
 import aeternal.ecoenergistics.common.block.states.BlockStateOre.EnumOreType;
 import aeternal.ecoenergistics.common.item.EcoEnergisticsItems;
 import aeternal.ecoenergistics.common.tile.solar.panel.*;
 import aeternal.ecoenergistics.common.tile.solar.station.*;
-import aeternal.ecoenergistics.common.block.states.BlockStateBasic.EnumBasicType;
+import aeternal.ecoenergistics.common.tile.transmitter.TileEntityEcoUniversalCable;
 import mekanism.client.render.item.ItemLayerWrapper;
+import mekanism.common.MekanismBlocks;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
@@ -31,6 +33,7 @@ import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -40,6 +43,16 @@ public class ClientProxy extends CommonProxy {
 
     private static final IStateMapper generatorMapper = new BlockStateEcoGenerator.GeneratorBlockStateMapper();
     private static final IStateMapper generatorMapperAdd = new BlockStateEcoGeneratorAdd.GeneratorBlockStateMapperAdd();
+    private static final IStateMapper transmitterMapper = new BlockStateEcoTransmitter.TransmitterStateMapper();
+    public static long ticksPassed = 0;
+    @Override
+    public boolean isPaused() {
+        if (FMLClientHandler.instance().getClient().isSingleplayer() && !FMLClientHandler.instance().getClient().getIntegratedServer().getPublic()) {
+            GuiScreen screen = FMLClientHandler.instance().getClient().currentScreen;
+            return screen != null && screen.doesGuiPauseGame();
+        }
+        return false;
+    }
 
     @Override
     public void registerTESRs() {
@@ -65,6 +78,7 @@ public class ClientProxy extends CommonProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySolarStationPhotonic.class, new RenderSolarStationPhotonic());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySolarStationNeutron.class, new RenderSolarStationNeutron());
 
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEcoUniversalCable.class, new RenderUniversalCable());
     }
 
 
@@ -101,7 +115,7 @@ public class ClientProxy extends CommonProxy {
     public void registerBlockRenders() {
         ModelLoader.setCustomStateMapper(EcoEnergisticsBlocks.EcoGenerator, generatorMapper);
         ModelLoader.setCustomStateMapper(EcoEnergisticsBlocks.EcoGeneratorAdd, generatorMapperAdd);
-
+        ModelLoader.setCustomStateMapper(EcoEnergisticsBlocks.EcoTransmitter, transmitterMapper);
         for (EcoGeneratorType type : EcoGeneratorType.values()) {
             ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(type.blockType.getBlock()), type.meta, new ModelResourceLocation(new ResourceLocation(Constants.MOD_ID, type.getName()), "inventory"));
         }
@@ -180,5 +194,12 @@ public class ClientProxy extends CommonProxy {
 
     @SubscribeEvent
     public void onStitch(TextureStitchEvent.Pre event) {
+    }
+
+    public static void reset() {
+
+        TransmitterModel.clearCache();
+
+
     }
 }

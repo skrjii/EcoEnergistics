@@ -1,9 +1,13 @@
 package aeternal.ecoenergistics.config;
 
+import aeternal.ecoenergistics.common.tier.MEETiers;
 import aeternal.ecoenergistics.config.options.IntOption;
 import io.netty.buffer.ByteBuf;
 
+
 import net.minecraftforge.common.config.Configuration;
+
+import java.util.EnumMap;
 
 public class Config extends BaseConfig {
 
@@ -39,10 +43,10 @@ public class Config extends BaseConfig {
     public final IntOption uraniumMaxVeinSize = new IntOption(this, "oregen", "UraniumVeinSize", 2, "Max number of blocks in an Uranium vein.", 1, Integer.MAX_VALUE);
     public final IntOption iridiumMaxVeinSize = new IntOption(this, "oregen", "IridiumVeinSize", 4, "Max number of blocks in an Iridium vein.", 1, Integer.MAX_VALUE);
 
-//    public TypeConfigManager<BlockStateEcoGenerator.EcoGeneratorType> generatorsManager = new TypeConfigManager(this, "generators", BlockStateEcoGenerator.EcoGeneratorType.class, BlockStateEcoGenerator.EcoGeneratorType::getGeneratorsForConfig, BlockStateEcoGenerator.EcoGeneratorType::getBlockName);
-
- /*   public Config() {
-    }*/
+public final EnumMap<MEETiers, TierConfig> tiers;
+    public Config() {
+        this.tiers = TierConfig.create(this);
+    }
 
     public void load(Configuration config) {
         super.load(config);

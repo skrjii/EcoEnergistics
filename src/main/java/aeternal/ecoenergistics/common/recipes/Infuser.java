@@ -33,6 +33,9 @@ public class Infuser {
             ItemStack activeGlowstoneIngot = new ItemStack(EcoEnergisticsItems.MoreIngot,1, Ingot.ACTIVATEDGLOWSTONE.ordinal());
             ItemStack GlowstoneIngot = new ItemStack(MekanismItems.Ingot,1,3);
 
+            ItemStack lithiumDust = new ItemStack(MekanismItems.OtherDust, 1,4);
+            ItemStack refinedlithiumDust = new ItemStack(EcoEnergisticsItems.MoreDust, 1,3);
+
             // Metallurgic Infuser Recipes
             //Alloys
             RecipeHandler.addMetallurgicInfuserRecipe(glowstone, 20, new ItemStack(MekanismItems.ReinforcedAlloy), advancedAlloy);
@@ -48,6 +51,9 @@ public class Infuser {
 
             //Ingots
             RecipeHandler.addMetallurgicInfuserRecipe(redstone, 15, GlowstoneIngot, activeGlowstoneIngot);
+
+            //Dusts
+            RecipeHandler.addMetallurgicInfuserRecipe(iridium, 20, lithiumDust, refinedlithiumDust);
         }
 
 

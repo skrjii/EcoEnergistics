@@ -5,7 +5,7 @@
   },
   "pattern": [
     "GGG",
-    "DAD",
+    "CAC",
     "PPP"
   ],
   "type": "forge:ore_shaped",
@@ -18,12 +18,13 @@
     },
     "P":
     {
-      "item": "mekanism:compressedcarbon"
+      "item": "mekanismecoenergistics:morecompresed",
+      "data": 2
     },
-    "D":
+    "C":
     {
-      "item": "mekanism:dust",
-      "data": 5
+      "item": "mekanismecoenergistics:morecompresed",
+      "data": 3
     },
     "G": {
       "ore": "paneGlass",

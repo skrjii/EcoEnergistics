@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "mekanismecoenergistics:moreingot",
+    "data": 2,
+    "count": 9
+  },
+  "pattern": [
+    "*"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "*": {
+      "item": "mekanismecoenergistics:blockbasic",
+      "data": 1
+    }
+  }
+}

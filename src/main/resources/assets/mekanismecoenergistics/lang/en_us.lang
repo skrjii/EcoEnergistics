@@ -12,15 +12,51 @@ item.singularAlloy.name=Singular Alloy
 item.diffractiveAlloy.name=Diffractive Alloy
 item.photonicAlloy.name=Photonic Alloy
 item.neutronAlloy.name=Neutron Alloy
+
 item.lapisDust.name=Lapis Dust
 item.emeraldDust.name=Emerald Dust
 item.activatedglowstoneDust.name=Activated Glowstone Dust
+item.titaniumDust.name=Titanium Dust
+item.uraniumDust.name=Uranium Dust
+item.iridiumDust.name=Iridium Dust
+item.refinedlithiumDust.name=Refined Lithium Dust
+
 item.lapisCompressed.name=Compressed Lapis
 item.emeraldCompressed.name=Compressed Emerald
 item.glowstoneCompressed.name=Compressed Glowstone
 item.goldCompressed.name=Compressed Gold
+item.titaniumCompressed.name=Compressed Titanium
+item.uraniumCompressed.name=Compressed Uranium
+item.iridiumCompressed.name=Compressed Iridium
+
 item.steelRod.name=Steel Rod
+
 item.activatedglowstoneIngot.name=Activated Glowstone Ingot
+item.titaniumIngot.name=Titanium Ingot
+item.uraniumIngot.name=Uranium Ingot
+item.iridiumIngot.name=Iridium Ingot
+
+item.activatedglowstoneNugget.name=Activated Glowstone Nugget
+item.titaniumNugget.name=Titanium Nugget
+item.uraniumNugget.name=Uranium Nugget
+item.iridiumNugget.name=Iridium Nugget
+
+item.titaniumCrystal.name=Titanium Crystal
+item.uraniumCrystal.name=Uranium Crystal
+item.iridiumCrystal.name=Iridium Crystal
+
+item.titaniumClump.name=Titanium Clump
+item.uraniumClump.name=Uranium Clump
+item.iridiumClump.name=Iridium Clump
+
+item.titaniumShard.name=Titanium Shard
+item.uraniumShard.name=Uranium Shard
+item.iridiumShard.name=Iridium Shard
+
+item.titaniumDirtyDust.name=Dirty Titanium Dust
+item.uraniumDirtyDust.name=Dirty Uranium Dust
+item.iridiumDirtyDust.name=Dirty Iridium Dust
+
 
 item.AdvancedSolarCell.name=Advanced Solar Cell
 item.HybridSolarCell.name=Hybrid Solar Cell
@@ -61,7 +97,7 @@ infuse.lapis=Lapis
 infuse.emerald=Emerald
 infuse.gold=Gold
 infuse.steel=Steel
-
+infuse.iridium=Iridium
 
 #Tiles
 tile.EcoGenerator.SolarPanelAdvanced.name=Advanced Solar Panel
@@ -87,6 +123,13 @@ tile.EcoGeneratorAdd.SolarStationDiffractive.name=Diffractive Solar Station
 tile.EcoGeneratorAdd.SolarStationPhotonic.name=Photonic Solar Station
 tile.EcoGeneratorAdd.SolarStationNeutron.name=Neutron Solar Station
 
+tile.OreBlock.TitaniumOre.name=Titanium Ore
+tile.OreBlock.UraniumOre.name=Uranium Ore
+tile.OreBlock.IridiumOre.name=Iridium Ore
+
+tile.BlockBasic.TitaniumBlock.name=Titanium Block
+tile.BlockBasic.UraniumBlock.name=Uranium Block
+tile.BlockBasic.IridiumBlock.name=Iridium Block
 #Tooltips
 tooltip.TitaniumOre=Titanium
 tooltip.UraniumOre=Uranium

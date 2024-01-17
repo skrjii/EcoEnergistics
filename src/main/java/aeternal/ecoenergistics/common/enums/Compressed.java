@@ -6,7 +6,10 @@ public enum Compressed {
     LAPIS("Lapis", 0xaf8e77),
     EMERALD("Emerald", 0xf2cd67),
     GLOWSTONE("Glowstone",0xf2cd67),
-    GOLD("Gold",0xf2cd67);
+    GOLD("Gold",0xf2cd67),
+    TITANIUM("Titanium",0xf2cd67),
+    URANIUM("Uranium",0xf2cd67),
+    IRIDIUM("Iridium",0xf2cd67);
 
 
     public final int tint;

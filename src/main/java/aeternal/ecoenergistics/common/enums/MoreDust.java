@@ -5,8 +5,8 @@ import java.util.Locale;
 public enum MoreDust {
     LAPIS("Lapis", 0xaf8e77),
     EMERALD("Emerald", 0xf2cd67),
- /*   GLOWSTONE("Glowstone",0xf2cd67),*/
-    ACTIVATEDGLOWSTONE("ActivatedGlowstone",0xf2cd67);
+    ACTIVATEDGLOWSTONE("ActivatedGlowstone",0xf2cd67),
+    REFINEDLITHIUM("RefinedLithium",0xf2cd67);
 
 
     public final int tint;

@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "mekanismecoenergistics:morenugget",
+    "data": 1,
+    "count": 9
+  },
+  "pattern": [
+    "*"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "*": {
+      "ore": "ingotTitanium",
+      "type": "forge:ore_dict"
+    }
+  }
+}

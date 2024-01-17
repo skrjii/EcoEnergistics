@@ -2,6 +2,7 @@ package aeternal.ecoenergistics;
 
 import aeternal.ecoenergistics.common.EcoEnergisticsBlocks;
 import aeternal.ecoenergistics.common.creativetab.EcoEnergisticsCreativeTab;
+import aeternal.ecoenergistics.common.enums.Ore;
 import aeternal.ecoenergistics.common.item.EcoEnergisticsItems;
 import aeternal.ecoenergistics.common.world.GenHandler;
 import aeternal.ecoenergistics.proxy.CommonProxy;
@@ -37,7 +38,10 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import java.io.File;
 
-import static aeternal.ecoenergistics.common.Infusers.*;
+import static aeternal.ecoenergistics.common.EcoEnergisticsBlocks.OreBlock;
+import static aeternal.ecoenergistics.common.Infusers.registerInfuseObject;
+import static aeternal.ecoenergistics.common.Infusers.registerInfuseType;
+import static aeternal.ecoenergistics.common.item.EcoEnergisticsItems.Dust;
 import static aeternal.ecoenergistics.common.recipes.Crusher.InitCustomCrusherRecipes;
 import static aeternal.ecoenergistics.common.recipes.Enrichment.InitCustomEnrichmentRecipes;
 import static aeternal.ecoenergistics.common.recipes.Infuser.InitCustomInfuserRecipes;
@@ -84,7 +88,6 @@ public class EcoEnergistics implements IModule {
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-    //    InfuseRegistry.registerInfuseType(new InfuseType("GOLD", new ResourceLocation(Constants.MOD_ID, "blocks/infuse/InfuseGold")).setTranslationKey("gold"));
         registerInfuseType();
         File config = event.getSuggestedConfigurationFile();
         //Set the mod's configuration
@@ -128,7 +131,17 @@ public class EcoEnergistics implements IModule {
         InitCustomPurificationRecipes();
         InitCustomCrusherRecipes();
         InitCustomInjectionRecipes();
+        InitSmeltingRecipes();
         registerInfuseObject();
+    }
+    public static void InitSmeltingRecipes() {
+        GameRegistry.addSmelting(new ItemStack(EcoEnergisticsItems.MoreDust, 1,aeternal.ecoenergistics.common.enums.MoreDust.ACTIVATEDGLOWSTONE.ordinal()), new ItemStack(EcoEnergisticsItems.MoreIngot, 1, 0), 0.0F);
+        GameRegistry.addSmelting(new ItemStack(Dust, 1, aeternal.ecoenergistics.common.enums.Dust.TITANIUM.ordinal()), new ItemStack(EcoEnergisticsItems.MoreIngot, 1, 1), 0.0F);
+        GameRegistry.addSmelting(new ItemStack(Dust, 1, aeternal.ecoenergistics.common.enums.Dust.URANIUM.ordinal()), new ItemStack(EcoEnergisticsItems.MoreIngot, 1, 2), 0.0F);
+        GameRegistry.addSmelting(new ItemStack(Dust, 1, aeternal.ecoenergistics.common.enums.Dust.IRIDIUM.ordinal()), new ItemStack(EcoEnergisticsItems.MoreIngot, 1, 3), 0.0F);
+        GameRegistry.addSmelting(new ItemStack(OreBlock, 1, Ore.TITANIUM.ordinal()), new ItemStack(EcoEnergisticsItems.MoreIngot, 1, 1), 0.0F);
+        GameRegistry.addSmelting(new ItemStack(OreBlock, 1, Ore.URANIUM.ordinal()), new ItemStack(EcoEnergisticsItems.MoreIngot, 1, 2), 0.0F);
+        GameRegistry.addSmelting(new ItemStack(OreBlock, 1, Ore.IRIDIUM.ordinal()), new ItemStack(EcoEnergisticsItems.MoreIngot, 1, 3), 0.0F);
     }
 
     public static void registerOreDict() {
@@ -136,11 +149,72 @@ public class EcoEnergistics implements IModule {
         OreDictionary.registerOre("dustLapisCrushed", new ItemStack(EcoEnergisticsItems.MoreDust, 1, 0));
         OreDictionary.registerOre("dustEmeraldCrushed", new ItemStack(EcoEnergisticsItems.MoreDust, 1, 1));
         OreDictionary.registerOre("dustEnrichedGlowstone", new ItemStack(EcoEnergisticsItems.MoreDust, 1, 2));
+        OreDictionary.registerOre("dustTitanium", new ItemStack(Dust, 1, 0));
+        OreDictionary.registerOre("dustUranium", new ItemStack(Dust, 1, 1));
+        OreDictionary.registerOre("dustIridium", new ItemStack(Dust, 1, 2));
+
         OreDictionary.registerOre("itemCompressedLapis", new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, 0));
         OreDictionary.registerOre("itemCompressedEmerald", new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, 1));
         OreDictionary.registerOre("itemCompressedGlowstone", new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, 2));
         OreDictionary.registerOre("itemCompressedGold", new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, 3));
+        OreDictionary.registerOre("itemCompressedTitanium", new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, 4));
+        OreDictionary.registerOre("itemCompressedUranium", new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, 5));
+        OreDictionary.registerOre("itemCompressedIridium", new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, 6));
 
+        OreDictionary.registerOre("ingotTitanium", new ItemStack(EcoEnergisticsItems.MoreIngot, 1, 1));
+        OreDictionary.registerOre("ingotUranium", new ItemStack(EcoEnergisticsItems.MoreIngot, 1, 2));
+        OreDictionary.registerOre("ingotIridium", new ItemStack(EcoEnergisticsItems.MoreIngot, 1, 3));
+
+        OreDictionary.registerOre("nuggetActivatedGlowstone", new ItemStack(EcoEnergisticsItems.MoreNugget, 1, 0));
+        OreDictionary.registerOre("nuggetTitanium", new ItemStack(EcoEnergisticsItems.MoreNugget, 1, 1));
+        OreDictionary.registerOre("nuggetUranium", new ItemStack(EcoEnergisticsItems.MoreNugget, 1, 2));
+        OreDictionary.registerOre("nuggetIridium", new ItemStack(EcoEnergisticsItems.MoreNugget, 1, 3));
+
+        OreDictionary.registerOre("dustDirtyTitanium", new ItemStack(EcoEnergisticsItems.MoreDirtyDust, 1, 0));
+        OreDictionary.registerOre("dustDirtyUranium", new ItemStack(EcoEnergisticsItems.MoreDirtyDust, 1, 1));
+        OreDictionary.registerOre("dustDirtyIridium", new ItemStack(EcoEnergisticsItems.MoreDirtyDust, 1, 2));
+
+        OreDictionary.registerOre("clumpTitanium", new ItemStack(EcoEnergisticsItems.MoreClump, 1, 0));
+        OreDictionary.registerOre("clumpUranium", new ItemStack(EcoEnergisticsItems.MoreClump, 1, 1));
+        OreDictionary.registerOre("clumpIridium", new ItemStack(EcoEnergisticsItems.MoreClump, 1, 2));
+
+        OreDictionary.registerOre("shardTitanium", new ItemStack(EcoEnergisticsItems.MoreShard, 1, 0));
+        OreDictionary.registerOre("shardUranium", new ItemStack(EcoEnergisticsItems.MoreShard, 1, 1));
+        OreDictionary.registerOre("shardIridium", new ItemStack(EcoEnergisticsItems.MoreShard, 1, 2));
+
+        OreDictionary.registerOre("crystalTitanium", new ItemStack(EcoEnergisticsItems.MoreCrystal, 1, 0));
+        OreDictionary.registerOre("crystalUranium", new ItemStack(EcoEnergisticsItems.MoreCrystal, 1, 1));
+        OreDictionary.registerOre("crystalIridium", new ItemStack(EcoEnergisticsItems.MoreCrystal, 1, 2));
+
+        OreDictionary.registerOre("oreTitanium", new ItemStack(OreBlock, 1, 0));
+        OreDictionary.registerOre("oreUranium", new ItemStack(OreBlock, 1, 1));
+        OreDictionary.registerOre("oreIridium", new ItemStack(OreBlock, 1, 2));
+
+        OreDictionary.registerOre("blockTitanium", new ItemStack(EcoEnergisticsBlocks.BlockBasic, 1, 0));
+        OreDictionary.registerOre("blockUranium", new ItemStack(EcoEnergisticsBlocks.BlockBasic, 1, 1));
+        OreDictionary.registerOre("blockIridium", new ItemStack(EcoEnergisticsBlocks.BlockBasic, 1, 2));
+
+        OreDictionary.registerOre("circuitAdvancedVariation", new ItemStack(EcoEnergisticsItems.MoreControlCircuit, 1, 0));
+        OreDictionary.registerOre("circuitHybrid", new ItemStack(EcoEnergisticsItems.MoreControlCircuit, 1, 1));
+        OreDictionary.registerOre("circuitPerfectHybrid", new ItemStack(EcoEnergisticsItems.MoreControlCircuit, 1, 2));
+        OreDictionary.registerOre("circuitQuantum", new ItemStack(EcoEnergisticsItems.MoreControlCircuit, 1, 3));
+        OreDictionary.registerOre("circuitSpectral", new ItemStack(EcoEnergisticsItems.MoreControlCircuit, 1, 4));
+        OreDictionary.registerOre("circuitProtonic", new ItemStack(EcoEnergisticsItems.MoreControlCircuit, 1, 5));
+        OreDictionary.registerOre("circuitSingular", new ItemStack(EcoEnergisticsItems.MoreControlCircuit, 1, 6));
+        OreDictionary.registerOre("circuitDiffractive", new ItemStack(EcoEnergisticsItems.MoreControlCircuit, 1, 7));
+        OreDictionary.registerOre("circuitPhotonic", new ItemStack(EcoEnergisticsItems.MoreControlCircuit, 1, 8));
+        OreDictionary.registerOre("circuitNeutron", new ItemStack(EcoEnergisticsItems.MoreControlCircuit, 1, 9));
+
+        OreDictionary.registerOre("alloyAdvancedVariation", new ItemStack(EcoEnergisticsItems.MoreControlCircuit, 1, 0));
+        OreDictionary.registerOre("alloyHybrid", new ItemStack(EcoEnergisticsItems.MoreControlCircuit, 1, 1));
+        OreDictionary.registerOre("alloyPerfectHybrid", new ItemStack(EcoEnergisticsItems.MoreControlCircuit, 1, 2));
+        OreDictionary.registerOre("alloyQuantum", new ItemStack(EcoEnergisticsItems.MoreControlCircuit, 1, 3));
+        OreDictionary.registerOre("alloySpectral", new ItemStack(EcoEnergisticsItems.MoreControlCircuit, 1, 4));
+        OreDictionary.registerOre("alloyProtonic", new ItemStack(EcoEnergisticsItems.MoreControlCircuit, 1, 5));
+        OreDictionary.registerOre("alloySingular", new ItemStack(EcoEnergisticsItems.MoreControlCircuit, 1, 6));
+        OreDictionary.registerOre("alloyDiffractive", new ItemStack(EcoEnergisticsItems.MoreControlCircuit, 1, 7));
+        OreDictionary.registerOre("alloyPhotonic", new ItemStack(EcoEnergisticsItems.MoreControlCircuit, 1, 8));
+        OreDictionary.registerOre("alloyNeutron", new ItemStack(EcoEnergisticsItems.MoreControlCircuit, 1, 9));
     }
     @Override
     public Version getVersion() {

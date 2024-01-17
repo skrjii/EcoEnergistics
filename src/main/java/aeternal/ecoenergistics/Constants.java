@@ -26,6 +26,7 @@ public class Constants {
     public static ResourceLocation getResource(Constants.ResourceType type, String name) {
         return new ResourceLocation("mekanismecoenergistics", type.getPrefix() + name);
     }
+
     public static enum ResourceType {
         GUI("gui"),
         GUI_ELEMENT("gui/elements"),

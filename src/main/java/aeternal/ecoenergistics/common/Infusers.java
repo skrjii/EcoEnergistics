@@ -2,6 +2,7 @@ package aeternal.ecoenergistics.common;
 
 import aeternal.ecoenergistics.Constants;
 import aeternal.ecoenergistics.common.enums.Compressed;
+import aeternal.ecoenergistics.common.enums.Dust;
 import aeternal.ecoenergistics.common.enums.MoreDust;
 import aeternal.ecoenergistics.common.item.EcoEnergisticsItems;
 import mekanism.api.infuse.InfuseObject;
@@ -18,6 +19,9 @@ public class Infusers {
     public static InfuseType steel;
     public static InfuseType lapis;
     public static InfuseType emerald;
+    public static InfuseType titanium;
+    public static InfuseType uranium;
+    public static InfuseType iridium;
 
     public static void registerInfuseType() {
         gold = new InfuseType("GOLD", new ResourceLocation(Constants.MOD_ID, "blocks/infuse/InfuseGold")).setTranslationKey("gold");
@@ -30,6 +34,12 @@ public class Infusers {
         InfuseRegistry.registerInfuseType(lapis);
         emerald = new InfuseType("EMERALD", new ResourceLocation(Constants.MOD_ID, "blocks/infuse/InfuseEmerald")).setTranslationKey("emerald");
         InfuseRegistry.registerInfuseType(emerald);
+        titanium = new InfuseType("TITANIUM", new ResourceLocation(Constants.MOD_ID, "blocks/infuse/InfuseTitanium")).setTranslationKey("titanium");
+        InfuseRegistry.registerInfuseType(titanium);
+        uranium = new InfuseType("URANIUM", new ResourceLocation(Constants.MOD_ID, "blocks/infuse/InfuseUranium")).setTranslationKey("uranium");
+        InfuseRegistry.registerInfuseType(uranium);
+        iridium = new InfuseType("IRIDIUM", new ResourceLocation(Constants.MOD_ID, "blocks/infuse/InfuseIridium")).setTranslationKey("iridium");
+        InfuseRegistry.registerInfuseType(iridium);
     }
     public static void registerInfuseObject() {
         InfuseType gold = InfuseRegistry.get("GOLD");
@@ -37,6 +47,9 @@ public class Infusers {
         InfuseType steel = InfuseRegistry.get("STEEL");
         InfuseType lapis = InfuseRegistry.get("LAPIS");
         InfuseType emerald = InfuseRegistry.get("EMERALD");
+        InfuseType titanium = InfuseRegistry.get("TITANIUM");
+        InfuseType uranium = InfuseRegistry.get("URANIUM");
+        InfuseType iridium = InfuseRegistry.get("IRIDIUM");
         if (gold != null) {
             ItemStack goldDust = new ItemStack(MekanismItems.Dust, 1, 1);
             ItemStack goldCompressed = new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, Compressed.GOLD.ordinal());
@@ -64,6 +77,24 @@ public class Infusers {
             ItemStack emeraldCompressed = new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, Compressed.EMERALD.ordinal());
             InfuseRegistry.registerInfuseObject(emeraldDust, new InfuseObject(emerald, 10));
             InfuseRegistry.registerInfuseObject(emeraldCompressed, new InfuseObject(emerald, 80));
+        }
+        if (titanium!= null) {
+            ItemStack titaniumDust = new ItemStack(EcoEnergisticsItems.Dust, 1, Dust.TITANIUM.ordinal());
+            ItemStack titaniumCompressed = new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, Compressed.TITANIUM.ordinal());
+            InfuseRegistry.registerInfuseObject(titaniumDust, new InfuseObject(titanium, 10));
+            InfuseRegistry.registerInfuseObject(titaniumCompressed, new InfuseObject(titanium, 80));
+        }
+        if (uranium!= null) {
+            ItemStack uraniumDust = new ItemStack(EcoEnergisticsItems.Dust, 1, Dust.URANIUM.ordinal());
+            ItemStack uraniumCompressed = new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, Compressed.URANIUM.ordinal());
+            InfuseRegistry.registerInfuseObject(uraniumDust, new InfuseObject(uranium, 10));
+            InfuseRegistry.registerInfuseObject(uraniumCompressed, new InfuseObject(uranium, 80));
+        }
+        if (iridium!= null) {
+            ItemStack iridiumDust = new ItemStack(EcoEnergisticsItems.Dust, 1, Dust.IRIDIUM.ordinal());
+            ItemStack iridiumCompressed = new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, Compressed.IRIDIUM.ordinal());
+            InfuseRegistry.registerInfuseObject(iridiumDust, new InfuseObject(iridium, 10));
+            InfuseRegistry.registerInfuseObject(iridiumCompressed, new InfuseObject(iridium, 80));
         }
     }
 

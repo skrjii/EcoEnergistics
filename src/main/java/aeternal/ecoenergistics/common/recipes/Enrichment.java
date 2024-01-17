@@ -26,6 +26,10 @@ public class Enrichment {
             ItemStack uraniumDirty = new ItemStack(EcoEnergisticsItems.MoreDirtyDust,1,1);
             ItemStack iridiumDirty = new ItemStack(EcoEnergisticsItems.MoreDirtyDust,1,2);
 
+            ItemStack titaniumCompressed = new ItemStack(EcoEnergisticsItems.MoreCompressed,1,4);
+            ItemStack uraniumCompressed = new ItemStack(EcoEnergisticsItems.MoreCompressed,1,5);
+            ItemStack iridiumCompressed = new ItemStack(EcoEnergisticsItems.MoreCompressed,1,6);
+
             ItemStack titaniumDust = new ItemStack(EcoEnergisticsItems.Dust,1,0);
             ItemStack titaniumDust2 = titaniumDust.copy();
             titaniumDust2.setCount(titaniumDust2.getCount() *2);
@@ -49,6 +53,11 @@ public class Enrichment {
             RecipeHandler.addEnrichmentChamberRecipe(titaniumDirty,titaniumDust);
             RecipeHandler.addEnrichmentChamberRecipe(uraniumDirty,uraniumDust);
             RecipeHandler.addEnrichmentChamberRecipe(iridiumDirty,iridiumDust);
+
+            RecipeHandler.addEnrichmentChamberRecipe(titaniumDust,titaniumCompressed);
+            RecipeHandler.addEnrichmentChamberRecipe(uraniumDust,uraniumCompressed);
+            RecipeHandler.addEnrichmentChamberRecipe(iridiumDust,iridiumCompressed);
+
         }
 
 

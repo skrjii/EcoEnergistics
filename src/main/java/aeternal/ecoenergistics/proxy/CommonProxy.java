@@ -3,6 +3,7 @@ package aeternal.ecoenergistics.proxy;
 import aeternal.ecoenergistics.EcoEnergistics;
 import aeternal.ecoenergistics.common.tile.solar.panel.*;
 import aeternal.ecoenergistics.common.tile.solar.station.*;
+import aeternal.ecoenergistics.common.tile.transmitter.*;
 import aeternal.ecoenergistics.config.BaseConfig;
 import aeternal.ecoenergistics.config.Config;
 import aeternal.ecoenergistics.config.EcoConfig;
@@ -20,6 +21,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class CommonProxy implements IGuiProvider {
+    public boolean isPaused() {
+        return false;
+    }
 
     private static void registerTileEntity(Class<? extends TileEntity> clazz, String name) {
         GameRegistry.registerTileEntity(clazz, new ResourceLocation(Constants.MOD_ID, name));
@@ -50,6 +54,10 @@ public class CommonProxy implements IGuiProvider {
         registerTileEntity(TileEntitySolarStationDiffractive.class, "diffractive_solar_station");
         registerTileEntity(TileEntitySolarStationPhotonic.class, "photonic_solar_station");
         registerTileEntity(TileEntitySolarStationNeutron.class, "neutron_solar_station");
+
+        registerTileEntity(TileEntityEcoUniversalCable.class, "universal_cable");
+        registerTileEntity(TileEntityEcoMechanicalPipe.class, "mechanical_pipe");
+        registerTileEntity(TileEntityEcoPressurizedTube.class, "pressurized_tube");
     }
 
     public void registerTESRs() {
