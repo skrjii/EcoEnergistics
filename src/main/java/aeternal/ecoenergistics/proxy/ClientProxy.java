@@ -7,6 +7,7 @@ import aeternal.ecoenergistics.client.render.EcoERender;
 import aeternal.ecoenergistics.client.render.item.RenderEcoGeneratorItem;
 import aeternal.ecoenergistics.client.render.item.RenderEcoGeneratorItemAdd;
 import aeternal.ecoenergistics.client.render.obj.TransmitterModel;
+import aeternal.ecoenergistics.common.block.states.BlockStateEcoTransmitter.EcoTransmitterType;
 import aeternal.ecoenergistics.client.render.solar.panel.*;
 import aeternal.ecoenergistics.client.render.solar.station.*;
 import aeternal.ecoenergistics.client.render.transmitter.RenderUniversalCable;
@@ -17,12 +18,15 @@ import aeternal.ecoenergistics.common.block.states.BlockStateEcoGenerator.EcoGen
 import aeternal.ecoenergistics.common.block.states.BlockStateEcoGeneratorAdd.EcoGeneratorTypeAdd;
 import aeternal.ecoenergistics.common.block.states.BlockStateOre.EnumOreType;
 import aeternal.ecoenergistics.common.item.EcoEnergisticsItems;
+import aeternal.ecoenergistics.common.item.ItemBlockEcoTransmitter;
+import aeternal.ecoenergistics.common.tier.MEETiers;
 import aeternal.ecoenergistics.common.tile.solar.panel.*;
 import aeternal.ecoenergistics.common.tile.solar.station.*;
 import aeternal.ecoenergistics.common.tile.transmitter.TileEntityEcoUniversalCable;
 import mekanism.client.render.item.ItemLayerWrapper;
 import mekanism.common.MekanismBlocks;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
@@ -38,12 +42,19 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
 
     private static final IStateMapper generatorMapper = new BlockStateEcoGenerator.GeneratorBlockStateMapper();
     private static final IStateMapper generatorMapperAdd = new BlockStateEcoGeneratorAdd.GeneratorBlockStateMapperAdd();
     private static final IStateMapper transmitterMapper = new BlockStateEcoTransmitter.TransmitterStateMapper();
+    public static Map<String, ModelResourceLocation> transmitterResources = new HashMap<>();
     public static long ticksPassed = 0;
     @Override
     public boolean isPaused() {
@@ -128,6 +139,54 @@ public class ClientProxy extends CommonProxy {
         for (EnumBasicType block : BlockStateBasic.EnumBasicType.values()) {
             ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(EcoEnergisticsBlocks.BlockBasic), block.ordinal(), new ModelResourceLocation(new ResourceLocation(Constants.MOD_ID, "BlockBasic"), "type=" + block.getName()));
         }
+
+        for (EcoTransmitterType type : EcoTransmitterType.values()) {
+            List<ModelResourceLocation> modelsToAdd = new ArrayList<>();
+            String resource = "mekanism:" + type.getName();
+            MEETiers tierPointer = null;
+
+            if (type.hasTiers()) {
+                tierPointer = MEETiers.values()[0];
+                resource = "mekanismecoenergistics:" + type.getName() + "_" + tierPointer.getName();
+            }
+
+            while (true) {
+                if (transmitterResources.get(resource) == null) {
+                    String properties = "inventory";
+                    ModelResourceLocation model = new ModelResourceLocation(resource, properties);
+                    transmitterResources.put(resource, model);
+                    modelsToAdd.add(model);
+                    if (type.hasTiers()) {
+                        if (tierPointer.ordinal() < MEETiers.values().length - 1) {
+                            tierPointer = MEETiers.values()[tierPointer.ordinal() + 1];
+                            if (true) {
+                                resource = "mekanismecoenergistics:" + type.getName() + "_" + tierPointer.getName();
+                                continue;
+                            }
+                        }
+                    }
+                }
+                break;
+            }
+
+            ModelLoader.registerItemVariants(Item.getItemFromBlock(EcoEnergisticsBlocks.EcoTransmitter), modelsToAdd.toArray(new ModelResourceLocation[]{}));
+        }
+        ItemMeshDefinition transmitterMesher = stack -> {
+            EcoTransmitterType type = EcoTransmitterType.get(stack.getItemDamage());
+
+            if (type != null) {
+                String resource = "mekanismecoenergistics:" + type.getName();
+                if (type.hasTiers()) {
+                    MEETiers tier = ((ItemBlockEcoTransmitter) stack.getItem()).getBaseTier(stack);
+                    resource = "mekanismecoenergistics:" + type.getName() + "_" + tier.getName();
+                }
+                return transmitterResources.get(resource);
+            }
+            return null;
+        };
+
+        ModelLoader.setCustomMeshDefinition(Item.getItemFromBlock(EcoEnergisticsBlocks.EcoTransmitter), transmitterMesher);
+
     }
 
     public void registerItemRender(Item item) {
@@ -198,7 +257,7 @@ public class ClientProxy extends CommonProxy {
 
     public static void reset() {
 
-        TransmitterModel.clearCache();
+       // TransmitterModel.clearCache();
 
 
     }
