@@ -3,10 +3,10 @@
   "defaults": {
     "model": "mekanism:transmitter_small.obj.mek",
     "textures": {
-      "#side": "mekanismecoenergistics:blocks/models/multipart/PressurizedTubeVerticalBasic",
-      "#center": "mekanismecoenergistics:blocks/models/multipart/PressurizedTubeBasic",
-      "#side_opaque": "mekanismecoenergistics:blocks/models/multipart/opaque/PressurizedTubeVerticalBasic",
-      "#center_opaque": "mekanismecoenergistics:blocks/models/multipart/PressurizedTubeBasic"
+      "#side": "mekanismecoenergistics:blocks/models/multipart/PressurizedTubeVerticalQuantum",
+      "#center": "mekanismecoenergistics:blocks/models/multipart/PressurizedTubeQuantum",
+      "#side_opaque": "mekanismecoenergistics:blocks/models/multipart/opaque/PressurizedTubeVerticalQuantum",
+      "#center_opaque": "mekanismecoenergistics:blocks/models/multipart/PressurizedTubeQuantum"
     },
     "custom": {
       "flip-v": true

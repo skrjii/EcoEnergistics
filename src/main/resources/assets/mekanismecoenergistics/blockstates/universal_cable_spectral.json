@@ -3,10 +3,10 @@
   "defaults": {
     "model": "mekanism:transmitter_small.obj.mek",
     "textures": {
-      "#side": "mekanismecoenergistics:blocks/models/multipart/UniversalCableVerticalBasic",
-      "#center": "mekanismecoenergistics:blocks/models/multipart/UniversalCableBasic",
-      "#side_opaque": "mekanismecoenergistics:blocks/models/multipart/opaque/UniversalCableVerticalBasic",
-      "#center_opaque": "mekanismecoenergistics:blocks/models/multipart/UniversalCableBasic"
+      "#side": "mekanismecoenergistics:blocks/models/multipart/UniversalCableVerticalSpectral",
+      "#center": "mekanismecoenergistics:blocks/models/multipart/UniversalCableSpectral",
+      "#side_opaque": "mekanismecoenergistics:blocks/models/multipart/opaque/UniversalCableVerticalSpectral",
+      "#center_opaque": "mekanismecoenergistics:blocks/models/multipart/UniversalCableSpectral"
     },
     "custom": {
       "flip-v": true

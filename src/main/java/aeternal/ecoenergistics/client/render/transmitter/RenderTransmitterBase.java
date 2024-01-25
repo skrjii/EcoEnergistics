@@ -1,19 +1,9 @@
 package aeternal.ecoenergistics.client.render.transmitter;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-import java.util.function.Function;
-
 import aeternal.ecoenergistics.Constants;
 import aeternal.ecoenergistics.common.tile.transmitter.TileEntityEcoTransmitter;
 import mekanism.client.render.MekanismRenderer;
 import mekanism.common.ColourRGBA;
-import mekanism.common.tile.transmitter.TileEntityTransmitter;
-import mekanism.common.util.MekanismUtils;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -29,6 +19,9 @@ import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.client.model.obj.OBJModel.OBJState;
 import net.minecraftforge.client.model.pipeline.LightUtil;
 import org.lwjgl.opengl.GL11;
+
+import java.util.*;
+import java.util.function.Function;
 
 public abstract class RenderTransmitterBase<T extends TileEntityEcoTransmitter> extends TileEntitySpecialRenderer<T> {
 

@@ -2,12 +2,10 @@ package aeternal.ecoenergistics.common.tile.transmitter;
 
 import aeternal.ecoenergistics.common.block.BlockEcoTransmitter;
 import aeternal.ecoenergistics.common.block.property.PropertyConnection;
+import aeternal.ecoenergistics.common.block.states.BlockStateEcoTransmitter.EcoTransmitterType;
+import aeternal.ecoenergistics.common.block.states.BlockStateEcoTransmitter.EcoTransmitterType.Size;
 import aeternal.ecoenergistics.common.tier.MEETiers;
 import io.netty.buffer.ByteBuf;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import javax.annotation.Nonnull;
 import mcmultipart.api.multipart.IMultipart;
 import mekanism.api.Coord4D;
 import mekanism.api.EnumColor;
@@ -18,15 +16,9 @@ import mekanism.api.transmitters.ITransmitter;
 import mekanism.api.transmitters.TransmissionType;
 import mekanism.common.Mekanism;
 import mekanism.common.base.ITileNetwork;
-import mekanism.common.block.BlockTransmitter;
-
-
-import aeternal.ecoenergistics.common.block.states.BlockStateEcoTransmitter.EcoTransmitterType;
-import aeternal.ecoenergistics.common.block.states.BlockStateEcoTransmitter.EcoTransmitterType.Size;
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.integration.multipart.MultipartMekanism;
 import mekanism.common.integration.multipart.MultipartTileNetworkJoiner;
-
 import mekanism.common.util.CapabilityUtils;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.MultipartUtils;
@@ -52,6 +44,11 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import org.apache.commons.lang3.tuple.Pair;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public abstract class TileEntityEcoSidedPipe extends TileEntity implements ITileNetwork, IBlockableConnection, IConfigurable, ITransmitter, ITickable {
 
@@ -241,13 +238,13 @@ public abstract class TileEntityEcoSidedPipe extends TileEntity implements ITile
             int ord = side.ordinal();
             byte connections = getAllCurrentConnections();
             if (connectionMapContainsSide(connections, side)) {
-                AxisAlignedBB box = getTransmitterType().getSize() == Size.SMALL ? BlockTransmitter.smallSides[ord] : BlockTransmitter.largeSides[ord];
+                AxisAlignedBB box = getTransmitterType().getSize() == Size.SMALL ? BlockEcoTransmitter.smallSides[ord] : BlockEcoTransmitter.largeSides[ord];
                 if (box.intersects(entityBox)) {
                     list.add(box);
                 }
             }
         }
-        AxisAlignedBB box = getTransmitterType().getSize() == Size.SMALL ? BlockTransmitter.smallSides[6] : BlockTransmitter.largeSides[6];
+        AxisAlignedBB box = getTransmitterType().getSize() == Size.SMALL ? BlockEcoTransmitter.smallSides[6] : BlockEcoTransmitter.largeSides[6];
         if (box.intersects(entityBox)) {
             list.add(box);
         }

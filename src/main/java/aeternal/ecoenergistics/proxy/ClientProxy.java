@@ -7,24 +7,27 @@ import aeternal.ecoenergistics.client.render.EcoERender;
 import aeternal.ecoenergistics.client.render.item.RenderEcoGeneratorItem;
 import aeternal.ecoenergistics.client.render.item.RenderEcoGeneratorItemAdd;
 import aeternal.ecoenergistics.client.render.obj.TransmitterModel;
-import aeternal.ecoenergistics.common.block.states.BlockStateEcoTransmitter.EcoTransmitterType;
 import aeternal.ecoenergistics.client.render.solar.panel.*;
 import aeternal.ecoenergistics.client.render.solar.station.*;
+import aeternal.ecoenergistics.client.render.transmitter.RenderMechanicalPipe;
+import aeternal.ecoenergistics.client.render.transmitter.RenderPressurizedTube;
 import aeternal.ecoenergistics.client.render.transmitter.RenderUniversalCable;
 import aeternal.ecoenergistics.common.EcoEnergisticsBlocks;
 import aeternal.ecoenergistics.common.block.states.*;
 import aeternal.ecoenergistics.common.block.states.BlockStateBasic.EnumBasicType;
 import aeternal.ecoenergistics.common.block.states.BlockStateEcoGenerator.EcoGeneratorType;
 import aeternal.ecoenergistics.common.block.states.BlockStateEcoGeneratorAdd.EcoGeneratorTypeAdd;
+import aeternal.ecoenergistics.common.block.states.BlockStateEcoTransmitter.EcoTransmitterType;
 import aeternal.ecoenergistics.common.block.states.BlockStateOre.EnumOreType;
 import aeternal.ecoenergistics.common.item.EcoEnergisticsItems;
 import aeternal.ecoenergistics.common.item.ItemBlockEcoTransmitter;
 import aeternal.ecoenergistics.common.tier.MEETiers;
 import aeternal.ecoenergistics.common.tile.solar.panel.*;
 import aeternal.ecoenergistics.common.tile.solar.station.*;
+import aeternal.ecoenergistics.common.tile.transmitter.TileEntityEcoMechanicalPipe;
+import aeternal.ecoenergistics.common.tile.transmitter.TileEntityEcoPressurizedTube;
 import aeternal.ecoenergistics.common.tile.transmitter.TileEntityEcoUniversalCable;
 import mekanism.client.render.item.ItemLayerWrapper;
-import mekanism.common.MekanismBlocks;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -90,6 +93,8 @@ public class ClientProxy extends CommonProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySolarStationNeutron.class, new RenderSolarStationNeutron());
 
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEcoUniversalCable.class, new RenderUniversalCable());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEcoPressurizedTube.class, new RenderPressurizedTube());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEcoMechanicalPipe.class, new RenderMechanicalPipe());
     }
 
 
@@ -257,7 +262,7 @@ public class ClientProxy extends CommonProxy {
 
     public static void reset() {
 
-       // TransmitterModel.clearCache();
+        TransmitterModel.clearCache();
 
 
     }
