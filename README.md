@@ -1,8 +1,12 @@
-[![](https://img.shields.io/discord/1137202630125428868?color=f3f2f4&label=Discord&logo=Discord&logoColor=4d57de&style=for-the-badge)](https://discord.gg/bXgXTa6Wxs)[![Also Available on Modrinth](https://github.com/AET9RNAL/ModAssets/releases/download/Assets/MR_LOGO.png)](https://modrinth.com/mod/mekanismecoenergistics)![Modrinth Downloads](https://img.shields.io/modrinth/dt/pFTNIPnW?style=for-the-badge&logo=modrinth&labelColor=%23000000&color=f2f2f2)
+[![](https://img.shields.io/discord/1137202630125428868?color=f3f2f4&label=Discord&logo=Discord&logoColor=4d57de&style=for-the-badge)](https://discord.gg/bXgXTa6Wxs)[![Modrinth Downloads](https://img.shields.io/modrinth/dt/pFTNIPnW?style=for-the-badge&logo=modrinth&labelColor=666666&color=54ac91&link=https://modrinth.com/mod/mekanism-eco-energistics)](https://modrinth.com/mod/mekanism-eco-energistics)![Static Badge](https://img.shields.io/badge/Supported-5ebfa2?style=for-the-badge&logoColor=4d57de&label=Status&color=5ebfa2)
 
-Eco Energistics is an unofficial addon for Mekanism and Mekanism Generators. In order to run this mod you need: [![](https://github.com/AET9RNAL/ModAssets/releases/download/Assets/MekaIcon.png)](https://modrinth.com/mod/mekanism/version/9.8.3.390)[![](https://github.com/AET9RNAL/ModAssets/releases/download/Assets/MekaIcon.png)](https://modrinth.com/mod/mekanism-generators/version/9.8.3.390)
 
-All solar panels can now function at night, although energy production will be cut in half. All solar panels can now also work when it's raining during the day, with 50% penalization. Raining at night won't cut production even further if you are in a warm biome e.g - desert, but if you are in a wet biome, you will get max possible energy production penalty. All added content is featured in the list below. Specified solar panel energy production in the list is average. 
+Eco Energistics is an unofficial addon for Mekanism and Mekanism Generators. In order to run this mod you need: [![](https://github.com/AET9RNAL/ModAssets/releases/download/Assets/MekaIcon.png)](https://modrinth.com/mod/mekanism/version/9.8.3.390)||[![](https://github.com/AET9RNAL/ModAssets/releases/download/Assets/MekaIcon.png)](https://modrinth.com/mod/mekanism-generators/version/9.8.3.390)
+
+Please report any bugs you find on GitHub/Discord
+
+
+All solar panels can now function at night, although energy production will be cut in half. All solar panels can now also work when it's raining during the day, with 50% penalization. Raining at night won't cut production even further if you are in a warm biome e.g - desert, but if you are in a wet biome, you will get max possible energy production penalty. All added content is featured in the list below. Specified solar panel energy production in the list is average.
 
 📋Mod Contents:
 
@@ -71,10 +75,16 @@ All solar panels can now function at night, although energy production will be c
 *   ![](https://github.com/AET9RNAL/ModAssets/releases/download/Assets/EcoEnergistics_Icon_photonicalloy.png) - Photonic Alloy
 *   ![](https://github.com/AET9RNAL/ModAssets/releases/download/Assets/EcoEnergistics_Icon_neutronalloy.png) - Neutron Alloy
 
-The addon is currently in development, bugs are expected, although nothing critical was noticed during the testing. All solar panels all fully functional and configurable, with the only exception of absent GUI. 
+The addon is currently in development, bugs are expected, although nothing critical was noticed during the testing. All solar panels all fully functional and configurable, with the only exception of absent GUI.
 
-Don't try to force something you want to charge into panels via pipes etc, you won't be able to get it out. The GUI might or might not be added in the future, as I'm currently trying to figure out how to do it. If you liked this project and you want to speed up the process and contribute to the addon development feel free to create a pull request 
+Don't try to force something you want to charge into panels via pipes etc, you won't be able to get it out. The GUI might or might not be added in the future, as I'm currently trying to figure out how to do it. If you liked this project and you want to speed up the process and contribute to the addon development feel free to create a pull request
 
-Credits: Huge thanks to the Mekanism team for creating Mekanism and it's official addons 
+Credits: Huge thanks to the Mekanism team for creating Mekanism and it's official addons
 
-Permissions: 1.You are allowed to redistribute this mod, but you must credit the download source as 'CurseForge' or 'Modrinth' and include a direct link that leads to the page of this mod 2.You can use this mod in your modpacks 3.You are allowed to modify the source code of the mod
+Permissions:
+
+1.You are allowed to redistribute this mod, but you must credit the download source as 'CurseForge' or 'Modrinth' and include a direct link that leads to the page of this mod
+
+2.You can use this mod in your modpacks
+
+3.You are allowed to modify the source code of the mod
