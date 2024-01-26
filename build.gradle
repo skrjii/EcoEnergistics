@@ -84,6 +84,8 @@ configurations {
 //End of the SCP config
 
 dependencies {
+    compileOnly "curse.maven:MCMultiPart-239431:2615930"
+    runtimeOnly "curse.maven:MCMultiPart-239431:2615930"
     compileOnly "org.jetbrains:annotations:17.0.0"
     compileOnly 'javax.annotation:javax.annotation-api:1.3.2'
     runtimeOnly "curse.maven:mekanism-268560:2835175"

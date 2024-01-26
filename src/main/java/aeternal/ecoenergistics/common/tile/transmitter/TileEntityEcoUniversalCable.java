@@ -3,6 +3,7 @@ package aeternal.ecoenergistics.common.tile.transmitter;
 import aeternal.ecoenergistics.common.block.states.BlockStateEcoTransmitter.EcoTransmitterType;
 import aeternal.ecoenergistics.common.tier.EcoCableTier;
 import aeternal.ecoenergistics.common.tier.MEETiers;
+import aeternal.ecoenergistics.common.transmitterintegration.ForgeEnergyCableIntegration;
 import cofh.redstoneflux.api.IEnergyProvider;
 import cofh.redstoneflux.api.IEnergyReceiver;
 import ic2.api.energy.EnergyNet;
@@ -18,7 +19,7 @@ import mekanism.common.base.EnergyAcceptorWrapper;
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.capabilities.CapabilityWrapperManager;
 import mekanism.common.integration.MekanismHooks;
-import mekanism.common.integration.forgeenergy.ForgeEnergyCableIntegration;
+
 import mekanism.common.integration.forgeenergy.ForgeEnergyIntegration;
 import mekanism.common.integration.ic2.IC2Integration;
 import mekanism.common.integration.redstoneflux.RFIntegration;

@@ -29,7 +29,7 @@ public class EcoOBJModel extends OBJModel {
     @Override
     public IBakedModel bake(@Nonnull IModelState state, @Nonnull VertexFormat format, Function<ResourceLocation, TextureAtlasSprite> bakedTextureGetter) {
         IBakedModel preBaked = super.bake(state, format, bakedTextureGetter);
-        if (modelType == OBJModelType.TRANSMITTER) {
+        if (modelType == OBJModelType.ECOTRANSMITTER) {
             return new TransmitterModel(preBaked, this, state, format, TransmitterModel.getTexturesForOBJModel(preBaked), null);
         }
 
@@ -55,6 +55,6 @@ public class EcoOBJModel extends OBJModel {
     }
 
     public enum OBJModelType {
-        TRANSMITTER
+        ECOTRANSMITTER
     }
 }

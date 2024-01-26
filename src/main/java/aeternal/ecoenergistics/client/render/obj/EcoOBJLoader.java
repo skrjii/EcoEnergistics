@@ -86,8 +86,8 @@ public class EcoOBJLoader implements ICustomModelLoader {
         if (!modelCache.containsKey(file)) {
             IModel model = OBJLoader.INSTANCE.loadModel(file);
             if (model instanceof OBJModel) {
-                if (file.getPath().contains("transmitter")) {
-                    EcoOBJModel mekModel = new EcoOBJModel(EcoOBJModel.OBJModelType.TRANSMITTER, ((OBJModel) model).getMatLib(), file);
+                if (file.getPath().contains("ecotransmitter")) {
+                    EcoOBJModel mekModel = new EcoOBJModel(EcoOBJModel.OBJModelType.ECOTRANSMITTER, ((OBJModel) model).getMatLib(), file);
                     modelCache.put(file, mekModel);
                 }
             }
