@@ -18,7 +18,8 @@
     },
     "P":
     {
-      "item": "mekanism:compresseddiamond"
+      "item": "mekanismecoenergistics:morecompressed",
+      "data": 2
     },
     "D":
     {

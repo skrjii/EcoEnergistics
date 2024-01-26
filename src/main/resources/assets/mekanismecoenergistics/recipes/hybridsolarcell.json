@@ -18,12 +18,13 @@
     },
     "P":
     {
-      "item": "mekanism:compressedcarbon"
+      "item": "mekanismecoenergistics:morecompressed",
+      "data": 0
     },
     "D":
     {
-      "item": "mekanism:crystal",
-      "data": 2
+      "item": "mekanismecoenergistics:morecompressed",
+      "data": 6
     },
     "G": {
       "item": "minecraft:stained_glass_pane",

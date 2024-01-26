@@ -123,6 +123,39 @@ tile.EcoGeneratorAdd.SolarStationDiffractive.name=Diffractive Solar Station
 tile.EcoGeneratorAdd.SolarStationPhotonic.name=Photonic Solar Station
 tile.EcoGeneratorAdd.SolarStationNeutron.name=Neutron Solar Station
 
+tile.EcoTransmitter.AdvancedUniversalCable.name=Advanced Universal Cable[WIP]
+tile.EcoTransmitter.HybridUniversalCable.name=Hybrid Universal Cable[WIP]
+tile.EcoTransmitter.PerfectHybridUniversalCable.name=Perfect Hybrid Universal Cable[WIP]
+tile.EcoTransmitter.QuantumUniversalCable.name=Quantum Universal Cable[WIP]
+tile.EcoTransmitter.SpectralUniversalCable.name=Spectral Universal Cable[WIP]
+tile.EcoTransmitter.ProtonicUniversalCable.name=Protonic Universal Cable[WIP]
+tile.EcoTransmitter.SingularUniversalCable.name=Singular Universal Cable[WIP]
+tile.EcoTransmitter.DiffractiveUniversalCable.name=Diffractive Universal Cable[WIP]
+tile.EcoTransmitter.PhotonicUniversalCable.name=Photonic Universal Cable[WIP]
+tile.EcoTransmitter.NeutronUniversalCable.name=Neutron Universal Cable[WIP]
+
+tile.EcoTransmitter.AdvancedMechanicalPipe.name=Advanced Mechanical Pipe[WIP]
+tile.EcoTransmitter.HybridMechanicalPipe.name=Hybrid Mechanical Pipe[WIP]
+tile.EcoTransmitter.PerfectHybridMechanicalPipe.name=Perfect Hybrid Mechanical Pipe[WIP]
+tile.EcoTransmitter.QuantumMechanicalPipe.name=Quantum Mechanical Pipe[WIP]
+tile.EcoTransmitter.SpectralMechanicalPipe.name=Spectral Mechanical Pipe[WIP]
+tile.EcoTransmitter.ProtonicMechanicalPipe.name=Protonic Mechanical Pipe[WIP]
+tile.EcoTransmitter.SingularMechanicalPipe.name=Singular Mechanical Pipe[WIP]
+tile.EcoTransmitter.DiffractiveMechanicalPipe.name=Diffractive Mechanical Pipe[WIP]
+tile.EcoTransmitter.PhotonicMechanicalPipe.name=Photonic Mechanical Pipe[WIP]
+tile.EcoTransmitter.NeutronMechanicalPipe.name=Neutron Mechanical Pipe[WIP]
+
+tile.EcoTransmitter.AdvancedPressurizedTube.name=Advanced Pressurized Tube[WIP]
+tile.EcoTransmitter.HybridPressurizedTube.name=Hybrid Pressurized Tube[WIP]
+tile.EcoTransmitter.PerfectHybridPressurizedTube.name=Perfect Hybrid Pressurized Tube[WIP]
+tile.EcoTransmitter.QuantumPressurizedTube.name=Quantum Pressurized Tube[WIP]
+tile.EcoTransmitter.SpectralPressurizedTube.name=Spectral Pressurized Tube[WIP]
+tile.EcoTransmitter.ProtonicPressurizedTube.name=Protonic Pressurized Tube[WIP]
+tile.EcoTransmitter.SingularPressurizedTube.name=Singular Pressurized Tube[WIP]
+tile.EcoTransmitter.DiffractivePressurizedTube.name=Diffractive Pressurized Tube[WIP]
+tile.EcoTransmitter.PhotonicPressurizedTube.name=Photonic Pressurized Tube[WIP]
+tile.EcoTransmitter.NeutronPressurizedTube.name=Neutron Pressurized Tube[WIP]
+
 tile.OreBlock.TitaniumOre.name=Titanium Ore
 tile.OreBlock.UraniumOre.name=Uranium Ore
 tile.OreBlock.IridiumOre.name=Iridium Ore

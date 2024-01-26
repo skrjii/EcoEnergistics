@@ -18,6 +18,8 @@ public class Infuser {
             InfuseType diamond = InfuseRegistry.get("DIAMOND");
             InfuseType obsidian = InfuseRegistry.get("OBSIDIAN");
             InfuseType redstone = InfuseRegistry.get("REDSTONE");
+/*            InfuseType steel = InfuseRegistry.get("STEEL");*/
+
 
 
             ItemStack advancedAlloy = new ItemStack(EcoEnergisticsItems.MoreAlloy, 1, 0);
@@ -36,6 +38,9 @@ public class Infuser {
             ItemStack lithiumDust = new ItemStack(MekanismItems.OtherDust, 1,4);
             ItemStack refinedlithiumDust = new ItemStack(EcoEnergisticsItems.MoreDust, 1,3);
 
+            ItemStack hdperod = new ItemStack(MekanismItems.Polyethene, 1,1);
+            ItemStack steelrod = new ItemStack(EcoEnergisticsItems.MoreRod, 1,0);
+
             // Metallurgic Infuser Recipes
             //Alloys
             RecipeHandler.addMetallurgicInfuserRecipe(glowstone, 20, new ItemStack(MekanismItems.ReinforcedAlloy), advancedAlloy);
@@ -48,6 +53,9 @@ public class Infuser {
             RecipeHandler.addMetallurgicInfuserRecipe(redstone, 50, singularAlloy, diffractiveAlloy);
             RecipeHandler.addMetallurgicInfuserRecipe(emerald, 50, diffractiveAlloy, photonicAlloy);
             RecipeHandler.addMetallurgicInfuserRecipe(obsidian, 50, photonicAlloy, neutronAlloy);
+
+            //ROD
+            RecipeHandler.addMetallurgicInfuserRecipe(steel, 50, hdperod, steelrod);
 
             //Ingots
             RecipeHandler.addMetallurgicInfuserRecipe(redstone, 15, GlowstoneIngot, activeGlowstoneIngot);

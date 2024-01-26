@@ -18,7 +18,8 @@
     },
     "P":
     {
-      "item": "mekanism:compressedobsidian"
+      "item": "mekanismecoenergistics:morecompressed",
+      "data": 5
     },
     "G": {
       "item": "minecraft:stained_glass_pane",

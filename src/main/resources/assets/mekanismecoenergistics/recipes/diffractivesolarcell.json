@@ -31,7 +31,8 @@
     },
     "I":
     {
-      "item": "mekanism:compressedredstone"
+      "item": "mekanismecoenergistics:morecompressed",
+      "data": 2
     }
   }
 }

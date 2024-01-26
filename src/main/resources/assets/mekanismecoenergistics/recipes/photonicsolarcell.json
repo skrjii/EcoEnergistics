@@ -5,8 +5,8 @@
   },
   "pattern": [
     "GGG",
-    "PAP",
-    "SSS"
+    "SAS",
+    "CCC"
   ],
   "type": "forge:ore_shaped",
   "key":
@@ -16,17 +16,18 @@
       "item": "mekanismecoenergistics:morealloy",
       "data": 8
     },
-    "P":
+    "S":
     {
-      "item": "mekanism:compressedobsidian"
+      "item": "minecraft:nether_star"
     },
     "G": {
       "item": "minecraft:stained_glass_pane",
       "data": 5
     },
-    "S":
+    "C":
     {
-      "item": "minecraft:nether_star"
+      "item": "mekanismecoenergistics:morecompressed",
+      "data": 5
     }
   }
 }
