@@ -8,6 +8,8 @@ import aeternal.ecoenergistics.common.world.GenHandler;
 import aeternal.ecoenergistics.proxy.CommonProxy;
 import io.netty.buffer.ByteBuf;
 import mekanism.api.MekanismAPI;
+import mekanism.api.transmitters.DynamicNetwork;
+import mekanism.client.ClientTickHandler;
 import mekanism.common.Mekanism;
 import mekanism.common.Version;
 import mekanism.common.base.IModule;
@@ -99,7 +101,6 @@ public class EcoEnergistics implements IModule {
         proxy.preInit();
 
 
-
     }
 
     @EventHandler
@@ -111,7 +112,7 @@ public class EcoEnergistics implements IModule {
         PacketSimpleGui.handlers.add(1, proxy);
 
         //Set up the GUI handler
-   //     NetworkRegistry.INSTANCE.registerGuiHandler(this, new GeneratorsGuiHandler());
+        //     NetworkRegistry.INSTANCE.registerGuiHandler(this, new GeneratorsGuiHandler());
         MinecraftForge.EVENT_BUS.register(this);
 
 
@@ -123,6 +124,8 @@ public class EcoEnergistics implements IModule {
         ModFixs fixes = fixer.init(MOD_ID, DATA_VERSION);
         Mekanism.logger.info("Loaded MekanismEcoEnergistics module.");
     }
+
+
     @SubscribeEvent
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
         event.getRegistry().register(new BinRecipe());
@@ -134,8 +137,9 @@ public class EcoEnergistics implements IModule {
         InitSmeltingRecipes();
         registerInfuseObject();
     }
+
     public static void InitSmeltingRecipes() {
-        GameRegistry.addSmelting(new ItemStack(EcoEnergisticsItems.MoreDust, 1,aeternal.ecoenergistics.common.enums.MoreDust.ACTIVATEDGLOWSTONE.ordinal()), new ItemStack(EcoEnergisticsItems.MoreIngot, 1, 0), 0.0F);
+        GameRegistry.addSmelting(new ItemStack(EcoEnergisticsItems.MoreDust, 1, aeternal.ecoenergistics.common.enums.MoreDust.ACTIVATEDGLOWSTONE.ordinal()), new ItemStack(EcoEnergisticsItems.MoreIngot, 1, 0), 0.0F);
         GameRegistry.addSmelting(new ItemStack(Dust, 1, aeternal.ecoenergistics.common.enums.Dust.TITANIUM.ordinal()), new ItemStack(EcoEnergisticsItems.MoreIngot, 1, 1), 0.0F);
         GameRegistry.addSmelting(new ItemStack(Dust, 1, aeternal.ecoenergistics.common.enums.Dust.URANIUM.ordinal()), new ItemStack(EcoEnergisticsItems.MoreIngot, 1, 2), 0.0F);
         GameRegistry.addSmelting(new ItemStack(Dust, 1, aeternal.ecoenergistics.common.enums.Dust.IRIDIUM.ordinal()), new ItemStack(EcoEnergisticsItems.MoreIngot, 1, 3), 0.0F);
@@ -216,6 +220,7 @@ public class EcoEnergistics implements IModule {
         OreDictionary.registerOre("alloyPhotonic", new ItemStack(EcoEnergisticsItems.MoreControlCircuit, 1, 8));
         OreDictionary.registerOre("alloyNeutron", new ItemStack(EcoEnergisticsItems.MoreControlCircuit, 1, 9));
     }
+
     @Override
     public Version getVersion() {
         return versionNumber;

@@ -3,9 +3,11 @@ package aeternal.ecoenergistics.proxy;
 //import aeternal.ecoenergistics.client.gui.GuiSolarPanel;
 
 import aeternal.ecoenergistics.Constants;
+import aeternal.ecoenergistics.client.ClientTickHandler;
 import aeternal.ecoenergistics.client.render.EcoERender;
 import aeternal.ecoenergistics.client.render.item.RenderEcoGeneratorItem;
 import aeternal.ecoenergistics.client.render.item.RenderEcoGeneratorItemAdd;
+import aeternal.ecoenergistics.client.render.obj.EcoOBJLoader;
 import aeternal.ecoenergistics.client.render.obj.TransmitterModel;
 import aeternal.ecoenergistics.client.render.solar.panel.*;
 import aeternal.ecoenergistics.client.render.solar.station.*;
@@ -27,7 +29,9 @@ import aeternal.ecoenergistics.common.tile.solar.station.*;
 import aeternal.ecoenergistics.common.tile.transmitter.TileEntityEcoMechanicalPipe;
 import aeternal.ecoenergistics.common.tile.transmitter.TileEntityEcoPressurizedTube;
 import aeternal.ecoenergistics.common.tile.transmitter.TileEntityEcoUniversalCable;
+
 import mekanism.client.render.item.ItemLayerWrapper;
+import mekanism.client.render.obj.MekanismOBJLoader;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -39,6 +43,7 @@ import net.minecraft.util.registry.IRegistry;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -147,7 +152,7 @@ public class ClientProxy extends CommonProxy {
 
         for (EcoTransmitterType type : EcoTransmitterType.values()) {
             List<ModelResourceLocation> modelsToAdd = new ArrayList<>();
-            String resource = "mekanism:" + type.getName();
+            String resource = "mekanismecoenergistics:" + type.getName();
             MEETiers tierPointer = null;
 
             if (type.hasTiers()) {
@@ -242,6 +247,8 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void preInit() {
+        MinecraftForge.EVENT_BUS.register(EcoOBJLoader.INSTANCE);
+        ModelLoaderRegistry.registerLoader(EcoOBJLoader.INSTANCE);
         MinecraftForge.EVENT_BUS.register(this);
     }
 
@@ -261,9 +268,7 @@ public class ClientProxy extends CommonProxy {
     }
 
     public static void reset() {
-
+        ClientTickHandler.tickingSet.clear();
         TransmitterModel.clearCache();
-
-
     }
 }

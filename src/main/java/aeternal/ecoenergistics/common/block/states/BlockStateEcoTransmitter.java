@@ -9,7 +9,6 @@ import aeternal.ecoenergistics.common.block.property.PropertyConnection;
 import aeternal.ecoenergistics.common.tier.MEETiers;
 import mekanism.api.transmitters.TransmissionType;
 import mekanism.common.block.property.PropertyColor;
-
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;

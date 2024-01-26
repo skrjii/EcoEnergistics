@@ -17,11 +17,8 @@ import mekanism.api.IMekWrench;
 import mekanism.client.render.particle.MekanismParticleHelper;
 import mekanism.common.Mekanism;
 import mekanism.common.block.BlockTileDrops;
-
 import mekanism.common.integration.multipart.MultipartMekanism;
 import mekanism.common.integration.wrenches.Wrenches;
-
-
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.MultipartUtils;
 import mekanism.common.util.MultipartUtils.AdvancedRayTraceResult;
@@ -269,7 +266,7 @@ public class BlockEcoTransmitter extends BlockTileDrops implements ITileEntityPr
         for (EcoTransmitterType type : EcoTransmitterType.values()) {
             if (type.hasTiers()) {
                 for (MEETiers tier : MEETiers.values()) {
-                        list.add(EcoUtils.getEcoTransmitter(type, tier, 1));
+                    list.add(EcoUtils.getEcoTransmitter(type, tier, 1));
                 }
             } else {
                 list.add(EcoUtils.getEcoTransmitter(type, MEETiers.ADVANCED, 1));

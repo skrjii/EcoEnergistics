@@ -3,6 +3,7 @@ package aeternal.ecoenergistics.client;
 import aeternal.ecoenergistics.EcoEnergistics;
 import aeternal.ecoenergistics.api.IClientTicker;
 import aeternal.ecoenergistics.proxy.ClientProxy;
+import mekanism.api.transmitters.DynamicNetwork;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -47,7 +48,6 @@ public class ClientTickHandler {
                 }
             }
         }
-
         if (mc.world != null) {
             shouldReset = true;
         } else if (shouldReset) {

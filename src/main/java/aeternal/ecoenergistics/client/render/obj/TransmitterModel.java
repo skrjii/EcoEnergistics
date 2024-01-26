@@ -6,7 +6,6 @@ import aeternal.ecoenergistics.common.tile.transmitter.TileEntityEcoSidedPipe;
 import aeternal.ecoenergistics.common.tile.transmitter.TileEntityEcoSidedPipe.ConnectionType;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import mekanism.client.render.obj.OBJBakedModelBase;
 import mekanism.common.block.property.PropertyColor;
 import mekanism.common.config.MekanismConfig;
 import net.minecraft.block.state.IBlockState;
