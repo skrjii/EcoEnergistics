@@ -37,6 +37,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 
@@ -68,10 +70,14 @@ public class EcoEnergistics implements IModule {
     public static Version versionNumber = new Version(999, 999, 999);
     public static final int DATA_VERSION = 1;
     public static GenHandler genHandler = new GenHandler();
+    public static Logger logger = LogManager.getLogger("EcoEnergistics");
 
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
         EcoEnergisticsBlocks.registerBlocks(event.getRegistry());
+        if (Constants.AvaritiaLoaded && Constants.AvaritiaConfirm) {
+            EcoEnergisticsBlocks.registerAvaritiaBlocks(event.getRegistry());
+        }
     }
 
     @SubscribeEvent
@@ -79,6 +85,9 @@ public class EcoEnergistics implements IModule {
         EcoEnergisticsItems.registerItems(event.getRegistry());
         EcoEnergisticsBlocks.registerItemBlocks(event.getRegistry());
         registerOreDict();
+        if (Constants.AvaritiaLoaded && Constants.AvaritiaConfirm) {
+            EcoEnergisticsBlocks.registerAvaritiaItemBlocks(event.getRegistry());
+        }
     }
 
     @SubscribeEvent

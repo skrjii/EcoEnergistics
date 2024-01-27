@@ -1,6 +1,7 @@
 package aeternal.ecoenergistics.config;
 
 import aeternal.ecoenergistics.common.tier.MEETiers;
+import aeternal.ecoenergistics.config.options.BooleanOption;
 import aeternal.ecoenergistics.config.options.IntOption;
 import io.netty.buffer.ByteBuf;
 
@@ -42,6 +43,17 @@ public class Config extends BaseConfig {
     public final IntOption titaniumMaxVeinSize = new IntOption(this, "oregen", "TitaniumVeinSize", 10, "Max number of blocks in a Titanium vein.", 1, Integer.MAX_VALUE);
     public final IntOption uraniumMaxVeinSize = new IntOption(this, "oregen", "UraniumVeinSize", 2, "Max number of blocks in an Uranium vein.", 1, Integer.MAX_VALUE);
     public final IntOption iridiumMaxVeinSize = new IntOption(this, "oregen", "IridiumVeinSize", 4, "Max number of blocks in an Iridium vein.", 1, Integer.MAX_VALUE);
+
+    public final BooleanOption AvaritiaEnable = new BooleanOption(this, "integration", "Enable Avaritia Integration",true);
+    public final BooleanOption DraconicEnable = new BooleanOption(this, "integration", "Enable Draconic Integration",true);
+    public final BooleanOption BotaniaEnable = new BooleanOption(this, "integration", "Enable Botania Integration",true);
+    public final DoubleOption solarPanelCrystalGeneration = new DoubleOption(this, "integration", "CrystalSolarPanelGeneration", 1330000.0, "Peak output for the Crystal Solar Panel.");
+    public final DoubleOption solarPanelNeutroniumGeneration = new DoubleOption(this, "integration", "NeutronSolarPanelGeneration", 53200000.0, "Peak output for the Neutron Solar Panel.");
+    public final DoubleOption solarPanelInfinityGeneration = new DoubleOption(this, "integration", "InfinitySolarPanelGeneration", 84840000.0, "Peak output for the Solar Panel of Infinity.");
+
+    public final DoubleOption solarStationCrystalGeneration = new DoubleOption(this, "integration", "CrystalSolarStationGeneration", 5000.0, "Peak output for the Crystal Solar Station.");
+    public final DoubleOption solarStationNeutroniumGeneration = new DoubleOption(this, "integration", "NeutronSolarStationGeneration", 5000.0, "Peak output for the Neutron Solar Station.");
+    public final DoubleOption solarStationInfinityGeneration = new DoubleOption(this, "integration", "CrystalSolarStationGeneration", 5000.0, "Peak output for the Solar Station of Infinity.");
 
 public final EnumMap<MEETiers, TierConfig> tiers;
     public Config() {

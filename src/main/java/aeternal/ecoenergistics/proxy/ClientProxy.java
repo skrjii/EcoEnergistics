@@ -3,6 +3,7 @@ package aeternal.ecoenergistics.proxy;
 //import aeternal.ecoenergistics.client.gui.GuiSolarPanel;
 
 import aeternal.ecoenergistics.Constants;
+import aeternal.ecoenergistics.EcoEnergistics;
 import aeternal.ecoenergistics.client.ClientTickHandler;
 import aeternal.ecoenergistics.client.render.EcoERender;
 import aeternal.ecoenergistics.client.render.item.RenderEcoGeneratorItem;
@@ -29,9 +30,24 @@ import aeternal.ecoenergistics.common.tile.solar.station.*;
 import aeternal.ecoenergistics.common.tile.transmitter.TileEntityEcoMechanicalPipe;
 import aeternal.ecoenergistics.common.tile.transmitter.TileEntityEcoPressurizedTube;
 import aeternal.ecoenergistics.common.tile.transmitter.TileEntityEcoUniversalCable;
-
+import aeternal.ecoenergistics.integration.avaritia.client.render.RenderAvaritiaGeneratorItem;
+import aeternal.ecoenergistics.integration.avaritia.client.render.solar.panel.RenderSolarPanelCrystal;
+import aeternal.ecoenergistics.integration.avaritia.client.render.solar.panel.RenderSolarPanelInfinity;
+import aeternal.ecoenergistics.integration.avaritia.client.render.solar.panel.RenderSolarPanelNeutronium;
+import aeternal.ecoenergistics.integration.avaritia.client.render.solar.station.RenderSolarStationCrystal;
+import aeternal.ecoenergistics.integration.avaritia.client.render.solar.station.RenderSolarStationInfinity;
+import aeternal.ecoenergistics.integration.avaritia.client.render.solar.station.RenderSolarStationNeutronium;
+import aeternal.ecoenergistics.integration.avaritia.common.block.states.BlockStateIntegratedAVAGenerator.AvaritiaGeneratorType;
+import aeternal.ecoenergistics.integration.avaritia.common.block.states.BlockStateIntegratedAVAGenerator;
+import aeternal.ecoenergistics.integration.avaritia.common.tile.solar.panel.TileEntitySolarPanelCrystal;
+import aeternal.ecoenergistics.integration.avaritia.common.tile.solar.panel.TileEntitySolarPanelInfinity;
+import aeternal.ecoenergistics.integration.avaritia.common.tile.solar.panel.TileEntitySolarPanelNeutronium;
+import aeternal.ecoenergistics.integration.avaritia.common.tile.solar.station.TileEntitySolarStationCrystal;
+import aeternal.ecoenergistics.integration.avaritia.common.tile.solar.station.TileEntitySolarStationInfinity;
+import aeternal.ecoenergistics.integration.avaritia.common.tile.solar.station.TileEntitySolarStationNeutronium;
 import mekanism.client.render.item.ItemLayerWrapper;
 import mekanism.client.render.obj.MekanismOBJLoader;
+import mekanism.common.Mekanism;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -62,6 +78,7 @@ public class ClientProxy extends CommonProxy {
     private static final IStateMapper generatorMapper = new BlockStateEcoGenerator.GeneratorBlockStateMapper();
     private static final IStateMapper generatorMapperAdd = new BlockStateEcoGeneratorAdd.GeneratorBlockStateMapperAdd();
     private static final IStateMapper transmitterMapper = new BlockStateEcoTransmitter.TransmitterStateMapper();
+    private static final IStateMapper AvaritiaGeneratorMapper = new BlockStateIntegratedAVAGenerator.GeneratorBlockStateMapper();
     public static Map<String, ModelResourceLocation> transmitterResources = new HashMap<>();
     public static long ticksPassed = 0;
     @Override
@@ -100,6 +117,20 @@ public class ClientProxy extends CommonProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEcoUniversalCable.class, new RenderUniversalCable());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEcoPressurizedTube.class, new RenderPressurizedTube());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEcoMechanicalPipe.class, new RenderMechanicalPipe());
+
+        if (Constants.AvaritiaLoaded && Constants.AvaritiaConfirm) {
+            try {
+                ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySolarPanelCrystal.class, new RenderSolarPanelCrystal());
+                ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySolarPanelNeutronium.class, new RenderSolarPanelNeutronium());
+                ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySolarPanelInfinity.class, new RenderSolarPanelInfinity());
+
+                ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySolarStationCrystal.class, new RenderSolarStationCrystal());
+                ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySolarStationNeutronium.class, new RenderSolarStationNeutronium());
+                ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySolarStationInfinity.class, new RenderSolarStationInfinity());
+            } catch (Exception e) {
+                EcoEnergistics.logger.error("Failed to register TESRs for EcoEnergistics Avaritia module", e);
+            }
+        }
     }
 
 
@@ -107,6 +138,13 @@ public class ClientProxy extends CommonProxy {
     public void registerItemRenders() {
         Item.getItemFromBlock(EcoEnergisticsBlocks.EcoGenerator).setTileEntityItemStackRenderer(new RenderEcoGeneratorItem());
         Item.getItemFromBlock(EcoEnergisticsBlocks.EcoGeneratorAdd).setTileEntityItemStackRenderer(new RenderEcoGeneratorItemAdd());
+        if (Constants.AvaritiaLoaded && Constants.AvaritiaConfirm) {
+            try {
+                Item.getItemFromBlock(EcoEnergisticsBlocks.AvaritiaGenerator).setTileEntityItemStackRenderer(new RenderAvaritiaGeneratorItem());
+            } catch (Exception e) {
+                EcoEnergistics.logger.error("Failed to register item render for EcoEnergistics Avaritia module", e);
+            }
+        }
         registerItemRender(EcoEnergisticsItems.MoreControlCircuit);
         registerItemRender(EcoEnergisticsItems.MoreAlloy);
         registerItemRender(EcoEnergisticsItems.MoreDust);
@@ -137,6 +175,17 @@ public class ClientProxy extends CommonProxy {
         ModelLoader.setCustomStateMapper(EcoEnergisticsBlocks.EcoGenerator, generatorMapper);
         ModelLoader.setCustomStateMapper(EcoEnergisticsBlocks.EcoGeneratorAdd, generatorMapperAdd);
         ModelLoader.setCustomStateMapper(EcoEnergisticsBlocks.EcoTransmitter, transmitterMapper);
+        if (Constants.AvaritiaLoaded && Constants.AvaritiaConfirm) {
+            ModelLoader.setCustomStateMapper(EcoEnergisticsBlocks.AvaritiaGenerator,AvaritiaGeneratorMapper );
+            try {
+                for (AvaritiaGeneratorType type : AvaritiaGeneratorType.values()) {
+                    ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(type.blockType.getBlock()), type.meta, new ModelResourceLocation(new ResourceLocation(Constants.MOD_ID, type.getName()), "inventory"));
+                }
+            } catch (Exception e) {
+                EcoEnergistics.logger.error("Failed to register block render for EcoEnergistics Avaritia module", e);
+            }
+        }
+
         for (EcoGeneratorType type : EcoGeneratorType.values()) {
             ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(type.blockType.getBlock()), type.meta, new ModelResourceLocation(new ResourceLocation(Constants.MOD_ID, type.getName()), "inventory"));
         }
@@ -231,6 +280,23 @@ public class ClientProxy extends CommonProxy {
         generatorModelBake2(modelRegistry, EcoGeneratorTypeAdd.SOLAR_STATION_PHOTONIC);
         generatorModelBake2(modelRegistry, EcoGeneratorTypeAdd.SOLAR_STATION_NEUTRON);
     }
+    @SubscribeEvent
+    public void onModelBakeAvaritia(ModelBakeEvent event) {
+        if (Constants.AvaritiaLoaded && Constants.AvaritiaConfirm) {
+            try {
+                IRegistry<ModelResourceLocation, IBakedModel> modelRegistry = event.getModelRegistry();
+                avaritiaGeneratorModelBake(modelRegistry, AvaritiaGeneratorType.SOLAR_PANEL_CRYSTAL);
+                avaritiaGeneratorModelBake(modelRegistry, AvaritiaGeneratorType.SOLAR_PANEL_NEUTRON);
+                avaritiaGeneratorModelBake(modelRegistry, AvaritiaGeneratorType.SOLAR_PANEL_INFINITY);
+
+                avaritiaGeneratorModelBake(modelRegistry, AvaritiaGeneratorType.SOLAR_STATION_CRYSTAL);
+                avaritiaGeneratorModelBake(modelRegistry, AvaritiaGeneratorType.SOLAR_STATION_NEUTRON);
+                avaritiaGeneratorModelBake(modelRegistry, AvaritiaGeneratorType.SOLAR_STATION_INFINITY);
+            } catch (Exception e) {
+                EcoEnergistics.logger.error("Failed to bake models for EcoEnergistics Avaritia module", e);
+            }
+        }
+    }
 
     private void generatorModelBake(IRegistry<ModelResourceLocation, IBakedModel> modelRegistry, EcoGeneratorType type) {
         ModelResourceLocation modelResourceLocation = new ModelResourceLocation(new ResourceLocation(Constants.MOD_ID, type.getName()), "inventory");
@@ -243,6 +309,19 @@ public class ClientProxy extends CommonProxy {
         ItemLayerWrapper itemLayerWrapper = new ItemLayerWrapper(modelRegistry.getObject(modelResourceLocation));
         RenderEcoGeneratorItemAdd.modelMap.put(type, itemLayerWrapper);
         modelRegistry.putObject(modelResourceLocation, itemLayerWrapper);
+    }
+    private void avaritiaGeneratorModelBake(IRegistry<ModelResourceLocation, IBakedModel> modelRegistry, AvaritiaGeneratorType type) {
+        if (Constants.AvaritiaLoaded && Constants.AvaritiaConfirm) {
+            try {
+                ModelResourceLocation modelResourceLocation = new ModelResourceLocation(new ResourceLocation(Constants.MOD_ID, type.getName()), "inventory");
+                ItemLayerWrapper itemLayerWrapper = new ItemLayerWrapper(modelRegistry.getObject(modelResourceLocation));
+                RenderAvaritiaGeneratorItem.modelMap.put(type, itemLayerWrapper);
+                modelRegistry.putObject(modelResourceLocation, itemLayerWrapper);
+            } catch (Exception e) {
+                EcoEnergistics.logger.error("Failed to register models for EcoEnergistics Avaritia module", e);
+            }
+        }
+
     }
 
     @Override

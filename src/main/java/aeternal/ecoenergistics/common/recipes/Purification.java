@@ -2,12 +2,8 @@ package aeternal.ecoenergistics.common.recipes;
 
 import aeternal.ecoenergistics.Constants;
 import aeternal.ecoenergistics.common.EcoEnergisticsBlocks;
-import aeternal.ecoenergistics.common.enums.Ingot;
-import aeternal.ecoenergistics.common.enums.MoreDust;
 import aeternal.ecoenergistics.common.item.EcoEnergisticsItems;
 import mekanism.common.recipe.RecipeHandler;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
 public class Purification {

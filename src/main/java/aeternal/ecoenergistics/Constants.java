@@ -1,8 +1,10 @@
 package aeternal.ecoenergistics;
 
+import aeternal.ecoenergistics.config.EcoConfig;
 import mekanism.common.block.states.BlockStateMachine;
 import mekanism.common.config.MekanismConfig;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.Loader;
 
 public class Constants {
 
@@ -14,6 +16,12 @@ public class Constants {
     public static final String PREFIX_MODEL = PREFIX_MOD + "textures/model/";
     public static final String PREFIX_MISC = PREFIX_MOD + "textures/misc/";
     public static final String PREFIX_OBJ_MODEL = PREFIX_MOD + "model/";
+    public static final boolean DraconicLoaded = Loader.isModLoaded("draconicevolution");
+    public static final boolean AvaritiaLoaded = Loader.isModLoaded("avaritia");
+    public static final boolean BotaniaLoaded = Loader.isModLoaded("botania");
+    public static final boolean DraconicConfirm = EcoConfig.current().generators.DraconicEnable.val();
+    public static final boolean AvaritiaConfirm = EcoConfig.current().generators.AvaritiaEnable.val();
+    public static final boolean BotaniaConfirm = EcoConfig.current().generators.BotaniaEnable.val();
 
     public static final boolean PURIFICATION_ENABLED = MekanismConfig.current().general.machinesManager.isEnabled(BlockStateMachine.MachineType.PURIFICATION_CHAMBER);
     public static final boolean INJECTION_ENABLED = MekanismConfig.current().general.machinesManager.isEnabled(BlockStateMachine.MachineType.CHEMICAL_INJECTION_CHAMBER);

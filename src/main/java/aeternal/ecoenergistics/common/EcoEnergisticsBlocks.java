@@ -7,7 +7,9 @@ import aeternal.ecoenergistics.common.block.states.BlockStateEcoGenerator;
 import aeternal.ecoenergistics.common.block.states.BlockStateEcoGeneratorAdd;
 import aeternal.ecoenergistics.common.item.*;
 
-import mekanism.common.block.BlockTransmitter;
+import aeternal.ecoenergistics.integration.avaritia.common.block.BlockIntegratedAvaritiaGenerator;
+import aeternal.ecoenergistics.integration.avaritia.common.block.states.BlockStateIntegratedAVAGenerator;
+import aeternal.ecoenergistics.integration.avaritia.common.item.ItemBlockAvaritiaGenerator;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
@@ -22,6 +24,8 @@ public class EcoEnergisticsBlocks {
     public static Block EcoTransmitter = new BlockEcoTransmitter();
     public static Block OreBlock = new BlockOre();
     public static Block BlockBasic = new BlockBasic();
+
+    public static final Block AvaritiaGenerator = BlockIntegratedAvaritiaGenerator.getGeneratorBlock(BlockStateIntegratedAVAGenerator.AvaritiaGeneratorBlock.GENERATOR_BLOCK_AVARITIA);
 
     public static void registerBlocks(IForgeRegistry<Block> registry) {
         registry.register(init(EcoGenerator, "EcoGenerator"));
@@ -41,5 +45,17 @@ public class EcoEnergisticsBlocks {
 
     public static Block init(Block block, String name) {
         return block.setTranslationKey(name).setRegistryName(new ResourceLocation(Constants.MOD_ID, name));
+    }
+
+    public static void registerAvaritiaBlocks(IForgeRegistry<Block> registry) {
+        if (Constants.AvaritiaLoaded && Constants.AvaritiaConfirm) {
+            registry.register(init(AvaritiaGenerator, "AvaritiaGenerator"));
+        }
+    }
+
+    public static void registerAvaritiaItemBlocks(IForgeRegistry<Item> registry) {
+        if (Constants.AvaritiaLoaded && Constants.AvaritiaConfirm) {
+            registry.register(GeneratorsItems.init(new ItemBlockAvaritiaGenerator(AvaritiaGenerator), "AvaritiaGenerator"));
+        }
     }
 }

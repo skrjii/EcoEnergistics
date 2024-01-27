@@ -1,11 +1,6 @@
 package aeternal.ecoenergistics.client.render.item.station;
 
 import javax.annotation.Nonnull;
-
-
-
-
-
 import mekanism.client.render.MekanismRenderer;
 import aeternal.ecoenergistics.Constants;
 import aeternal.ecoenergistics.client.model.ModelSolarStationAdv;

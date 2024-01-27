@@ -1,21 +1,18 @@
 package aeternal.ecoenergistics.client.render.item;
 
-import java.util.EnumMap;
-import java.util.Map;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import aeternal.ecoenergistics.client.render.item.panel.*;
-import aeternal.ecoenergistics.client.render.item.station.*;
-
+import aeternal.ecoenergistics.common.block.states.BlockStateEcoGenerator.EcoGeneratorType;
 import mekanism.client.render.item.ItemLayerWrapper;
 import mekanism.client.render.item.SubTypeItemRenderer;
-import aeternal.ecoenergistics.common.block.states.BlockStateEcoGeneratorAdd.EcoGeneratorTypeAdd;
-import aeternal.ecoenergistics.common.block.states.BlockStateEcoGenerator.EcoGeneratorType;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.EnumMap;
+import java.util.Map;
 
 @SideOnly(Side.CLIENT)
 public class RenderEcoGeneratorItem extends SubTypeItemRenderer<EcoGeneratorType> {

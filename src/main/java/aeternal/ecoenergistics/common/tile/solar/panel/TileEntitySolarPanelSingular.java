@@ -1,12 +1,10 @@
 package aeternal.ecoenergistics.common.tile.solar.panel;
 
 import aeternal.ecoenergistics.common.tile.TileEntityEcoGenerator;
-import aeternal.ecoenergistics.config.EcoConfig;
+import aeternal.ecoenergistics.common.tile.solar.SolarConfig;
 import io.netty.buffer.ByteBuf;
 import javax.annotation.Nonnull;
 import mekanism.api.TileNetworkList;
-import mekanism.common.config.MekanismConfig;
-import mekanism.common.tile.component.TileComponentSecurity;
 import mekanism.common.util.ChargeUtils;
 import mekanism.common.util.MekanismUtils;
 import micdoodle8.mods.galacticraft.api.world.ISolarLevel;
