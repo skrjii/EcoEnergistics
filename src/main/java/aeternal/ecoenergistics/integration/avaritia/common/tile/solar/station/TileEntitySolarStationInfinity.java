@@ -18,7 +18,7 @@ import net.minecraftforge.common.capabilities.Capability;
 public class TileEntitySolarStationInfinity extends TileEntitySolarPanelInfinity implements IBoundingBlock, IEvaporationSolar {
 
     public TileEntitySolarStationInfinity() {
-        super("SolarStationInfinity", 800000, AvaritiaSolarConfig.InfinityGen_SS.getValue());
+        super("SolarStationInfinity", Integer.MAX_VALUE, AvaritiaSolarConfig.InfinityGen_SS.getValue());
     }
 
     @Override

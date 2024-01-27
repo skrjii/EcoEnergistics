@@ -8,8 +8,6 @@ import aeternal.ecoenergistics.common.world.GenHandler;
 import aeternal.ecoenergistics.proxy.CommonProxy;
 import io.netty.buffer.ByteBuf;
 import mekanism.api.MekanismAPI;
-import mekanism.api.transmitters.DynamicNetwork;
-import mekanism.client.ClientTickHandler;
 import mekanism.common.Mekanism;
 import mekanism.common.Version;
 import mekanism.common.base.IModule;
@@ -39,9 +37,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.io.File;
-
 import static aeternal.ecoenergistics.common.EcoEnergisticsBlocks.OreBlock;
 import static aeternal.ecoenergistics.common.Infusers.registerInfuseObject;
 import static aeternal.ecoenergistics.common.Infusers.registerInfuseType;
@@ -51,6 +46,7 @@ import static aeternal.ecoenergistics.common.recipes.Enrichment.InitCustomEnrich
 import static aeternal.ecoenergistics.common.recipes.Infuser.InitCustomInfuserRecipes;
 import static aeternal.ecoenergistics.common.recipes.Injection.InitCustomInjectionRecipes;
 import static aeternal.ecoenergistics.common.recipes.Purification.InitCustomPurificationRecipes;
+import java.io.File;
 
 
 @Mod(modid = EcoEnergistics.MOD_ID, useMetadata = true, guiFactory = "mekanism.generators.client.gui.GeneratorsGuiFactory", dependencies = "required-after:mekanism;required-after:mekanismgenerators")
@@ -94,7 +90,6 @@ public class EcoEnergistics implements IModule {
     public static void registerModels(ModelRegistryEvent event) {
         proxy.registerBlockRenders();
         proxy.registerItemRenders();
-
     }
 
     @EventHandler
@@ -103,13 +98,9 @@ public class EcoEnergistics implements IModule {
         File config = event.getSuggestedConfigurationFile();
         //Set the mod's configuration
         configuration = new Configuration(config);
-
         //Load configuration
         proxy.loadConfiguration();
-
         proxy.preInit();
-
-
     }
 
     @EventHandler
@@ -123,8 +114,6 @@ public class EcoEnergistics implements IModule {
         //Set up the GUI handler
         //     NetworkRegistry.INSTANCE.registerGuiHandler(this, new GeneratorsGuiHandler());
         MinecraftForge.EVENT_BUS.register(this);
-
-
         proxy.registerTileEntities();
         proxy.registerTESRs();
         GameRegistry.registerWorldGenerator(genHandler, 1);
@@ -264,6 +253,20 @@ public class EcoEnergistics implements IModule {
 
     @SubscribeEvent
     public void onBlacklistUpdate(MekanismAPI.BoxBlacklistEvent event) {
-        MekanismAPI.addBoxBlacklist(EcoEnergisticsBlocks.EcoGenerator, 2); // Advanced Solar Station
+        MekanismAPI.addBoxBlacklist(EcoEnergisticsBlocks.EcoGeneratorAdd, 0); // Advanced Solar Station
+        MekanismAPI.addBoxBlacklist(EcoEnergisticsBlocks.EcoGeneratorAdd, 1);
+        MekanismAPI.addBoxBlacklist(EcoEnergisticsBlocks.EcoGeneratorAdd, 2);
+        MekanismAPI.addBoxBlacklist(EcoEnergisticsBlocks.EcoGeneratorAdd, 3);
+        MekanismAPI.addBoxBlacklist(EcoEnergisticsBlocks.EcoGeneratorAdd, 4);
+        MekanismAPI.addBoxBlacklist(EcoEnergisticsBlocks.EcoGeneratorAdd, 5);
+        MekanismAPI.addBoxBlacklist(EcoEnergisticsBlocks.EcoGeneratorAdd, 6);
+        MekanismAPI.addBoxBlacklist(EcoEnergisticsBlocks.EcoGeneratorAdd, 7);
+        MekanismAPI.addBoxBlacklist(EcoEnergisticsBlocks.EcoGeneratorAdd, 8);
+        MekanismAPI.addBoxBlacklist(EcoEnergisticsBlocks.EcoGeneratorAdd, 9);
+        if (Constants.AvaritiaLoaded && Constants.AvaritiaConfirm) {
+            MekanismAPI.addBoxBlacklist(EcoEnergisticsBlocks.AvaritiaGenerator, 0);
+            MekanismAPI.addBoxBlacklist(EcoEnergisticsBlocks.AvaritiaGenerator, 1);
+            MekanismAPI.addBoxBlacklist(EcoEnergisticsBlocks.AvaritiaGenerator, 2);
+        }
     }
 }

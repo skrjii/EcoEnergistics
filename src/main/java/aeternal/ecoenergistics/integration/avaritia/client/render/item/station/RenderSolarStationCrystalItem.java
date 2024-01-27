@@ -5,7 +5,6 @@ import javax.annotation.Nonnull;
 import aeternal.ecoenergistics.integration.avaritia.client.model.ModelSolarStationAvaritia;
 import mekanism.client.render.MekanismRenderer;
 import aeternal.ecoenergistics.Constants;
-
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
 import net.minecraft.item.ItemStack;

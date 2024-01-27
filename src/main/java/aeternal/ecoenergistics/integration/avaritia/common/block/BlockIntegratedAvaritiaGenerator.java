@@ -385,8 +385,6 @@ public abstract class BlockIntegratedAvaritiaGenerator extends BlockEcoContainer
         BlockStateIntegratedAVAGenerator.AvaritiaGeneratorType type = BlockStateIntegratedAVAGenerator.AvaritiaGeneratorType.get(getGeneratorBlock(), state.getBlock().getMetaFromState(state));
         return type != BlockStateIntegratedAVAGenerator.AvaritiaGeneratorType.SOLAR_PANEL_CRYSTAL && type != BlockStateIntegratedAVAGenerator.AvaritiaGeneratorType.SOLAR_PANEL_NEUTRON && type != BlockStateIntegratedAVAGenerator.AvaritiaGeneratorType.SOLAR_PANEL_INFINITY
                 && type != BlockStateIntegratedAVAGenerator.AvaritiaGeneratorType.SOLAR_STATION_INFINITY && type != BlockStateIntegratedAVAGenerator.AvaritiaGeneratorType.SOLAR_STATION_CRYSTAL && type != BlockStateIntegratedAVAGenerator.AvaritiaGeneratorType.SOLAR_STATION_NEUTRON;
-
-
     }
 
     @Override

@@ -156,6 +156,10 @@ tile.EcoTransmitter.DiffractivePressurizedTube.name=Diffractive Pressurized Tube
 tile.EcoTransmitter.PhotonicPressurizedTube.name=Photonic Pressurized Tube[WIP]
 tile.EcoTransmitter.NeutronPressurizedTube.name=Neutron Pressurized Tube[WIP]
 
+tile.AvaritiaGenerator.SolarPanelCrystal.name=Crystal Solar Panel
+tile.AvaritiaGenerator.SolarPanelNeutronium.name=Neutronium Solar Panel
+tile.AvaritiaGenerator.SolarPanelInfinity.name=Solar Panel of Infinity
+
 tile.OreBlock.TitaniumOre.name=Titanium Ore
 tile.OreBlock.UraniumOre.name=Uranium Ore
 tile.OreBlock.IridiumOre.name=Iridium Ore
@@ -167,3 +171,35 @@ tile.BlockBasic.IridiumBlock.name=Iridium Block
 tooltip.TitaniumOre=Titanium
 tooltip.UraniumOre=Uranium
 tooltip.IridiumOre=Iridium
+
+tooltip.SolarPanelAdvanced=Advanced solar panel is an improved version of its predecessor. Has higher output and increased energy buffer. Peak energy generation: 650RF/t
+tooltip.SolarPanelHybrid=Hybrid solar panel. Peak energy generation: 5200RF/t
+tooltip.SolarPanelPerfectHybrid=Perfect Hybrid solar panel. Peak energy generation: 10400RF/t
+tooltip.SolarPanelQuantum=Quantum solar panel. Peak energy generation: 15600RF/t
+tooltip.SolarPanelSpectral=Spectral solar panel. Peak energy generation: 20900RF/t
+tooltip.SolarPanelProtonic=Protonic solar panel. Peak energy generation: 26100RF/t
+tooltip.SolarPanelSingular=Singular solar panel. Peak energy generation: 31300RF/t
+tooltip.SolarPanelDiffractive=Diffractive solar panel. Peak energy generation: 36600RF/t
+tooltip.SolarPanelPhotonic=Photonic solar panel. Peak energy generation: 125400RF/t
+tooltip.SolarPanelNeutron=Neutron solar panel. Peak energy generation: 188100RF/t
+
+tooltip.SolarPanelCrystal=Avaritia integration module. Crystal solar panel. Peak energy generation: 806000RF/t
+tooltip.SolarPanelNeutronium=Avaritia integration module. Neutronium solar panel. Peak energy generation: 32250000RF/t
+tooltip.SolarPanelInfinity=Avaritia integration module. Solar panel of infinity. Peak energy generation: 102870000RF/t
+
+tooltip.SolarStationAdvanced=Advanced solar station is an improved version of its predecessor. Has higher output and increased energy buffer. Stations have 4x the generation of panels. Peak energy generation: 3200RF/t
+tooltip.SolarStationHybrid=Peak energy generation: 20900RF/t
+tooltip.SolarStationPerfectHybrid=Peak energy generation: 41800RF/t
+tooltip.SolarStationQuantum=Peak energy generation: 62700RF/t
+tooltip.SolarStationSpectral=Peak energy generation: 83600RF/t
+tooltip.SolarStationProtonic=Peak energy generation: 105000RF/t
+tooltip.SolarStationSingular=Peak energy generation: 125500RF/t
+tooltip.SolarStationDiffractive=Peak energy generation: 146400RF/t
+tooltip.SolarStationPhotonic=Peak energy generation: 500000RF/t
+tooltip.SolarStationNeutron=Peak energy generation: 752800RF/t
+
+tooltip.SolarStationCrystal=Avaritia integration module. Peak energy generation: 3200000RF/t
+tooltip.SolarStationNeutronium=Avaritia integration module. Peak energy generation: 129000000RF/t
+tooltip.SolarStationInfinity=Avaritia integration module. Peak energy generation: 411000000RF/t
+
+

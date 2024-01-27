@@ -57,7 +57,6 @@ public class BlockStateEcoGeneratorAdd extends ExtendedBlockState {
     }
 
     public enum EcoGeneratorTypeAdd implements IStringSerializable, IBlockType {
-
         SOLAR_STATION_ADVANCED(EcoGeneratorBlock.GENERATOR_BLOCK_ECO2, 0, "SolarStationAdvanced", 1, 800000, TileEntitySolarStationAdv::new, true, Plane.HORIZONTAL, false),
         SOLAR_STATION_HYBRID(EcoGeneratorBlock.GENERATOR_BLOCK_ECO2, 1, "SolarStationHybrid", 1, 2400000, TileEntitySolarStationHybrid::new, true, Plane.HORIZONTAL, false),
         SOLAR_STATION_PERFECTHYBRID(EcoGeneratorBlock.GENERATOR_BLOCK_ECO2, 2, "SolarStationPerfectHybrid", 1, 7200000,TileEntitySolarStationPerfectHybrid::new, true,Plane.HORIZONTAL, false),
@@ -68,7 +67,6 @@ public class BlockStateEcoGeneratorAdd extends ExtendedBlockState {
         SOLAR_STATION_DIFFRACTIVE(EcoGeneratorBlock.GENERATOR_BLOCK_ECO2, 7, "SolarStationDiffractive", 1, 138240000, TileEntitySolarStationDiffractive::new, true, Plane.HORIZONTAL, false),
         SOLAR_STATION_PHOTONIC(EcoGeneratorBlock.GENERATOR_BLOCK_ECO2, 8, "SolarStationPhotonic", 1, 552960000, TileEntitySolarStationPhotonic::new, true, Plane.HORIZONTAL, false),
         SOLAR_STATION_NEUTRON(EcoGeneratorBlock.GENERATOR_BLOCK_ECO2, 9, "SolarStationNeutron", 1, 663552000, TileEntitySolarStationNeutron::new, true, Plane.HORIZONTAL, false);
-
 
         public EcoGeneratorBlock blockType;
         public int meta;

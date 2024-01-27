@@ -78,7 +78,7 @@ public class ClientProxy extends CommonProxy {
     private static final IStateMapper generatorMapper = new BlockStateEcoGenerator.GeneratorBlockStateMapper();
     private static final IStateMapper generatorMapperAdd = new BlockStateEcoGeneratorAdd.GeneratorBlockStateMapperAdd();
     private static final IStateMapper transmitterMapper = new BlockStateEcoTransmitter.TransmitterStateMapper();
-    private static final IStateMapper AvaritiaGeneratorMapper = new BlockStateIntegratedAVAGenerator.GeneratorBlockStateMapper();
+    private static final IStateMapper AvaritiaGeneratorMapper = new BlockStateIntegratedAVAGenerator.AvaritiaBlockStateMapper();
     public static Map<String, ModelResourceLocation> transmitterResources = new HashMap<>();
     public static long ticksPassed = 0;
     @Override
@@ -132,7 +132,6 @@ public class ClientProxy extends CommonProxy {
             }
         }
     }
-
 
     @Override
     public void registerItemRenders() {

@@ -17,7 +17,7 @@ import net.minecraftforge.common.capabilities.Capability;
 public class TileEntitySolarStationCrystal extends TileEntitySolarPanelCrystal implements IBoundingBlock, IEvaporationSolar {
 
     public TileEntitySolarStationCrystal() {
-        super("SolarStationCrystal", 800000, AvaritiaSolarConfig.CrystalGen_SS.getValue());
+        super("SolarStationCrystal", 21280000, AvaritiaSolarConfig.CrystalGen_SS.getValue());
     }
 
     @Override

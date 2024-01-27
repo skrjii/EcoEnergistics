@@ -25,7 +25,7 @@ public class TileEntitySolarPanelCrystal extends TileEntityEcoGenerator {
     private float peakOutput;
 
     public TileEntitySolarPanelCrystal() {
-        this("SolarPanelCrystal", 192000, AvaritiaSolarConfig.CrystalGen_S.getValue());
+        this("SolarPanelCrystal", 5320000, AvaritiaSolarConfig.CrystalGen_S.getValue());
     }
 
     public TileEntitySolarPanelCrystal(String name, double maxEnergy, double output) {

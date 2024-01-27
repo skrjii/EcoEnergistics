@@ -25,7 +25,7 @@ public class TileEntitySolarPanelNeutronium extends TileEntityEcoGenerator {
     private float peakOutput;
 
     public TileEntitySolarPanelNeutronium() {
-        this("SolarPanelNeutronium", 21280000, AvaritiaSolarConfig.NeutroniumGen_S.getValue());
+        this("SolarPanelNeutronium", 212800000, AvaritiaSolarConfig.NeutroniumGen_S.getValue());
     }
 
     public TileEntitySolarPanelNeutronium(String name, double maxEnergy, double output) {

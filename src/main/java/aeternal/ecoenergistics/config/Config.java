@@ -49,11 +49,11 @@ public class Config extends BaseConfig {
     public final BooleanOption BotaniaEnable = new BooleanOption(this, "integration", "Enable Botania Integration",true);
     public final DoubleOption solarPanelCrystalGeneration = new DoubleOption(this, "integration", "CrystalSolarPanelGeneration", 1330000.0, "Peak output for the Crystal Solar Panel.");
     public final DoubleOption solarPanelNeutroniumGeneration = new DoubleOption(this, "integration", "NeutronSolarPanelGeneration", 53200000.0, "Peak output for the Neutron Solar Panel.");
-    public final DoubleOption solarPanelInfinityGeneration = new DoubleOption(this, "integration", "InfinitySolarPanelGeneration", 84840000.0, "Peak output for the Solar Panel of Infinity.");
+    public final DoubleOption solarPanelInfinityGeneration = new DoubleOption(this, "integration", "InfinitySolarPanelGeneration", 169680000.0, "Peak output for the Solar Panel of Infinity.");
 
-    public final DoubleOption solarStationCrystalGeneration = new DoubleOption(this, "integration", "CrystalSolarStationGeneration", 5000.0, "Peak output for the Crystal Solar Station.");
-    public final DoubleOption solarStationNeutroniumGeneration = new DoubleOption(this, "integration", "NeutronSolarStationGeneration", 5000.0, "Peak output for the Neutron Solar Station.");
-    public final DoubleOption solarStationInfinityGeneration = new DoubleOption(this, "integration", "CrystalSolarStationGeneration", 5000.0, "Peak output for the Solar Station of Infinity.");
+    public final DoubleOption solarStationCrystalGeneration = new DoubleOption(this, "integration", "CrystalSolarStationGeneration", 5320000.0, "Peak output for the Crystal Solar Station.");
+    public final DoubleOption solarStationNeutroniumGeneration = new DoubleOption(this, "integration", "NeutronSolarStationGeneration", 212800000.0, "Peak output for the Neutron Solar Station.");
+    public final DoubleOption solarStationInfinityGeneration = new DoubleOption(this, "integration", "InfinitySolarStationGeneration", 678720000.0, "Peak output for the Solar Station of Infinity.");
 
 public final EnumMap<MEETiers, TierConfig> tiers;
     public Config() {

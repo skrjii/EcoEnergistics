@@ -15,7 +15,7 @@ import net.minecraftforge.common.capabilities.Capability;
 public class TileEntitySolarStationNeutronium extends TileEntitySolarPanelNeutronium implements IBoundingBlock, IEvaporationSolar {
 
     public TileEntitySolarStationNeutronium() {
-        super("SolarStationNeutronium", 800000, AvaritiaSolarConfig.NeutroniumGen_SS.getValue());
+        super("SolarStationNeutronium", 851200000, AvaritiaSolarConfig.NeutroniumGen_SS.getValue());
     }
 
     @Override

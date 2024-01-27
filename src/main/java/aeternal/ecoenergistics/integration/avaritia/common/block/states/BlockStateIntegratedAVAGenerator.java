@@ -56,7 +56,7 @@ public class BlockStateIntegratedAVAGenerator extends ExtendedBlockState {
 
         public Block getBlock() {
             if (this == AvaritiaGeneratorBlock.GENERATOR_BLOCK_AVARITIA) {
-                return EcoEnergisticsBlocks.EcoGenerator;
+                return EcoEnergisticsBlocks.AvaritiaGenerator;
             }
             return null;
         }
@@ -64,12 +64,12 @@ public class BlockStateIntegratedAVAGenerator extends ExtendedBlockState {
 
     public enum AvaritiaGeneratorType implements IStringSerializable, IBlockType {
         SOLAR_PANEL_CRYSTAL(AvaritiaGeneratorBlock.GENERATOR_BLOCK_AVARITIA, 0, "SolarPanelCrystal", 1, 5320000, TileEntitySolarPanelCrystal::new, true, Plane.HORIZONTAL, false),
-        SOLAR_PANEL_NEUTRON(AvaritiaGeneratorBlock.GENERATOR_BLOCK_AVARITIA, 1, "SolarPanelNeutronium", 1, 21280000, TileEntitySolarPanelNeutronium::new, true, Plane.HORIZONTAL, false),
-        SOLAR_PANEL_INFINITY(AvaritiaGeneratorBlock.GENERATOR_BLOCK_AVARITIA, 2, "SolarPanelInfinity", 1, 339360000, TileEntitySolarPanelInfinity::new, true, Plane.HORIZONTAL, false),
+        SOLAR_PANEL_NEUTRON(AvaritiaGeneratorBlock.GENERATOR_BLOCK_AVARITIA, 1, "SolarPanelNeutronium", 1, 212800000, TileEntitySolarPanelNeutronium::new, true, Plane.HORIZONTAL, false),
+        SOLAR_PANEL_INFINITY(AvaritiaGeneratorBlock.GENERATOR_BLOCK_AVARITIA, 2, "SolarPanelInfinity", 1, 678720000, TileEntitySolarPanelInfinity::new, true, Plane.HORIZONTAL, false),
 
-        SOLAR_STATION_CRYSTAL(AvaritiaGeneratorBlock.GENERATOR_BLOCK_AVARITIA, 3, "SolarStationCrystal", 1, 339360000,TileEntitySolarStationCrystal::new, true,Plane.HORIZONTAL, false),
-        SOLAR_STATION_NEUTRON(AvaritiaGeneratorBlock.GENERATOR_BLOCK_AVARITIA, 4, "SolarStationNeutronium", 1, 339360000,TileEntitySolarStationNeutronium::new, true,Plane.HORIZONTAL, false),
-        SOLAR_STATION_INFINITY(AvaritiaGeneratorBlock.GENERATOR_BLOCK_AVARITIA, 5, "SolarStationInfinity", 1, 339360000,TileEntitySolarStationInfinity::new, true,Plane.HORIZONTAL, false);
+        SOLAR_STATION_CRYSTAL(AvaritiaGeneratorBlock.GENERATOR_BLOCK_AVARITIA, 3, "SolarStationCrystal", 1, 21280000,TileEntitySolarStationCrystal::new, true,Plane.HORIZONTAL, false),
+        SOLAR_STATION_NEUTRON(AvaritiaGeneratorBlock.GENERATOR_BLOCK_AVARITIA, 4, "SolarStationNeutronium", 1, 851200000,TileEntitySolarStationNeutronium::new, true,Plane.HORIZONTAL, false),
+        SOLAR_STATION_INFINITY(AvaritiaGeneratorBlock.GENERATOR_BLOCK_AVARITIA, 5, "SolarStationInfinity", 1, Integer.MAX_VALUE,TileEntitySolarStationInfinity::new, true,Plane.HORIZONTAL, false);
 
         public AvaritiaGeneratorBlock blockType;
         public int meta;
@@ -152,7 +152,7 @@ public class BlockStateIntegratedAVAGenerator extends ExtendedBlockState {
         }
 
         public ItemStack getStack() {
-            return new ItemStack(EcoEnergisticsBlocks.EcoGenerator, 1, meta);
+            return new ItemStack(EcoEnergisticsBlocks.AvaritiaGenerator, 1, meta);
         }
 
         public boolean canRotateTo(EnumFacing side) {
@@ -168,7 +168,7 @@ public class BlockStateIntegratedAVAGenerator extends ExtendedBlockState {
         }
     }
 
-    public static class GeneratorBlockStateMapper extends StateMapperBase {
+    public static class AvaritiaBlockStateMapper extends StateMapperBase {
 
         @Nonnull
         @Override
