@@ -1,7 +1,6 @@
 package aeternal.ecoenergistics.common.item;
 
 import aeternal.ecoenergistics.Constants;
-
 import mekanism.common.item.ItemEnergized;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;

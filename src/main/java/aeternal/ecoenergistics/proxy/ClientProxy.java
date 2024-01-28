@@ -39,6 +39,7 @@ import aeternal.ecoenergistics.integration.avaritia.client.render.solar.station.
 import aeternal.ecoenergistics.integration.avaritia.client.render.solar.station.RenderSolarStationNeutronium;
 import aeternal.ecoenergistics.integration.avaritia.common.block.states.BlockStateIntegratedAVAGenerator.AvaritiaGeneratorType;
 import aeternal.ecoenergistics.integration.avaritia.common.block.states.BlockStateIntegratedAVAGenerator;
+import aeternal.ecoenergistics.integration.avaritia.common.item.AvaritiaModuleItems;
 import aeternal.ecoenergistics.integration.avaritia.common.tile.solar.panel.TileEntitySolarPanelCrystal;
 import aeternal.ecoenergistics.integration.avaritia.common.tile.solar.panel.TileEntitySolarPanelInfinity;
 import aeternal.ecoenergistics.integration.avaritia.common.tile.solar.panel.TileEntitySolarPanelNeutronium;
@@ -137,13 +138,6 @@ public class ClientProxy extends CommonProxy {
     public void registerItemRenders() {
         Item.getItemFromBlock(EcoEnergisticsBlocks.EcoGenerator).setTileEntityItemStackRenderer(new RenderEcoGeneratorItem());
         Item.getItemFromBlock(EcoEnergisticsBlocks.EcoGeneratorAdd).setTileEntityItemStackRenderer(new RenderEcoGeneratorItemAdd());
-        if (Constants.AvaritiaLoaded && Constants.AvaritiaConfirm) {
-            try {
-                Item.getItemFromBlock(EcoEnergisticsBlocks.AvaritiaGenerator).setTileEntityItemStackRenderer(new RenderAvaritiaGeneratorItem());
-            } catch (Exception e) {
-                EcoEnergistics.logger.error("Failed to register item render for EcoEnergistics Avaritia module", e);
-            }
-        }
         registerItemRender(EcoEnergisticsItems.MoreControlCircuit);
         registerItemRender(EcoEnergisticsItems.MoreAlloy);
         registerItemRender(EcoEnergisticsItems.MoreDust);
@@ -167,6 +161,18 @@ public class ClientProxy extends CommonProxy {
         registerItemRender(EcoEnergisticsItems.EnergyTabletDiffractive);
         registerItemRender(EcoEnergisticsItems.EnergyTabletPhotonic);
         registerItemRender(EcoEnergisticsItems.EnergyTabletNeutron);
+        if (Constants.AvaritiaLoaded && Constants.AvaritiaConfirm) {
+            try {
+                Item.getItemFromBlock(EcoEnergisticsBlocks.AvaritiaGenerator).setTileEntityItemStackRenderer(new RenderAvaritiaGeneratorItem());
+                registerItemRender(AvaritiaModuleItems.AlloyAvaritia);
+                registerItemRender(AvaritiaModuleItems.DustAvaritia);
+                registerItemRender(AvaritiaModuleItems.CompressedAvaritia);
+                registerItemRender(AvaritiaModuleItems.SolarCellAvaritia);
+                registerItemRender(AvaritiaModuleItems.ControlCircuitAvaritia);
+            } catch (Exception e) {
+                EcoEnergistics.logger.error("Failed to register item render for EcoEnergistics Avaritia module", e);
+            }
+        }
     }
 
     @Override

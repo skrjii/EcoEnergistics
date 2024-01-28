@@ -29,7 +29,7 @@ public class RenderMechanicalPipe extends RenderTransmitterBase<TileEntityEcoMec
     private static final int stages = 100;
     private static final double height = 0.45;
     private static final double offset = 0.015;
-    //TODO this is basically used as an enum map (EnumFacing), but null key is possible, which EnumMap doesn't support. 6 is used for null side
+    //TODO this is basically used as an enums map (EnumFacing), but null key is possible, which EnumMap doesn't support. 6 is used for null side
     private static Int2ObjectMap<FluidRenderMap<DisplayInteger[]>> cachedLiquids = new Int2ObjectArrayMap<>(7);
 
     public static void onStitch() {

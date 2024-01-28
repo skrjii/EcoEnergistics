@@ -5,6 +5,7 @@ import aeternal.ecoenergistics.common.creativetab.EcoEnergisticsCreativeTab;
 import aeternal.ecoenergistics.common.enums.Ore;
 import aeternal.ecoenergistics.common.item.EcoEnergisticsItems;
 import aeternal.ecoenergistics.common.world.GenHandler;
+import aeternal.ecoenergistics.integration.avaritia.common.item.AvaritiaModuleItems;
 import aeternal.ecoenergistics.proxy.CommonProxy;
 import io.netty.buffer.ByteBuf;
 import mekanism.api.MekanismAPI;
@@ -46,6 +47,11 @@ import static aeternal.ecoenergistics.common.recipes.Enrichment.InitCustomEnrich
 import static aeternal.ecoenergistics.common.recipes.Infuser.InitCustomInfuserRecipes;
 import static aeternal.ecoenergistics.common.recipes.Injection.InitCustomInjectionRecipes;
 import static aeternal.ecoenergistics.common.recipes.Purification.InitCustomPurificationRecipes;
+import static aeternal.ecoenergistics.integration.avaritia.common.InfusersAvaritia.registerAvaritiaInfuseObject;
+import static aeternal.ecoenergistics.integration.avaritia.common.InfusersAvaritia.registerAvaritiaInfuseType;
+import static aeternal.ecoenergistics.integration.avaritia.common.recipes.CrusherAvaritiaModule.InitAvaritiaCrusherRecipes;
+import static aeternal.ecoenergistics.integration.avaritia.common.recipes.InfuserAvaritiaModule.InitAvaritiaInfuserRecipes;
+
 import java.io.File;
 
 
@@ -83,6 +89,7 @@ public class EcoEnergistics implements IModule {
         registerOreDict();
         if (Constants.AvaritiaLoaded && Constants.AvaritiaConfirm) {
             EcoEnergisticsBlocks.registerAvaritiaItemBlocks(event.getRegistry());
+            AvaritiaModuleItems.registerItems(event.getRegistry());
         }
     }
 
@@ -95,12 +102,16 @@ public class EcoEnergistics implements IModule {
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         registerInfuseType();
+
         File config = event.getSuggestedConfigurationFile();
         //Set the mod's configuration
         configuration = new Configuration(config);
         //Load configuration
         proxy.loadConfiguration();
         proxy.preInit();
+        if (Constants.AvaritiaLoaded && Constants.AvaritiaConfirm) {
+            registerAvaritiaInfuseType();
+        }
     }
 
     @EventHandler
@@ -134,6 +145,11 @@ public class EcoEnergistics implements IModule {
         InitCustomInjectionRecipes();
         InitSmeltingRecipes();
         registerInfuseObject();
+        if (Constants.AvaritiaLoaded && Constants.AvaritiaConfirm) {
+            registerAvaritiaInfuseObject();
+            InitAvaritiaInfuserRecipes();
+            InitAvaritiaCrusherRecipes();
+        }
     }
 
     public static void InitSmeltingRecipes() {
@@ -217,6 +233,28 @@ public class EcoEnergistics implements IModule {
         OreDictionary.registerOre("alloyDiffractive", new ItemStack(EcoEnergisticsItems.MoreControlCircuit, 1, 7));
         OreDictionary.registerOre("alloyPhotonic", new ItemStack(EcoEnergisticsItems.MoreControlCircuit, 1, 8));
         OreDictionary.registerOre("alloyNeutron", new ItemStack(EcoEnergisticsItems.MoreControlCircuit, 1, 9));
+
+        if (Constants.AvaritiaLoaded && Constants.AvaritiaConfirm) {
+            OreDictionary.registerOre("alloyCrystal", new ItemStack(AvaritiaModuleItems.AlloyAvaritia, 1, 0));
+            OreDictionary.registerOre("alloyNeutronium", new ItemStack(AvaritiaModuleItems.AlloyAvaritia, 1, 1));
+            OreDictionary.registerOre("alloyInfinity", new ItemStack(AvaritiaModuleItems.AlloyAvaritia, 1, 2));
+
+            OreDictionary.registerOre("circuitCrystal", new ItemStack(AvaritiaModuleItems.ControlCircuitAvaritia, 1, 0));
+            OreDictionary.registerOre("circuitNeutronium", new ItemStack(AvaritiaModuleItems.ControlCircuitAvaritia, 1, 1));
+            OreDictionary.registerOre("circuitInfinity", new ItemStack(AvaritiaModuleItems.ControlCircuitAvaritia, 1, 2));
+
+            OreDictionary.registerOre("dustCrystal", new ItemStack(AvaritiaModuleItems.DustAvaritia, 1, 0));
+            OreDictionary.registerOre("dustNeutronium", new ItemStack(AvaritiaModuleItems.DustAvaritia, 1, 1));
+            OreDictionary.registerOre("dustInfinity", new ItemStack(AvaritiaModuleItems.DustAvaritia, 1, 2));
+
+            OreDictionary.registerOre("itemCompressedCrystal", new ItemStack(AvaritiaModuleItems.CompressedAvaritia, 1, 0));
+            OreDictionary.registerOre("itemCompressedNeutronium", new ItemStack(AvaritiaModuleItems.CompressedAvaritia, 1, 1));
+            OreDictionary.registerOre("itemCompressedInfinity", new ItemStack(AvaritiaModuleItems.CompressedAvaritia, 1, 2));
+
+            OreDictionary.registerOre("cellCrystal", new ItemStack(AvaritiaModuleItems.SolarCellAvaritia, 1, 0));
+            OreDictionary.registerOre("cellNeutronium", new ItemStack(AvaritiaModuleItems.SolarCellAvaritia, 1, 1));
+            OreDictionary.registerOre("cellInfinity", new ItemStack(AvaritiaModuleItems.SolarCellAvaritia, 1, 2));
+        }
     }
 
     @Override

@@ -91,6 +91,26 @@ item.EnergyTabletDiffractive.name=Diffractive Energy Tablet
 item.EnergyTabletPhotonic.name=Photonic Energy Tablet
 item.EnergyTabletNeutron.name=Neutron Energy Tablet
 
+item.CrystalMatrixControlCircuit.name=Crystal Control Circuit
+item.NeutroniumControlCircuit.name=Neutronium Control Circuit
+item.InfinityControlCircuit.name=Infinity Control Circuit
+
+item.CrystalMatrixAlloy.name=Crystal Alloy
+item.NeutroniumAlloy.name=Neutronium Alloy
+item.InfinityAlloy.name=Infinity Alloy
+
+item.CrystalMatrixDust.name=Crystal Dust
+item.NeutroniumDust.name=Neutronium Dust
+item.InfinityDust.name=Infinity Dust
+
+item.CrystalMatrixCompressed.name=Compressed Crystal Matrix
+item.NeutroniumCompressed.name=Compressed Neutronium
+item.InfinityCompressed.name=Compressed Infinity
+
+item.CrystalMatrixSolarCell.name=Crystal Solar Cell
+item.NeutroniumSolarCell.name=Neutronium Solar Cell
+item.InfinitySolarCell.name=Infinity Solar Cell
+
 #Infusers
 infuse.glowstone=Glowstone
 infuse.lapis=Lapis
@@ -98,6 +118,9 @@ infuse.emerald=Emerald
 infuse.gold=Gold
 infuse.steel=Steel
 infuse.iridium=Iridium
+infuse.crystal=Crystal
+infuse.neutronium=Neutronium
+infuse.infinity=Infinity
 
 #Tiles
 tile.EcoGenerator.SolarPanelAdvanced.name=Advanced Solar Panel
