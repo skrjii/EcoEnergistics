@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "mekanismecoenergistics:morenugget",
+    "data": 3,
+    "count": 9
+  },
+  "pattern": [
+    "*"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "*": {
+      "ore": "ingotIridium",
+      "type": "forge:ore_dict"
+    }
+  }
+}

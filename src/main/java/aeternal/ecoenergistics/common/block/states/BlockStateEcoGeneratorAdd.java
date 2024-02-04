@@ -1,7 +1,5 @@
 package aeternal.ecoenergistics.common.block.states;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -13,7 +11,7 @@ import mekanism.common.base.IBlockType;
 import mekanism.common.block.states.BlockStateFacing;
 import mekanism.common.block.states.BlockStateUtils;
 import mekanism.common.util.LangUtils;
-import aeternal.ecoenergistics.common.EcoGeneratorsBlocks;
+import aeternal.ecoenergistics.common.EcoEnergisticsBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
@@ -52,14 +50,13 @@ public class BlockStateEcoGeneratorAdd extends ExtendedBlockState {
 
         public Block getBlock() {
             if (this == EcoGeneratorBlock.GENERATOR_BLOCK_ECO2) {
-                return EcoGeneratorsBlocks.EcoGeneratorAdd;
+                return EcoEnergisticsBlocks.EcoGeneratorAdd;
             }
             return null;
         }
     }
 
     public enum EcoGeneratorTypeAdd implements IStringSerializable, IBlockType {
-
         SOLAR_STATION_ADVANCED(EcoGeneratorBlock.GENERATOR_BLOCK_ECO2, 0, "SolarStationAdvanced", 1, 800000, TileEntitySolarStationAdv::new, true, Plane.HORIZONTAL, false),
         SOLAR_STATION_HYBRID(EcoGeneratorBlock.GENERATOR_BLOCK_ECO2, 1, "SolarStationHybrid", 1, 2400000, TileEntitySolarStationHybrid::new, true, Plane.HORIZONTAL, false),
         SOLAR_STATION_PERFECTHYBRID(EcoGeneratorBlock.GENERATOR_BLOCK_ECO2, 2, "SolarStationPerfectHybrid", 1, 7200000,TileEntitySolarStationPerfectHybrid::new, true,Plane.HORIZONTAL, false),
@@ -70,7 +67,6 @@ public class BlockStateEcoGeneratorAdd extends ExtendedBlockState {
         SOLAR_STATION_DIFFRACTIVE(EcoGeneratorBlock.GENERATOR_BLOCK_ECO2, 7, "SolarStationDiffractive", 1, 138240000, TileEntitySolarStationDiffractive::new, true, Plane.HORIZONTAL, false),
         SOLAR_STATION_PHOTONIC(EcoGeneratorBlock.GENERATOR_BLOCK_ECO2, 8, "SolarStationPhotonic", 1, 552960000, TileEntitySolarStationPhotonic::new, true, Plane.HORIZONTAL, false),
         SOLAR_STATION_NEUTRON(EcoGeneratorBlock.GENERATOR_BLOCK_ECO2, 9, "SolarStationNeutron", 1, 663552000, TileEntitySolarStationNeutron::new, true, Plane.HORIZONTAL, false);
-
 
         public EcoGeneratorBlock blockType;
         public int meta;
@@ -153,7 +149,7 @@ public class BlockStateEcoGeneratorAdd extends ExtendedBlockState {
         }
 
         public ItemStack getStack() {
-            return new ItemStack(EcoGeneratorsBlocks.EcoGeneratorAdd, 1, meta);
+            return new ItemStack(EcoEnergisticsBlocks.EcoGeneratorAdd, 1, meta);
         }
 
         public boolean canRotateTo(EnumFacing side) {

@@ -1,0 +1,19 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "mekanism:transmitter_small.obj.mek",
+    "textures": {
+      "#side": "mekanismecoenergistics:blocks/models/multipart/UniversalCableVerticalHybrid",
+      "#center": "mekanismecoenergistics:blocks/models/multipart/UniversalCableHybrid",
+      "#side_opaque": "mekanismecoenergistics:blocks/models/multipart/opaque/UniversalCableVerticalHybrid",
+      "#center_opaque": "mekanismecoenergistics:blocks/models/multipart/UniversalCableHybrid"
+    },
+    "custom": {
+      "flip-v": true
+    }
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}]
+  }
+}

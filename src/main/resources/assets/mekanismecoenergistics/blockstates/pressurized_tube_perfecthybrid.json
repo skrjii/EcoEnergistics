@@ -1,0 +1,20 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "mekanism:transmitter_small.obj.mek",
+    "textures": {
+      "#side": "mekanismecoenergistics:blocks/models/multipart/PressurizedTubeVerticalPerfectHybrid",
+      "#center": "mekanismecoenergistics:blocks/models/multipart/PressurizedTubePerfectHybrid",
+      "#side_opaque": "mekanismecoenergistics:blocks/models/multipart/opaque/PressurizedTubeVerticalPerfectHybrid",
+      "#center_opaque": "mekanismecoenergistics:blocks/models/multipart/PressurizedTubePerfectHybrid"
+    },
+    "custom": {
+      "flip-v": true
+    }
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}]
+  }
+}
+

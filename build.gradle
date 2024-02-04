@@ -84,6 +84,10 @@ configurations {
 //End of the SCP config
 
 dependencies {
+//    compileOnly "curse.maven:"
+//    runtimeOnly "curse.maven:"
+    compileOnly "curse.maven:MCMultiPart-239431:2615930"
+    runtimeOnly "curse.maven:MCMultiPart-239431:2615930"
     compileOnly "org.jetbrains:annotations:17.0.0"
     compileOnly 'javax.annotation:javax.annotation-api:1.3.2'
     runtimeOnly "curse.maven:mekanism-268560:2835175"
@@ -96,7 +100,12 @@ dependencies {
     runtimeOnly "curse.maven:redstoneflux-270789:2623090"
     compileOnly "curse.maven:tesla-244651:2487959"
     runtimeOnly "curse.maven:tesla-244651:2487959"
-
+    compileOnly "curse.maven:avaritia-261348:3143349"
+    runtimeOnly "curse.maven:avaritia-261348:3143349"
+    compileOnly "curse.maven:draconicevolution-223565:3431261"
+    runtimeOnly "curse.maven:draconicevolution-223565:3431261"
+    compileOnly "curse.maven:botania-225643:3330934"
+    runtimeOnly "curse.maven:botania-225643:3330934"
     //and a bit more for SCP
     sshAntTask "org.apache.ant:ant-jsch:1.7.1", "jsch:jsch:0.1.29"
 }

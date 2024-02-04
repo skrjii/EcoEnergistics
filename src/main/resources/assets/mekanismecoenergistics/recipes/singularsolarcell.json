@@ -6,7 +6,7 @@
   "pattern": [
     "GGG",
     "PAP",
-    "DID"
+    "DDD"
   ],
   "type": "forge:ore_shaped",
   "key":
@@ -18,21 +18,18 @@
     },
     "P":
     {
-      "item": "mekanism:compressedobsidian"
+      "item": "mekanismecoenergistics:morecompressed",
+      "data": 4
     },
     "D":
     {
-      "item": "mekanism:polyethene",
-      "data": 2
+      "item": "mekanismecoenergistics:morecompressed",
+      "data": 6
     },
     "G": {
       "item": "minecraft:stained_glass_pane",
       "data": 15
-    },
-    "I":
-    {
-      "item": "mekanism:ingot",
-      "data": 3
     }
+
   }
 }

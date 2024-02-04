@@ -1,0 +1,19 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "mekanism:transmitter_small.obj.mek",
+    "textures": {
+      "#side": "mekanismecoenergistics:blocks/models/multipart/UniversalCableVerticalProtonic",
+      "#center": "mekanismecoenergistics:blocks/models/multipart/UniversalCableProtonic",
+      "#side_opaque": "mekanismecoenergistics:blocks/models/multipart/opaque/UniversalCableVerticalProtonic",
+      "#center_opaque": "mekanismecoenergistics:blocks/models/multipart/UniversalCableProtonic"
+    },
+    "custom": {
+      "flip-v": true
+    }
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}]
+  }
+}

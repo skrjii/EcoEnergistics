@@ -2,10 +2,8 @@ package aeternal.ecoenergistics.common.tile.solar.station;
 
 import javax.annotation.Nonnull;
 
-import aeternal.ecoenergistics.common.tile.solar.panel.SolarConfig;
+import aeternal.ecoenergistics.common.tile.solar.SolarConfig;
 import aeternal.ecoenergistics.common.tile.solar.panel.TileEntitySolarPanelAdvanced;
-import aeternal.ecoenergistics.common.tile.solar.panel.TileEntitySolarPanelHybrid;
-import aeternal.ecoenergistics.config.EcoConfig;
 import mekanism.api.Coord4D;
 import mekanism.api.IEvaporationSolar;
 import mekanism.common.base.IBoundingBlock;

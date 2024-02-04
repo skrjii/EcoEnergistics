@@ -1,7 +1,7 @@
 package aeternal.ecoenergistics.common.block;
 
 import aeternal.ecoenergistics.EcoEnergistics;
-import aeternal.ecoenergistics.common.EcoGeneratorsBlocks;
+import aeternal.ecoenergistics.common.EcoEnergisticsBlocks;
 import aeternal.ecoenergistics.common.block.states.BlockStateEcoGeneratorAdd;
 import aeternal.ecoenergistics.common.tile.BlockEcoContainer;
 import aeternal.ecoenergistics.common.tile.TileEntityEcoBasicBlock;
@@ -12,7 +12,6 @@ import mekanism.api.IMekWrench;
 import mekanism.api.energy.IEnergizedItem;
 import mekanism.common.base.*;
 import mekanism.common.block.states.BlockStateFacing;
-import mekanism.common.config.MekanismConfig;
 import mekanism.common.integration.wrenches.Wrenches;
 import mekanism.common.multiblock.IMultiblock;
 import mekanism.common.util.MekanismUtils;
@@ -330,7 +329,7 @@ public abstract class BlockEcoGeneratorAdd extends BlockEcoContainer {
     @Override
     protected ItemStack getDropItem(@Nonnull IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
         TileEntityEcoBasicBlock tileEntity = (TileEntityEcoBasicBlock) world.getTileEntity(pos);
-        ItemStack itemStack = new ItemStack(EcoGeneratorsBlocks.EcoGeneratorAdd, 1, state.getBlock().getMetaFromState(state));
+        ItemStack itemStack = new ItemStack(EcoEnergisticsBlocks.EcoGeneratorAdd, 1, state.getBlock().getMetaFromState(state));
         if (tileEntity == null) {
             return ItemStack.EMPTY;
         }

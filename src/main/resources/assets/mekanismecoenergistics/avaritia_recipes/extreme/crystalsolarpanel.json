@@ -1,0 +1,49 @@
+{
+  "type": "avaritia:shaped",
+  "result": {
+    "item": "mekanismecoenergistics:avaritiagenerator",
+    "data": 0,
+    "count": 1
+  },
+  "pattern": [
+    "         ",
+    "         ",
+    "  SSSSS  ",
+    "  MCpCM  ",
+    "  MAPAM  ",
+    "  MEPEM  ",
+    "  PPPPP  ",
+    "         ",
+    "         "
+  ],
+  "key": {
+    "S": {
+      "type": "minecraft:item",
+      "item": "#crystal_solarcell"
+    },
+    "M": {
+      "type": "minecraft:item",
+      "item": "#diamond_lattice"
+    },
+    "P": {
+      "type": "minecraft:item",
+      "item": "#compressed_crystal"
+    },
+    "p": {
+      "type": "minecraft:item",
+      "item": "#panel_neutron"
+    },
+    "C": {
+      "type": "minecraft:item",
+      "item": "#controlcircuit_crystal"
+    },
+    "E": {
+      "type": "minecraft:item",
+      "item": "#neutron_tablet"
+    },
+    "A": {
+      "type": "minecraft:item",
+      "item": "#crystal_alloy"
+    }
+  }
+}

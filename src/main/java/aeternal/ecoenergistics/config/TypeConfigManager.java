@@ -38,11 +38,11 @@ public class TypeConfigManager<T extends Enum<T>> extends Option<TypeConfigManag
     }
 
     /**
-     * Get the enum constant from a name. Used in recipes, allowed to be non-cached
+     * Get the enums constant from a name. Used in recipes, allowed to be non-cached
      *
      * @param name JSON supplied name
      *
-     * @return the found enum constant or null
+     * @return the found enums constant or null
      */
     @Nullable
     public T typeFromName(String name) {

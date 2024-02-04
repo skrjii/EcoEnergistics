@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "mekanismecoenergistics:blockbasic",
+    "data": 0
+  },
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "type": "mekanism:ore_shaped",
+  "key": {
+    "X": {
+      "ore": "ingotTitanium",
+      "type": "forge:ore_dict"
+    }
+  }
+}

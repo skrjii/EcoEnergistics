@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "mekanismecoenergistics:morenugget",
+    "data": 0,
+    "count": 9
+  },
+  "pattern": [
+    "*"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "*": {
+      "ore": "ingotActivatedGlowstone",
+      "type": "forge:ore_dict"
+    }
+  }
+}

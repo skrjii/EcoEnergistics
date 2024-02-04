@@ -22,7 +22,8 @@
     },
     "I":
     {
-      "item": "mekanism:compressedobsidian"
+      "item": "mekanismecoenergistics:morecompressed",
+      "data": 5
     },
     "T":
     {

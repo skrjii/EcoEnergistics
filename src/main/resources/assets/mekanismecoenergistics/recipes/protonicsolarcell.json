@@ -22,8 +22,8 @@
     },
     "D":
     {
-      "item": "mekanism:polyethene",
-      "data": 2
+      "item": "mekanismecoenergistics:morecompressed",
+      "data": 6
     },
     "G": {
       "item": "minecraft:stained_glass_pane",

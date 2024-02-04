@@ -23,12 +23,13 @@
     },
     "P":
     {
-      "item": "mekanism:compressedobsidian"
+      "item": "mekanismecoenergistics:morecompressed",
+      "data": 6
     },
     "H":
     {
-      "item": "mekanism:polyethene",
-      "data": 1
+      "item": "mekanismecoenergistics:morerod",
+      "data": 0
     }
   }
 }

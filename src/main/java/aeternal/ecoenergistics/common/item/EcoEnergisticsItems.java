@@ -11,6 +11,17 @@ import net.minecraftforge.registries.IForgeRegistry;
 public class EcoEnergisticsItems {
 
     public static final Item MoreAlloy = new ItemMoreAlloy();
+    public static final Item MoreDust = new ItemMoreDust();
+    public static final Item Dust = new ItemDust();
+    public static final Item MoreCompressed = new ItemCompressed();
+    public static final Item MoreRod = new ItemRods();
+    public static final Item MoreIngot = new ItemIngot();
+    public static final Item MoreNugget = new ItemNugget();
+    public static final Item MoreClump = new ItemClump();
+    public static final Item MoreCrystal = new ItemCrystal();
+    public static final Item MoreDirtyDust = new ItemDirtyDust();
+    public static final Item MoreShard = new ItemShard();
+
     public static final Item MoreControlCircuit = new ItemMoreControlCircuit();
     public static final Item MoreSolarCell = new ItemMoreSolarCells();
     public static final ItemEnergized EnergyTabletAdvanced = new ItemEnergized(2000000);
@@ -26,6 +37,16 @@ public class EcoEnergisticsItems {
     public static void registerItems(IForgeRegistry<Item> registry) {
         registry.register(init(MoreControlCircuit, "MoreControlCircuit"));
         registry.register(init(MoreAlloy, "MoreAlloy"));
+        registry.register(init(MoreDust, "MoreDust"));
+        registry.register(init(Dust, "Dust"));
+        registry.register(init(MoreCompressed, "MoreCompressed"));
+        registry.register(init(MoreRod, "MoreRod"));
+        registry.register(init(MoreIngot, "MoreIngot"));
+        registry.register(init(MoreNugget, "MoreNugget"));
+        registry.register(init(MoreCrystal, "MoreCrystal"));
+        registry.register(init(MoreClump, "MoreClump"));
+        registry.register(init(MoreShard, "MoreShard"));
+        registry.register(init(MoreDirtyDust, "MoreDirtyDust"));
         registry.register(init(MoreSolarCell, "MoreSolarCell"));
         registry.register(init(EnergyTabletAdvanced, "EnergyTabletAdvanced"));
         registry.register(init(EnergyTabletHybrid, "EnergyTabletHybrid"));

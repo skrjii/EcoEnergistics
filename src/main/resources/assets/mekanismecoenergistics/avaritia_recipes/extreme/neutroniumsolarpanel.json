@@ -1,0 +1,53 @@
+{
+  "type": "avaritia:shaped",
+  "result": {
+    "item": "mekanismecoenergistics:avaritiagenerator",
+    "data": 1,
+    "count": 1
+  },
+  "pattern": [
+    "         ",
+    "         ",
+    "  SSSSS  ",
+    "  MCpCM  ",
+    "  MAPAM  ",
+    "  MsPGM  ",
+    "  PPPPP  ",
+    "         ",
+    "         "
+  ],
+  "key": {
+    "S": {
+      "type": "minecraft:item",
+      "item": "#neutronium_solarcell"
+    },
+    "M": {
+      "type": "minecraft:item",
+      "item": "#compressed_neutronium"
+    },
+    "P": {
+      "type": "minecraft:item",
+      "item": "#compressed_neutronium"
+    },
+    "p": {
+      "type": "minecraft:item",
+      "item": "#panel_crystal"
+    },
+    "C": {
+      "type": "minecraft:item",
+      "item": "#controlcircuit_neutronium"
+    },
+    "s": {
+      "type": "minecraft:item",
+      "item": "#redstone_singularity"
+    },
+    "G": {
+      "type": "minecraft:item",
+      "item": "#lapis_singularity"
+    },
+    "A": {
+      "type": "minecraft:item",
+      "item": "#neutronium_alloy"
+    }
+  }
+}

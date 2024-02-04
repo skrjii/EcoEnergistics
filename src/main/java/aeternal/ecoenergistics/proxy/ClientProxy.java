@@ -1,48 +1,95 @@
 package aeternal.ecoenergistics.proxy;
 
 //import aeternal.ecoenergistics.client.gui.GuiSolarPanel;
-import aeternal.ecoenergistics.client.render.EcoERender;
-import aeternal.ecoenergistics.client.render.item.RenderEcoGeneratorItemAdd;
-import aeternal.ecoenergistics.client.render.solar.panel.*;
-import aeternal.ecoenergistics.client.render.solar.station.*;
-import aeternal.ecoenergistics.common.block.states.BlockStateEcoGenerator;
-import aeternal.ecoenergistics.common.block.states.BlockStateEcoGeneratorAdd;
-import aeternal.ecoenergistics.common.block.states.BlockStateEcoGeneratorAdd.EcoGeneratorTypeAdd;
-import aeternal.ecoenergistics.common.item.EcoEnergisticsItems;
-import aeternal.ecoenergistics.common.tile.solar.panel.*;
-import aeternal.ecoenergistics.common.tile.solar.station.*;
-import mekanism.client.render.MekanismRenderer;
-import mekanism.client.render.item.ItemLayerWrapper;
 
 import aeternal.ecoenergistics.Constants;
-//import aeternal.ecoenergistics.client.gui.GuiSolarPanel;
+import aeternal.ecoenergistics.EcoEnergistics;
+import aeternal.ecoenergistics.client.ClientTickHandler;
+import aeternal.ecoenergistics.client.render.EcoERender;
 import aeternal.ecoenergistics.client.render.item.RenderEcoGeneratorItem;
-import aeternal.ecoenergistics.common.EcoGeneratorsBlocks;
+import aeternal.ecoenergistics.client.render.item.RenderEcoGeneratorItemAdd;
+import aeternal.ecoenergistics.client.render.obj.EcoOBJLoader;
+import aeternal.ecoenergistics.client.render.obj.TransmitterModel;
+import aeternal.ecoenergistics.client.render.solar.panel.*;
+import aeternal.ecoenergistics.client.render.solar.station.*;
+import aeternal.ecoenergistics.client.render.transmitter.RenderMechanicalPipe;
+import aeternal.ecoenergistics.client.render.transmitter.RenderPressurizedTube;
+import aeternal.ecoenergistics.client.render.transmitter.RenderUniversalCable;
+import aeternal.ecoenergistics.common.EcoEnergisticsBlocks;
+import aeternal.ecoenergistics.common.block.states.*;
+import aeternal.ecoenergistics.common.block.states.BlockStateBasic.EnumBasicType;
+import aeternal.ecoenergistics.common.block.states.BlockStateEcoGenerator.EcoGeneratorType;
+import aeternal.ecoenergistics.common.block.states.BlockStateEcoGeneratorAdd.EcoGeneratorTypeAdd;
+import aeternal.ecoenergistics.common.block.states.BlockStateEcoTransmitter.EcoTransmitterType;
+import aeternal.ecoenergistics.common.block.states.BlockStateOre.EnumOreType;
+import aeternal.ecoenergistics.common.item.EcoEnergisticsItems;
+import aeternal.ecoenergistics.common.item.ItemBlockEcoTransmitter;
+import aeternal.ecoenergistics.common.tier.MEETiers;
+import aeternal.ecoenergistics.common.tile.solar.panel.*;
+import aeternal.ecoenergistics.common.tile.solar.station.*;
+import aeternal.ecoenergistics.common.tile.transmitter.TileEntityEcoMechanicalPipe;
+import aeternal.ecoenergistics.common.tile.transmitter.TileEntityEcoPressurizedTube;
+import aeternal.ecoenergistics.common.tile.transmitter.TileEntityEcoUniversalCable;
+import aeternal.ecoenergistics.integration.avaritia.client.render.RenderAvaritiaGeneratorItem;
+import aeternal.ecoenergistics.integration.avaritia.client.render.solar.panel.RenderSolarPanelCrystal;
+import aeternal.ecoenergistics.integration.avaritia.client.render.solar.panel.RenderSolarPanelInfinity;
+import aeternal.ecoenergistics.integration.avaritia.client.render.solar.panel.RenderSolarPanelNeutronium;
+import aeternal.ecoenergistics.integration.avaritia.client.render.solar.station.RenderSolarStationCrystal;
+import aeternal.ecoenergistics.integration.avaritia.client.render.solar.station.RenderSolarStationInfinity;
+import aeternal.ecoenergistics.integration.avaritia.client.render.solar.station.RenderSolarStationNeutronium;
+import aeternal.ecoenergistics.integration.avaritia.common.block.states.BlockStateIntegratedAVAGenerator.AvaritiaGeneratorType;
+import aeternal.ecoenergistics.integration.avaritia.common.block.states.BlockStateIntegratedAVAGenerator;
+import aeternal.ecoenergistics.integration.avaritia.common.item.AvaritiaModuleItems;
+import aeternal.ecoenergistics.integration.avaritia.common.tile.solar.panel.TileEntitySolarPanelCrystal;
+import aeternal.ecoenergistics.integration.avaritia.common.tile.solar.panel.TileEntitySolarPanelInfinity;
+import aeternal.ecoenergistics.integration.avaritia.common.tile.solar.panel.TileEntitySolarPanelNeutronium;
+import aeternal.ecoenergistics.integration.avaritia.common.tile.solar.station.TileEntitySolarStationCrystal;
+import aeternal.ecoenergistics.integration.avaritia.common.tile.solar.station.TileEntitySolarStationInfinity;
+import aeternal.ecoenergistics.integration.avaritia.common.tile.solar.station.TileEntitySolarStationNeutronium;
+import mekanism.client.render.item.ItemLayerWrapper;
+import mekanism.client.render.obj.MekanismOBJLoader;
+import mekanism.common.Mekanism;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.IRegistry;
-import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import aeternal.ecoenergistics.common.block.states.BlockStateEcoGenerator.EcoGeneratorType;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
 
     private static final IStateMapper generatorMapper = new BlockStateEcoGenerator.GeneratorBlockStateMapper();
     private static final IStateMapper generatorMapperAdd = new BlockStateEcoGeneratorAdd.GeneratorBlockStateMapperAdd();
+    private static final IStateMapper transmitterMapper = new BlockStateEcoTransmitter.TransmitterStateMapper();
+    private static final IStateMapper AvaritiaGeneratorMapper = new BlockStateIntegratedAVAGenerator.AvaritiaBlockStateMapper();
+    public static Map<String, ModelResourceLocation> transmitterResources = new HashMap<>();
+    public static long ticksPassed = 0;
+    @Override
+    public boolean isPaused() {
+        if (FMLClientHandler.instance().getClient().isSingleplayer() && !FMLClientHandler.instance().getClient().getIntegratedServer().getPublic()) {
+            GuiScreen screen = FMLClientHandler.instance().getClient().currentScreen;
+            return screen != null && screen.doesGuiPauseGame();
+        }
+        return false;
+    }
 
     @Override
     public void registerTESRs() {
@@ -68,15 +115,41 @@ public class ClientProxy extends CommonProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySolarStationPhotonic.class, new RenderSolarStationPhotonic());
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySolarStationNeutron.class, new RenderSolarStationNeutron());
 
-    }
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEcoUniversalCable.class, new RenderUniversalCable());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEcoPressurizedTube.class, new RenderPressurizedTube());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEcoMechanicalPipe.class, new RenderMechanicalPipe());
 
+        if (Constants.AvaritiaLoaded && Constants.AvaritiaConfirm) {
+            try {
+                ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySolarPanelCrystal.class, new RenderSolarPanelCrystal());
+                ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySolarPanelNeutronium.class, new RenderSolarPanelNeutronium());
+                ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySolarPanelInfinity.class, new RenderSolarPanelInfinity());
+
+                ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySolarStationCrystal.class, new RenderSolarStationCrystal());
+                ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySolarStationNeutronium.class, new RenderSolarStationNeutronium());
+                ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySolarStationInfinity.class, new RenderSolarStationInfinity());
+            } catch (Exception e) {
+                EcoEnergistics.logger.error("Failed to register TESRs for EcoEnergistics Avaritia module", e);
+            }
+        }
+    }
 
     @Override
     public void registerItemRenders() {
-        Item.getItemFromBlock(EcoGeneratorsBlocks.EcoGenerator).setTileEntityItemStackRenderer(new RenderEcoGeneratorItem());
-        Item.getItemFromBlock(EcoGeneratorsBlocks.EcoGeneratorAdd).setTileEntityItemStackRenderer(new RenderEcoGeneratorItemAdd());
+        Item.getItemFromBlock(EcoEnergisticsBlocks.EcoGenerator).setTileEntityItemStackRenderer(new RenderEcoGeneratorItem());
+        Item.getItemFromBlock(EcoEnergisticsBlocks.EcoGeneratorAdd).setTileEntityItemStackRenderer(new RenderEcoGeneratorItemAdd());
         registerItemRender(EcoEnergisticsItems.MoreControlCircuit);
         registerItemRender(EcoEnergisticsItems.MoreAlloy);
+        registerItemRender(EcoEnergisticsItems.MoreDust);
+        registerItemRender(EcoEnergisticsItems.Dust);
+        registerItemRender(EcoEnergisticsItems.MoreCompressed);
+        registerItemRender(EcoEnergisticsItems.MoreRod);
+        registerItemRender(EcoEnergisticsItems.MoreIngot);
+        registerItemRender(EcoEnergisticsItems.MoreNugget);
+        registerItemRender(EcoEnergisticsItems.MoreCrystal);
+        registerItemRender(EcoEnergisticsItems.MoreClump);
+        registerItemRender(EcoEnergisticsItems.MoreShard);
+        registerItemRender(EcoEnergisticsItems.MoreDirtyDust);
         registerItemRender(EcoEnergisticsItems.MoreSolarCell);
         registerItemRender(EcoEnergisticsItems.EnergyTabletAdvanced);
         registerItemRender(EcoEnergisticsItems.EnergyTabletHybrid);
@@ -88,12 +161,35 @@ public class ClientProxy extends CommonProxy {
         registerItemRender(EcoEnergisticsItems.EnergyTabletDiffractive);
         registerItemRender(EcoEnergisticsItems.EnergyTabletPhotonic);
         registerItemRender(EcoEnergisticsItems.EnergyTabletNeutron);
+        if (Constants.AvaritiaLoaded && Constants.AvaritiaConfirm) {
+            try {
+                Item.getItemFromBlock(EcoEnergisticsBlocks.AvaritiaGenerator).setTileEntityItemStackRenderer(new RenderAvaritiaGeneratorItem());
+                registerItemRender(AvaritiaModuleItems.AlloyAvaritia);
+                registerItemRender(AvaritiaModuleItems.DustAvaritia);
+                registerItemRender(AvaritiaModuleItems.CompressedAvaritia);
+                registerItemRender(AvaritiaModuleItems.SolarCellAvaritia);
+                registerItemRender(AvaritiaModuleItems.ControlCircuitAvaritia);
+            } catch (Exception e) {
+                EcoEnergistics.logger.error("Failed to register item render for EcoEnergistics Avaritia module", e);
+            }
+        }
     }
 
     @Override
     public void registerBlockRenders() {
-        ModelLoader.setCustomStateMapper(EcoGeneratorsBlocks.EcoGenerator, generatorMapper);
-        ModelLoader.setCustomStateMapper(EcoGeneratorsBlocks.EcoGeneratorAdd, generatorMapperAdd);
+        ModelLoader.setCustomStateMapper(EcoEnergisticsBlocks.EcoGenerator, generatorMapper);
+        ModelLoader.setCustomStateMapper(EcoEnergisticsBlocks.EcoGeneratorAdd, generatorMapperAdd);
+        ModelLoader.setCustomStateMapper(EcoEnergisticsBlocks.EcoTransmitter, transmitterMapper);
+        if (Constants.AvaritiaLoaded && Constants.AvaritiaConfirm) {
+            ModelLoader.setCustomStateMapper(EcoEnergisticsBlocks.AvaritiaGenerator,AvaritiaGeneratorMapper );
+            try {
+                for (AvaritiaGeneratorType type : AvaritiaGeneratorType.values()) {
+                    ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(type.blockType.getBlock()), type.meta, new ModelResourceLocation(new ResourceLocation(Constants.MOD_ID, type.getName()), "inventory"));
+                }
+            } catch (Exception e) {
+                EcoEnergistics.logger.error("Failed to register block render for EcoEnergistics Avaritia module", e);
+            }
+        }
 
         for (EcoGeneratorType type : EcoGeneratorType.values()) {
             ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(type.blockType.getBlock()), type.meta, new ModelResourceLocation(new ResourceLocation(Constants.MOD_ID, type.getName()), "inventory"));
@@ -101,6 +197,60 @@ public class ClientProxy extends CommonProxy {
         for (EcoGeneratorTypeAdd type : EcoGeneratorTypeAdd.values()) {
             ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(type.blockType.getBlock()), type.meta, new ModelResourceLocation(new ResourceLocation(Constants.MOD_ID, type.getName()), "inventory"));
         }
+        for (EnumOreType ore : BlockStateOre.EnumOreType.values()) {
+            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(EcoEnergisticsBlocks.OreBlock), ore.ordinal(), new ModelResourceLocation(new ResourceLocation(Constants.MOD_ID, "OreBlock"), "type=" + ore.getName()));
+        }
+        for (EnumBasicType block : BlockStateBasic.EnumBasicType.values()) {
+            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(EcoEnergisticsBlocks.BlockBasic), block.ordinal(), new ModelResourceLocation(new ResourceLocation(Constants.MOD_ID, "BlockBasic"), "type=" + block.getName()));
+        }
+
+        for (EcoTransmitterType type : EcoTransmitterType.values()) {
+            List<ModelResourceLocation> modelsToAdd = new ArrayList<>();
+            String resource = "mekanismecoenergistics:" + type.getName();
+            MEETiers tierPointer = null;
+
+            if (type.hasTiers()) {
+                tierPointer = MEETiers.values()[0];
+                resource = "mekanismecoenergistics:" + type.getName() + "_" + tierPointer.getName();
+            }
+
+            while (true) {
+                if (transmitterResources.get(resource) == null) {
+                    String properties = "inventory";
+                    ModelResourceLocation model = new ModelResourceLocation(resource, properties);
+                    transmitterResources.put(resource, model);
+                    modelsToAdd.add(model);
+                    if (type.hasTiers()) {
+                        if (tierPointer.ordinal() < MEETiers.values().length - 1) {
+                            tierPointer = MEETiers.values()[tierPointer.ordinal() + 1];
+                            if (true) {
+                                resource = "mekanismecoenergistics:" + type.getName() + "_" + tierPointer.getName();
+                                continue;
+                            }
+                        }
+                    }
+                }
+                break;
+            }
+
+            ModelLoader.registerItemVariants(Item.getItemFromBlock(EcoEnergisticsBlocks.EcoTransmitter), modelsToAdd.toArray(new ModelResourceLocation[]{}));
+        }
+        ItemMeshDefinition transmitterMesher = stack -> {
+            EcoTransmitterType type = EcoTransmitterType.get(stack.getItemDamage());
+
+            if (type != null) {
+                String resource = "mekanismecoenergistics:" + type.getName();
+                if (type.hasTiers()) {
+                    MEETiers tier = ((ItemBlockEcoTransmitter) stack.getItem()).getBaseTier(stack);
+                    resource = "mekanismecoenergistics:" + type.getName() + "_" + tier.getName();
+                }
+                return transmitterResources.get(resource);
+            }
+            return null;
+        };
+
+        ModelLoader.setCustomMeshDefinition(Item.getItemFromBlock(EcoEnergisticsBlocks.EcoTransmitter), transmitterMesher);
+
     }
 
     public void registerItemRender(Item item) {
@@ -135,6 +285,23 @@ public class ClientProxy extends CommonProxy {
         generatorModelBake2(modelRegistry, EcoGeneratorTypeAdd.SOLAR_STATION_PHOTONIC);
         generatorModelBake2(modelRegistry, EcoGeneratorTypeAdd.SOLAR_STATION_NEUTRON);
     }
+    @SubscribeEvent
+    public void onModelBakeAvaritia(ModelBakeEvent event) {
+        if (Constants.AvaritiaLoaded && Constants.AvaritiaConfirm) {
+            try {
+                IRegistry<ModelResourceLocation, IBakedModel> modelRegistry = event.getModelRegistry();
+                avaritiaGeneratorModelBake(modelRegistry, AvaritiaGeneratorType.SOLAR_PANEL_CRYSTAL);
+                avaritiaGeneratorModelBake(modelRegistry, AvaritiaGeneratorType.SOLAR_PANEL_NEUTRON);
+                avaritiaGeneratorModelBake(modelRegistry, AvaritiaGeneratorType.SOLAR_PANEL_INFINITY);
+
+                avaritiaGeneratorModelBake(modelRegistry, AvaritiaGeneratorType.SOLAR_STATION_CRYSTAL);
+                avaritiaGeneratorModelBake(modelRegistry, AvaritiaGeneratorType.SOLAR_STATION_NEUTRON);
+                avaritiaGeneratorModelBake(modelRegistry, AvaritiaGeneratorType.SOLAR_STATION_INFINITY);
+            } catch (Exception e) {
+                EcoEnergistics.logger.error("Failed to bake models for EcoEnergistics Avaritia module", e);
+            }
+        }
+    }
 
     private void generatorModelBake(IRegistry<ModelResourceLocation, IBakedModel> modelRegistry, EcoGeneratorType type) {
         ModelResourceLocation modelResourceLocation = new ModelResourceLocation(new ResourceLocation(Constants.MOD_ID, type.getName()), "inventory");
@@ -148,9 +315,24 @@ public class ClientProxy extends CommonProxy {
         RenderEcoGeneratorItemAdd.modelMap.put(type, itemLayerWrapper);
         modelRegistry.putObject(modelResourceLocation, itemLayerWrapper);
     }
+    private void avaritiaGeneratorModelBake(IRegistry<ModelResourceLocation, IBakedModel> modelRegistry, AvaritiaGeneratorType type) {
+        if (Constants.AvaritiaLoaded && Constants.AvaritiaConfirm) {
+            try {
+                ModelResourceLocation modelResourceLocation = new ModelResourceLocation(new ResourceLocation(Constants.MOD_ID, type.getName()), "inventory");
+                ItemLayerWrapper itemLayerWrapper = new ItemLayerWrapper(modelRegistry.getObject(modelResourceLocation));
+                RenderAvaritiaGeneratorItem.modelMap.put(type, itemLayerWrapper);
+                modelRegistry.putObject(modelResourceLocation, itemLayerWrapper);
+            } catch (Exception e) {
+                EcoEnergistics.logger.error("Failed to register models for EcoEnergistics Avaritia module", e);
+            }
+        }
+
+    }
 
     @Override
     public void preInit() {
+        MinecraftForge.EVENT_BUS.register(EcoOBJLoader.INSTANCE);
+        ModelLoaderRegistry.registerLoader(EcoOBJLoader.INSTANCE);
         MinecraftForge.EVENT_BUS.register(this);
     }
 
@@ -167,5 +349,10 @@ public class ClientProxy extends CommonProxy {
 
     @SubscribeEvent
     public void onStitch(TextureStitchEvent.Pre event) {
+    }
+
+    public static void reset() {
+        ClientTickHandler.tickingSet.clear();
+        TransmitterModel.clearCache();
     }
 }

@@ -1,0 +1,20 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "mekanism:transmitter_large.obj.mek",
+    "textures": {
+      "#side": "mekanismecoenergistics:blocks/models/multipart/MechanicalPipeVerticalDiffractive",
+      "#center": "mekanismecoenergistics:blocks/models/multipart/MechanicalPipeDiffractive",
+      "#side_opaque": "mekanismecoenergistics:blocks/models/multipart/opaque/MechanicalPipeVerticalDiffractive",
+      "#center_opaque": "mekanismecoenergistics:blocks/models/multipart/opaque/MechanicalPipeDiffractive"
+    },
+    "custom": {
+      "flip-v": true
+    }
+  },
+  "variants": {
+    "normal": [{}],
+    "inventory": [{}]
+  }
+}
+

@@ -1,0 +1,57 @@
+{
+  "type": "avaritia:shaped",
+  "result": {
+    "item": "mekanismecoenergistics:avaritiagenerator",
+    "data": 2,
+    "count": 1
+  },
+  "pattern": [
+    "         ",
+    "         ",
+    "  SSSSS  ",
+    "  MCpCM  ",
+    "  MAPAM  ",
+    "  MsNGM  ",
+    "  PNNNP  ",
+    "         ",
+    "         "
+  ],
+  "key": {
+    "S": {
+      "type": "minecraft:item",
+      "item": "#infinity_solarcell"
+    },
+    "M": {
+      "type": "minecraft:item",
+      "item": "#infinity_catalyst"
+    },
+    "P": {
+      "type": "minecraft:item",
+      "item": "#compressed_infinity"
+    },
+    "p": {
+      "type": "minecraft:item",
+      "item": "#panel_neutronium"
+    },
+    "C": {
+      "type": "minecraft:item",
+      "item": "#controlcircuit_infinity"
+    },
+    "s": {
+      "type": "minecraft:item",
+      "item": "#diamond_singularity"
+    },
+    "G": {
+      "type": "minecraft:item",
+      "item": "#diamond_singularity"
+    },
+    "A": {
+      "type": "minecraft:item",
+      "item": "#infinity_alloy"
+    },
+    "N": {
+      "type": "minecraft:item",
+      "item": "#compressed_neutronium"
+    }
+  }
+}

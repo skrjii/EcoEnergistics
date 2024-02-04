@@ -1,0 +1,440 @@
+[
+  {
+    "name": "neutron_tablet",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "mekanismecoenergistics:energytabletneutron"
+    }
+  },
+  {
+    "name": "station_infinity",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "mekanismecoenergistics:avaritiagenerator",
+      "data": 5
+    }
+  },
+  {
+    "name": "station_neutronium",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "mekanismecoenergistics:avaritiagenerator",
+      "data": 4
+    }
+  },
+  {
+    "name": "station_crystal",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "mekanismecoenergistics:avaritiagenerator",
+      "data": 3
+    }
+  },
+  {
+    "name": "panel_infinity",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "mekanismecoenergistics:avaritiagenerator",
+      "data": 2
+    }
+  },
+  {
+    "name": "panel_neutronium",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "mekanismecoenergistics:avaritiagenerator",
+      "data": 1
+    }
+  },
+  {
+    "name": "panel_crystal",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "mekanismecoenergistics:avaritiagenerator",
+      "data": 0
+    }
+  },
+  {
+    "name": "panel_neutron",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "mekanismecoenergistics:ecogenerator",
+      "data": 9
+    }
+  },
+  {
+    "name": "infinity_alloy",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "mekanismecoenergistics:alloyavaritia",
+      "data": 2
+    }
+  },
+  {
+    "name": "neutronium_alloy",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "mekanismecoenergistics:alloyavaritia",
+      "data": 1
+    }
+  },
+  {
+    "name": "infinity_solarcell",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "mekanismecoenergistics:solarcellavaritia",
+      "data": 2
+    }
+  },
+  {
+    "name": "neutronium_solarcell",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "mekanismecoenergistics:solarcellavaritia",
+      "data": 1
+    }
+  },
+  {
+    "name": "crystal_solarcell",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "mekanismecoenergistics:solarcellavaritia",
+      "data": 0
+    }
+  },
+  {
+    "name": "compressed_iridium",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "mekanismecoenergistics:morecompressed",
+      "data": 6
+    }
+  },
+  {
+    "name": "compressed_infinity",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "mekanismecoenergistics:compressedavaritia",
+      "data": 2
+    }
+  },
+  {
+    "name": "compressed_neutronium",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "mekanismecoenergistics:compressedavaritia",
+      "data": 1
+    }
+  },
+  {
+    "name": "compressed_crystal",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "mekanismecoenergistics:compressedavaritia",
+      "data": 0
+    }
+  },
+  {
+    "name": "controlcircuit_infinity",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "mekanismecoenergistics:controlcircuitavaritia",
+      "data": 2
+    }
+  },
+  {
+    "name": "controlcircuit_neutronium",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "mekanismecoenergistics:controlcircuitavaritia",
+      "data": 1
+    }
+  },
+  {
+    "name": "controlcircuit_crystal",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "mekanismecoenergistics:controlcircuitavaritia",
+      "data": 0
+    }
+  },
+  {
+    "name": "teleportation_core",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "mekanism:teleportationcore"
+    }
+  },
+  {
+    "name": "crystal_alloy",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "mekanismecoenergistics:alloyavaritia",
+      "data": 0
+    }
+  },
+  {
+    "name": "neutron_solarcell",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "mekanismecoenergistics:moresolarcell",
+      "data": 9
+    }
+  },
+  {
+    "name": "diamond_lattice",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:resource",
+      "data": 0
+    }
+  },
+  {
+    "name": "crystal_matrix_ingot",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:resource",
+      "data": 1
+    }
+  },
+  {
+    "name": "neutron_pile",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:resource",
+      "data": 2
+    }
+  },
+  {
+    "name": "neutron_nugget",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:resource",
+      "data": 3
+    }
+  },
+  {
+    "name": "neutronium_ingot",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:resource",
+      "data": 4
+    }
+  },
+  {
+    "name": "infinity_catalyst",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:resource",
+      "data": 5
+    }
+  },
+  {
+    "name": "infinity_ingot",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:resource",
+      "data": 6
+    }
+  },
+  {
+    "name": "record_fragment",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:resource",
+      "data": 7
+    }
+  },
+  {
+    "name": "ultimate_stew",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:ultimate_stew",
+      "data": 0
+    }
+  },
+  {
+    "name": "cosmic_meatballs",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:cosmic_meatballs",
+      "data": 0
+    }
+  },
+  {
+    "name": "endest_pearl",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:endest_pearl",
+      "data": 0
+    }
+  },
+  {
+    "name": "compressed_crafting_table",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:compressed_crafting_table",
+      "data": 0
+    }
+  },
+  {
+    "name": "double_compressed_crafting_table",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:double_compressed_crafting_table",
+      "data": 0
+    }
+  },
+  {
+    "name": "extreme_crafting_table",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:extreme_crafting_table",
+      "data": 0
+    }
+  },
+  {
+    "name": "neutronium_block",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:block_resource",
+      "data": 0
+    }
+  },
+  {
+    "name": "infinity_block",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:block_resource",
+      "data": 1
+    }
+  },
+  {
+    "name": "crystal_matrix_block",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:block_resource",
+      "data": 2
+    }
+  },
+  {
+    "name": "iron_singularity",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:singularity",
+      "data": 0
+    }
+  },
+  {
+    "name": "gold_singularity",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:singularity",
+      "data": 1
+    }
+  },
+  {
+    "name": "lapis_singularity",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:singularity",
+      "data": 2
+    }
+  },
+  {
+    "name": "redstone_singularity",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:singularity",
+      "data": 3
+    }
+  },
+  {
+    "name": "quartz_singularity",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:singularity",
+      "data": 4
+    }
+  },
+  {
+    "name": "copper_singularity",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:singularity",
+      "data": 5
+    }
+  },
+  {
+    "name": "tin_singularity",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:singularity",
+      "data": 6
+    }
+  },
+  {
+    "name": "lead_singularity",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:singularity",
+      "data": 7
+    }
+  },
+  {
+    "name": "silver_singularity",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:singularity",
+      "data": 8
+    }
+  },
+  {
+    "name": "nickel_singularity",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:singularity",
+      "data": 9
+    }
+  },
+  {
+    "name": "diamond_singularity",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:singularity",
+      "data": 10
+    }
+  },
+  {
+    "name": "emerald_singularity",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:singularity",
+      "data": 11
+    }
+  },
+  {
+    "name": "fluxed_singularity",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:singularity",
+      "data": 12
+    }
+  },
+  {
+    "name": "platinum_singularity",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:singularity",
+      "data": 13
+    }
+  },
+  {
+    "name": "iridium_singularity",
+    "ingredient": {
+      "type": "minecraft:item",
+      "item": "avaritia:singularity",
+      "data": 14
+    }
+  }
+]

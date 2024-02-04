@@ -1,16 +1,10 @@
 package aeternal.ecoenergistics.client.render;
 
 import aeternal.ecoenergistics.common.item.IMetaItem;
-import mekanism.client.render.tileentity.RenderConfigurableMachine;
-import mekanism.common.base.ISideConfiguration;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.Item;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
