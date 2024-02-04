@@ -65,7 +65,7 @@ public class BlockStateIntegratedAVAGenerator extends ExtendedBlockState {
     public enum AvaritiaGeneratorType implements IStringSerializable, IBlockType {
         SOLAR_PANEL_CRYSTAL(AvaritiaGeneratorBlock.GENERATOR_BLOCK_AVARITIA, 0, "SolarPanelCrystal", 1, 5320000, TileEntitySolarPanelCrystal::new, true, Plane.HORIZONTAL, false),
         SOLAR_PANEL_NEUTRON(AvaritiaGeneratorBlock.GENERATOR_BLOCK_AVARITIA, 1, "SolarPanelNeutronium", 1, 212800000, TileEntitySolarPanelNeutronium::new, true, Plane.HORIZONTAL, false),
-        SOLAR_PANEL_INFINITY(AvaritiaGeneratorBlock.GENERATOR_BLOCK_AVARITIA, 2, "SolarPanelInfinity", 1, 678720000, TileEntitySolarPanelInfinity::new, true, Plane.HORIZONTAL, false),
+        SOLAR_PANEL_INFINITY(AvaritiaGeneratorBlock.GENERATOR_BLOCK_AVARITIA, 2, "SolarPanelInfinity", 1, 1119888000, TileEntitySolarPanelInfinity::new, true, Plane.HORIZONTAL, false),
 
         SOLAR_STATION_CRYSTAL(AvaritiaGeneratorBlock.GENERATOR_BLOCK_AVARITIA, 3, "SolarStationCrystal", 1, 21280000,TileEntitySolarStationCrystal::new, true,Plane.HORIZONTAL, false),
         SOLAR_STATION_NEUTRON(AvaritiaGeneratorBlock.GENERATOR_BLOCK_AVARITIA, 4, "SolarStationNeutronium", 1, 851200000,TileEntitySolarStationNeutronium::new, true,Plane.HORIZONTAL, false),

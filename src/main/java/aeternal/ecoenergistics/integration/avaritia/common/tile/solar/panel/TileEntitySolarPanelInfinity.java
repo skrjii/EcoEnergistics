@@ -25,7 +25,7 @@ public class TileEntitySolarPanelInfinity extends TileEntityEcoGenerator {
     private float peakOutput;
 
     public TileEntitySolarPanelInfinity() {
-        this("SolarPanelInfinity", 339360000, AvaritiaSolarConfig.InfinityGen_S.getValue());
+        this("SolarPanelInfinity", 1119888000, AvaritiaSolarConfig.InfinityGen_S.getValue());
     }
 
     public TileEntitySolarPanelInfinity(String name, double maxEnergy, double output) {

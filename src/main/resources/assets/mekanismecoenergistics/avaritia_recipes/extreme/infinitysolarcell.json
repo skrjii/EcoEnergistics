@@ -1,0 +1,45 @@
+{
+  "type": "avaritia:shaped",
+  "result": {
+    "item": "mekanismecoenergistics:solarcellavaritia",
+    "data": 2,
+    "count": 1
+  },
+  "pattern": [
+    "         ",
+    "         ",
+    "         ",
+    "  PSSSP  ",
+    "  NCTCN  ",
+    "  NAAAN  ",
+    "  PNNNP  ",
+    "         ",
+    "         "
+  ],
+  "key": {
+    "S": {
+      "type": "minecraft:item",
+      "item": "#neutronium_solarcell"
+    },
+    "N": {
+      "type": "minecraft:item",
+      "item": "#compressed_neutronium"
+    },
+    "P": {
+      "type": "minecraft:item",
+      "item": "#compressed_iridium"
+    },
+    "C": {
+      "type": "minecraft:item",
+      "item": "#controlcircuit_infinity"
+    },
+    "T": {
+      "type": "minecraft:item",
+      "item": "#endest_pearl"
+    },
+    "A": {
+      "type": "minecraft:item",
+      "item": "#infinity_alloy"
+    }
+  }
+}

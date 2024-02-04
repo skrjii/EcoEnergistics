@@ -1,0 +1,30 @@
+{
+  "result": {
+    "item": "mekanismecoenergistics:avaritiagenerator",
+    "data": 5
+  },
+  "pattern": [
+    "PCP",
+    "ACA",
+    "PCP"
+  ],
+  "type": "forge:ore_shaped",
+  "key":
+  {
+    "P":
+    {
+      "item": "mekanismecoenergistics:avaritiagenerator",
+      "data": 2
+    },
+    "C":
+    {
+      "item": "mekanismecoenergistics:controlcircuitavaritia",
+      "data": 2
+    },
+    "A":
+    {
+      "item": "mekanismecoenergistics:alloyavaritia",
+      "data": 2
+    }
+  }
+}

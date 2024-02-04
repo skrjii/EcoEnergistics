@@ -1,0 +1,26 @@
+{
+  "result": {
+    "item": "mekanismecoenergistics:controlcircuitavaritia",
+    "data": 0
+  },
+  "pattern": [
+    "   ",
+    "ACA",
+    "   "
+  ],
+  "type": "forge:ore_shaped",
+  "key":
+  {
+    "A":
+    {
+      "item": "mekanismecoenergistics:alloyavaritia",
+      "data": 0
+    },
+    "C":
+    {
+      "item": "mekanismecoenergistics:morecontrolcircuit",
+      "data": 9
+    }
+
+  }
+}

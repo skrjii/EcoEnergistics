@@ -1,0 +1,41 @@
+{
+  "type": "avaritia:shaped",
+  "result": {
+    "item": "mekanismecoenergistics:solarcellavaritia",
+    "data": 0,
+    "count": 1
+  },
+  "pattern": [
+    "         ",
+    "         ",
+    "         ",
+    "  PSSSP  ",
+    "  PCTCP  ",
+    "  PAAAP  ",
+    "  PPPPP  ",
+    "         ",
+    "         "
+  ],
+  "key": {
+    "S": {
+      "type": "minecraft:item",
+      "item": "#neutron_solarcell"
+    },
+    "P": {
+      "type": "minecraft:item",
+      "item": "#compressed_crystal"
+    },
+    "C": {
+      "type": "minecraft:item",
+      "item": "#controlcircuit_crystal"
+    },
+    "T": {
+      "type": "minecraft:item",
+      "item": "#teleportation_core"
+    },
+    "A": {
+      "type": "minecraft:item",
+      "item": "#crystal_alloy"
+    }
+  }
+}
