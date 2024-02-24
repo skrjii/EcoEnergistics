@@ -14,7 +14,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 
-public class ItemAlloyAvaritia extends ItemMEE implements IMetaItem,IHaloRenderItem {
+public class ItemAlloyAvaritia extends ItemMEE implements IMetaItem {
 
     public ItemAlloyAvaritia() {
         super();
@@ -46,7 +46,7 @@ public class ItemAlloyAvaritia extends ItemMEE implements IMetaItem,IHaloRenderI
         return "item." + AvaritiaTiers.values()[item.getItemDamage()].getSimpleName() + "Alloy";
     }
 
-    @Override
+/*    @Override
     @SideOnly(Side.CLIENT)
     public boolean shouldDrawHalo(ItemStack itemStack) {
         int meta = itemStack.getItemDamage();
@@ -93,5 +93,5 @@ public class ItemAlloyAvaritia extends ItemMEE implements IMetaItem,IHaloRenderI
     public boolean shouldDrawPulse(ItemStack itemStack) {
         int meta = itemStack.getItemDamage();
         return meta == 0 || meta == 1 || meta == 2;
-    }
+    }*/
 }
