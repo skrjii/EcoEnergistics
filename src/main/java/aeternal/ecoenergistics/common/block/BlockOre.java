@@ -2,7 +2,7 @@ package aeternal.ecoenergistics.common.block;
 
 import javax.annotation.Nonnull;
 
-import aeternal.ecoenergistics.EcoEnergistics;
+import aeternal.ecoenergistics.common.EcoEnergistics;
 import aeternal.ecoenergistics.common.block.states.BlockStateOre;
 import aeternal.ecoenergistics.common.block.states.BlockStateOre.EnumOreType;
 import net.minecraft.block.Block;

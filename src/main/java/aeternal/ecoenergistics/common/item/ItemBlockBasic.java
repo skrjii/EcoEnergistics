@@ -30,21 +30,12 @@ public class ItemBlockBasic extends ItemBlock {
     @Nonnull
     @Override
     public String getTranslationKey(ItemStack itemstack) {
-        String name;
-        switch (itemstack.getItemDamage()) {
-            case 0:
-                name = "TitaniumBlock";
-                break;
-            case 1:
-                name = "UraniumBlock";
-                break;
-            case 2:
-                name = "IridiumBlock";
-                break;
-            default:
-                name = "Unknown";
-                break;
-        }
+        String name = switch (itemstack.getItemDamage()) {
+            case 0 -> "TitaniumBlock";
+            case 1 -> "UraniumBlock";
+            case 2 -> "IridiumBlock";
+            default -> "Unknown";
+        };
         return getTranslationKey() + "." + name;
     }
 }

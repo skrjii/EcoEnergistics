@@ -1,33 +1,24 @@
 package aeternal.ecoenergistics.common.block;
 
-import java.util.Random;
-import javax.annotation.Nonnull;
-
-import aeternal.ecoenergistics.EcoEnergistics;
-import aeternal.ecoenergistics.common.EcoEnergisticsBlocks;
+import aeternal.ecoenergistics.common.EcoEnergistics;
 import aeternal.ecoenergistics.common.block.states.BlockStateEcoGenerator;
-import aeternal.ecoenergistics.common.tile.BlockEcoContainer;
-import aeternal.ecoenergistics.common.tile.TileEntityEcoBasicBlock;
-import aeternal.ecoenergistics.common.tile.TileEntityEcoContainerBlock;
-import aeternal.ecoenergistics.common.tile.TileEntityEcoElectricBlock;
-import aeternal.ecoenergistics.common.tile.solar.panel.TileEntitySolarPanelAdvanced;
-import aeternal.ecoenergistics.common.tile.solar.panel.TileEntitySolarPanelHybrid;
+import aeternal.ecoenergistics.common.block.states.BlockStateEcoGenerator.EcoGeneratorBlock;
+import aeternal.ecoenergistics.common.block.states.BlockStateEcoGenerator.EcoGeneratorType;
+import aeternal.ecoenergistics.common.tile.TileEntityEcoSolarPanel;
 import mekanism.api.IMekWrench;
 import mekanism.api.energy.IEnergizedItem;
-import mekanism.common.base.IActiveState;
-import mekanism.common.base.IBoundingBlock;
-import mekanism.common.base.IComparatorSupport;
-import mekanism.common.base.ISustainedData;
-import mekanism.common.base.ISustainedInventory;
+import mekanism.common.base.*;
+import mekanism.common.block.BlockMekanismContainer;
 import mekanism.common.block.states.BlockStateFacing;
 import mekanism.common.config.MekanismConfig;
 import mekanism.common.integration.wrenches.Wrenches;
-import mekanism.common.multiblock.IMultiblock;
-//import mekanism.common.tile.prefab.TileEntityBasicBlock;
-
+import mekanism.common.security.ISecurityItem;
+import mekanism.common.security.ISecurityTile;
+import mekanism.common.tile.prefab.TileEntityBasicBlock;
+import mekanism.common.tile.prefab.TileEntityContainerBlock;
+import mekanism.common.tile.prefab.TileEntityElectricBlock;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.SecurityUtils;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
@@ -38,43 +29,38 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.EnumBlockRenderType;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public abstract class BlockEcoGenerator extends BlockEcoContainer {
+import javax.annotation.Nonnull;
+
+public abstract class BlockEcoGenerator extends BlockMekanismContainer {
 
     private static final AxisAlignedBB SOLAR_BOUNDS = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 0.7F, 1.0F);
 
-    public BlockEcoGenerator() {
+    protected BlockEcoGenerator() {
         super(Material.IRON);
         setHardness(3.5F);
         setResistance(8F);
         setCreativeTab(EcoEnergistics.tabEcoEnergistics);
     }
 
-    public static BlockEcoGenerator getGeneratorBlock(BlockStateEcoGenerator.EcoGeneratorBlock block) {
+    public static BlockEcoGenerator getGeneratorBlock(EcoGeneratorBlock block) {
         return new BlockEcoGenerator() {
             @Override
-            public BlockStateEcoGenerator.EcoGeneratorBlock getGeneratorBlock() {
+            public EcoGeneratorBlock getGeneratorBlock() {
                 return block;
             }
         };
     }
 
-    public abstract BlockStateEcoGenerator.EcoGeneratorBlock getGeneratorBlock();
+    public abstract EcoGeneratorBlock getGeneratorBlock();
 
     @Nonnull
     @Override
@@ -86,13 +72,13 @@ public abstract class BlockEcoGenerator extends BlockEcoContainer {
     @Override
     @Deprecated
     public IBlockState getStateFromMeta(int meta) {
-        BlockStateEcoGenerator.EcoGeneratorType type = BlockStateEcoGenerator.EcoGeneratorType.get(getGeneratorBlock(), meta & 0xF);
+        EcoGeneratorType type = EcoGeneratorType.get(getGeneratorBlock(), meta & 0xF);
         return getDefaultState().withProperty(getTypeProperty(), type);
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        BlockStateEcoGenerator.EcoGeneratorType type = state.getValue(getTypeProperty());
+        EcoGeneratorType type = state.getValue(getTypeProperty());
         return type.meta;
     }
 
@@ -101,8 +87,8 @@ public abstract class BlockEcoGenerator extends BlockEcoContainer {
     @Deprecated
     public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         TileEntity tile = MekanismUtils.getTileEntitySafe(worldIn, pos);
-        if (tile instanceof TileEntityEcoBasicBlock && ((TileEntityEcoBasicBlock) tile).facing != null) {
-            state = state.withProperty(BlockStateFacing.facingProperty, ((TileEntityEcoBasicBlock) tile).facing);
+        if (tile instanceof TileEntityBasicBlock && ((TileEntityBasicBlock) tile).facing != null) {
+            state = state.withProperty(BlockStateFacing.facingProperty, ((TileEntityBasicBlock) tile).facing);
         }
         if (tile instanceof IActiveState) {
             state = state.withProperty(BlockStateEcoGenerator.activeProperty, ((IActiveState) tile).getActive());
@@ -115,15 +101,15 @@ public abstract class BlockEcoGenerator extends BlockEcoContainer {
     public void neighborChanged(IBlockState state, World world, BlockPos pos, Block neighborBlock, BlockPos neighborPos) {
         if (!world.isRemote) {
             final TileEntity tileEntity = MekanismUtils.getTileEntity(world, pos);
-            if (tileEntity instanceof TileEntityEcoBasicBlock) {
-                ((TileEntityEcoBasicBlock) tileEntity).onNeighborChange(neighborBlock);
+            if (tileEntity instanceof TileEntityBasicBlock) {
+                ((TileEntityBasicBlock) tileEntity).onNeighborChange(neighborBlock);
             }
         }
     }
 
     @Override
     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entityliving, ItemStack itemstack) {
-        TileEntityEcoBasicBlock tileEntity = (TileEntityEcoBasicBlock) world.getTileEntity(pos);
+        TileEntityBasicBlock tileEntity = (TileEntityBasicBlock) world.getTileEntity(pos);
         EnumFacing change = EnumFacing.SOUTH;
         if (tileEntity.canSetFacing(EnumFacing.DOWN) && tileEntity.canSetFacing(EnumFacing.UP)) {
             int height = Math.round(entityliving.rotationPitch);
@@ -136,20 +122,13 @@ public abstract class BlockEcoGenerator extends BlockEcoContainer {
 
         if (change != EnumFacing.DOWN && change != EnumFacing.UP) {
             int side = MathHelper.floor((double) (entityliving.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
-            switch (side) {
-                case 0:
-                    change = EnumFacing.NORTH;
-                    break;
-                case 1:
-                    change = EnumFacing.EAST;
-                    break;
-                case 2:
-                    change = EnumFacing.SOUTH;
-                    break;
-                case 3:
-                    change = EnumFacing.WEST;
-                    break;
-            }
+            change = switch (side) {
+                case 0 -> EnumFacing.NORTH;
+                case 1 -> EnumFacing.EAST;
+                case 2 -> EnumFacing.SOUTH;
+                case 3 -> EnumFacing.WEST;
+                default -> change;
+            };
         }
 
         tileEntity.setFacing(change);
@@ -157,16 +136,13 @@ public abstract class BlockEcoGenerator extends BlockEcoContainer {
         if (tileEntity instanceof IBoundingBlock) {
             ((IBoundingBlock) tileEntity).onPlace();
         }
-        if (!world.isRemote && tileEntity instanceof IMultiblock) {
-            ((IMultiblock<?>) tileEntity).doUpdate();
-        }
     }
 
     @Override
     public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
         if (MekanismConfig.current().client.enableAmbientLighting.val()) {
             TileEntity tileEntity = MekanismUtils.getTileEntitySafe(world, pos);
-            if (tileEntity instanceof IActiveState && !(tileEntity instanceof TileEntitySolarPanelAdvanced)&& !(tileEntity instanceof TileEntitySolarPanelHybrid)) {
+            if (tileEntity instanceof IActiveState && !(tileEntity instanceof TileEntityEcoSolarPanel)) {
                 if (((IActiveState) tileEntity).getActive() && ((IActiveState) tileEntity).lightUpdate()) {
                     return MekanismConfig.current().client.ambientLightingLevel.val();
                 }
@@ -175,51 +151,32 @@ public abstract class BlockEcoGenerator extends BlockEcoContainer {
         return 0;
     }
 
-
     @Override
     public int damageDropped(IBlockState state) {
         return state.getBlock().getMetaFromState(state);
     }
 
- /*   @Override
+    @Override
     @Deprecated
     public float getPlayerRelativeBlockHardness(IBlockState state, @Nonnull EntityPlayer player, @Nonnull World world, @Nonnull BlockPos pos) {
         TileEntity tile = world.getTileEntity(pos);
         return SecurityUtils.canAccess(player, tile) ? super.getPlayerRelativeBlockHardness(state, player, world, pos) : 0.0F;
-    }*/
- @Override
- @Deprecated
- public float getPlayerRelativeBlockHardness(IBlockState state, @Nonnull EntityPlayer player, @Nonnull World world, @Nonnull BlockPos pos){
-     return super.getPlayerRelativeBlockHardness(state, player, world, pos);
- }
+    }
 
     @Override
     public void getSubBlocks(CreativeTabs creativetabs, NonNullList<ItemStack> list) {
-        for (BlockStateEcoGenerator.EcoGeneratorType type : BlockStateEcoGenerator.EcoGeneratorType.values()) {
-            if (type.isEnabled()) {
-                list.add(new ItemStack(this, 1, type.meta));
+        for (EcoGeneratorType type : EcoGeneratorType.getValidMachines()) {
+            if (type.blockType == getGeneratorBlock() && type.isEnabled()) {
+                switch (type) {
+                    default -> list.add(new ItemStack(this, 1, type.meta));
+                }
             }
         }
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random random) {
-        BlockStateEcoGenerator.EcoGeneratorType type = BlockStateEcoGenerator.EcoGeneratorType.get(state.getBlock(), state.getBlock().getMetaFromState(state));
-        TileEntityEcoBasicBlock tileEntity = (TileEntityEcoBasicBlock) world.getTileEntity(pos);
-
-        if (MekanismUtils.isActive(world, pos)) {
-            float xRandom = (float) pos.getX() + 0.5F;
-            float yRandom = (float) pos.getY() + random.nextFloat() * 6.0F / 16.0F;
-            float zRandom = (float) pos.getZ() + 0.5F;
-            float iRandom = 0.52F;
-            float jRandom = random.nextFloat() * 0.6F - 0.3F;
-        }
-    }
-
-    @Override
     public void breakBlock(World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
-        TileEntityEcoBasicBlock tileEntity = (TileEntityEcoBasicBlock) world.getTileEntity(pos);
+        TileEntityBasicBlock tileEntity = (TileEntityBasicBlock) world.getTileEntity(pos);
         if (tileEntity instanceof IBoundingBlock) {
             ((IBoundingBlock) tileEntity).onBreak();
         }
@@ -232,7 +189,7 @@ public abstract class BlockEcoGenerator extends BlockEcoContainer {
         if (world.isRemote) {
             return true;
         }
-        TileEntityEcoBasicBlock tileEntity = (TileEntityEcoBasicBlock) world.getTileEntity(pos);
+        TileEntityBasicBlock tileEntity = (TileEntityBasicBlock) world.getTileEntity(pos);
         int metadata = state.getBlock().getMetaFromState(state);
         ItemStack stack = entityplayer.getHeldItem(hand);
 
@@ -241,7 +198,7 @@ public abstract class BlockEcoGenerator extends BlockEcoContainer {
             if (wrenchHandler != null) {
                 RayTraceResult raytrace = new RayTraceResult(new Vec3d(hitX, hitY, hitZ), side, pos);
                 if (wrenchHandler.canUseWrench(entityplayer, hand, stack, raytrace)) {
-                    /*if (SecurityUtils.canAccess(entityplayer, tileEntity)) {*/
+                    if (SecurityUtils.canAccess(entityplayer, tileEntity)) {
                         wrenchHandler.wrenchUsed(entityplayer, hand, stack, raytrace);
                         if (entityplayer.isSneaking()) {
                             MekanismUtils.dismantleBlock(this, state, world, pos);
@@ -251,7 +208,7 @@ public abstract class BlockEcoGenerator extends BlockEcoContainer {
                             tileEntity.setFacing(tileEntity.facing.rotateY());
                             world.notifyNeighborsOfStateChange(pos, this, true);
                         }
-                    /*}*/ else {
+                    } else {
                         SecurityUtils.displayNoAccess(entityplayer);
                     }
                     return true;
@@ -259,28 +216,27 @@ public abstract class BlockEcoGenerator extends BlockEcoContainer {
             }
         }
 
-/*        int guiId = BlockStateEcoGenerator.EcoGeneratorType.get(getGeneratorBlock(), metadata).guiId;
-
+        int guiId = EcoGeneratorType.get(getGeneratorBlock(), metadata).guiId;
         if (guiId != -1 && tileEntity != null) {
             if (!entityplayer.isSneaking()) {
-                if (true) {
+                if (SecurityUtils.canAccess(entityplayer, tileEntity)) {
                     entityplayer.openGui(EcoEnergistics.instance, guiId, world, pos.getX(), pos.getY(), pos.getZ());
                 } else {
                     SecurityUtils.displayNoAccess(entityplayer);
                 }
                 return true;
             }
-        }*/
+        }
         return false;
     }
 
     @Override
     public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
         int metadata = state.getBlock().getMetaFromState(state);
-        if (BlockStateEcoGenerator.EcoGeneratorType.get(getGeneratorBlock(), metadata) == null) {
+        if (EcoGeneratorType.get(getGeneratorBlock(), metadata) == null) {
             return null;
         }
-        return BlockStateEcoGenerator.EcoGeneratorType.get(getGeneratorBlock(), metadata).create();
+        return EcoGeneratorType.get(getGeneratorBlock(), metadata).create();
     }
 
     @Nonnull
@@ -289,6 +245,7 @@ public abstract class BlockEcoGenerator extends BlockEcoContainer {
     public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.MODEL;
     }
+
 
     @Override
     @Deprecated
@@ -306,25 +263,25 @@ public abstract class BlockEcoGenerator extends BlockEcoContainer {
     @Override
     @Deprecated
     public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing face) {
-        BlockStateEcoGenerator.EcoGeneratorType type = BlockStateEcoGenerator.EcoGeneratorType.get(state);
+        EcoGeneratorType type = EcoGeneratorType.get(state);
         if (type != null) {
             switch (type) {
-                case SOLAR_PANEL_ADVANCED:
-                case SOLAR_PANEL_HYBRID:
-                case SOLAR_PANEL_PERFECTHYBRID:
-                case SOLAR_PANEL_QUANTUM:
-                case SOLAR_PANEL_SPECTRAL:
-                case SOLAR_PANEL_PROTONIC:
-                case SOLAR_PANEL_SINGULAR:
-                case SOLAR_PANEL_DIFFRACTIVE:
-                case SOLAR_PANEL_PHOTONIC:
-                case SOLAR_PANEL_NEUTRON:
+                case SOLAR_PANEL_ADVANCED, SOLAR_PANEL_HYBRID, SOLAR_PANEL_PERFECTHYBRID, SOLAR_PANEL_QUANTUM,
+                     SOLAR_PANEL_SPECTRAL, SOLAR_PANEL_PROTONIC, SOLAR_PANEL_SINGULAR, SOLAR_PANEL_DIFFRACTIVE,
+                     SOLAR_PANEL_PHOTONIC, SOLAR_PANEL_NEUTRON,
+                     AVARITIA_SOLAR_PANEL_CRYSTAL, AVARITIA_SOLAR_PANEL_NEUTRON, AVARITIA_SOLAR_PANEL_INFINITY -> {
                     return BlockFaceShape.UNDEFINED;
-
+                }
+                case SOLAR_STATION_ADVANCED, SOLAR_STATION_HYBRID, SOLAR_STATION_PERFECTHYBRID, SOLAR_STATION_QUANTUM,
+                     SOLAR_STATION_SPECTRAL, SOLAR_STATION_PROTONIC, SOLAR_STATION_SINGULAR, SOLAR_STATION_DIFFRACTIVE,
+                     SOLAR_STATION_PHOTONIC, SOLAR_STATION_NEUTRON,
+                     AVARITIA_SOLAR_STATION_CRYSTAL, AVARITIA_SOLAR_STATION_NEUTRON,
+                     AVARITIA_SOLAR_STATION_INFINITY -> {
+                    return face == EnumFacing.DOWN ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
+                }
             }
         }
         return super.getBlockFaceShape(world, state, pos, face);
-
     }
 
     @SideOnly(Side.CLIENT)
@@ -334,7 +291,6 @@ public abstract class BlockEcoGenerator extends BlockEcoContainer {
         return BlockRenderLayer.CUTOUT;
     }
 
-    /*This method is not used, metadata manipulation is required to create a Tile Entity.*/
     @Override
     public TileEntity createNewTileEntity(@Nonnull World world, int meta) {
         return null;
@@ -344,49 +300,49 @@ public abstract class BlockEcoGenerator extends BlockEcoContainer {
     @Override
     @Deprecated
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
-        BlockStateEcoGenerator.EcoGeneratorType type = BlockStateEcoGenerator.EcoGeneratorType.get(state);
-        switch (type) {
-            case SOLAR_PANEL_ADVANCED:
-            case SOLAR_PANEL_HYBRID:
-            case SOLAR_PANEL_PERFECTHYBRID:
-            case SOLAR_PANEL_QUANTUM:
-            case SOLAR_PANEL_SPECTRAL:
-            case SOLAR_PANEL_PROTONIC:
-            case SOLAR_PANEL_SINGULAR:
-            case SOLAR_PANEL_DIFFRACTIVE:
-            case SOLAR_PANEL_PHOTONIC:
-            case SOLAR_PANEL_NEUTRON:
-                return SOLAR_BOUNDS;
-
-            default:
-                return super.getBoundingBox(state, world, pos);
-        }
+        EcoGeneratorType type = EcoGeneratorType.get(state);
+        return switch (type) {
+            case SOLAR_PANEL_ADVANCED, SOLAR_PANEL_HYBRID, SOLAR_PANEL_PERFECTHYBRID, SOLAR_PANEL_QUANTUM,
+                 SOLAR_PANEL_SPECTRAL, SOLAR_PANEL_PROTONIC, SOLAR_PANEL_SINGULAR, SOLAR_PANEL_DIFFRACTIVE,
+                 SOLAR_PANEL_PHOTONIC, SOLAR_PANEL_NEUTRON,
+                 AVARITIA_SOLAR_PANEL_CRYSTAL, AVARITIA_SOLAR_PANEL_NEUTRON, AVARITIA_SOLAR_PANEL_INFINITY ->
+                    SOLAR_BOUNDS;
+            default -> super.getBoundingBox(state, world, pos);
+        };
     }
 
     @Nonnull
     @Override
     protected ItemStack getDropItem(@Nonnull IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
-        TileEntityEcoBasicBlock tileEntity = (TileEntityEcoBasicBlock) world.getTileEntity(pos);
-        ItemStack itemStack = new ItemStack(EcoEnergisticsBlocks.EcoGenerator, 1, state.getBlock().getMetaFromState(state));
+        TileEntityBasicBlock tileEntity = (TileEntityBasicBlock) world.getTileEntity(pos);
+        ItemStack itemStack = new ItemStack(this, 1, state.getBlock().getMetaFromState(state));
+
+        if (itemStack.getTagCompound() == null) {
+            itemStack.setTagCompound(new NBTTagCompound());
+        }
+
         if (tileEntity == null) {
             return ItemStack.EMPTY;
         }
-        /*if (tileEntity instanceof ISecurityTile) {
+
+        if (tileEntity instanceof ISecurityTile) {
             ISecurityItem securityItem = (ISecurityItem) itemStack.getItem();
             if (securityItem.hasSecurity(itemStack)) {
                 securityItem.setOwnerUUID(itemStack, ((ISecurityTile) tileEntity).getSecurity().getOwnerUUID());
                 securityItem.setSecurity(itemStack, ((ISecurityTile) tileEntity).getSecurity().getMode());
             }
-        }*/
+        }
 
-        if (tileEntity instanceof TileEntityEcoElectricBlock) {
+        if (tileEntity instanceof TileEntityElectricBlock) {
             IEnergizedItem electricItem = (IEnergizedItem) itemStack.getItem();
-            electricItem.setEnergy(itemStack, ((TileEntityEcoElectricBlock) tileEntity).electricityStored);
+            electricItem.setEnergy(itemStack, ((TileEntityElectricBlock) tileEntity).getEnergy());
         }
-        if (tileEntity instanceof TileEntityEcoContainerBlock && ((TileEntityEcoContainerBlock) tileEntity).handleInventory()) {
+
+        if (tileEntity instanceof TileEntityContainerBlock && ((TileEntityContainerBlock) tileEntity).handleInventory()) {
             ISustainedInventory inventory = (ISustainedInventory) itemStack.getItem();
-            inventory.setInventory(((TileEntityEcoContainerBlock) tileEntity).getInventory(), itemStack);
+            inventory.setInventory(((TileEntityContainerBlock) tileEntity).getInventory(), itemStack);
         }
+
         if (tileEntity instanceof ISustainedData) {
             ((ISustainedData) tileEntity).writeSustainedData(itemStack);
         }
@@ -396,20 +352,15 @@ public abstract class BlockEcoGenerator extends BlockEcoContainer {
     @Override
     @Deprecated
     public boolean isSideSolid(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
-        BlockStateEcoGenerator.EcoGeneratorType type = BlockStateEcoGenerator.EcoGeneratorType.get(getGeneratorBlock(), state.getBlock().getMetaFromState(state));
-        return type != BlockStateEcoGenerator.EcoGeneratorType.SOLAR_PANEL_ADVANCED && type != BlockStateEcoGenerator.EcoGeneratorType.SOLAR_PANEL_HYBRID && type != BlockStateEcoGenerator.EcoGeneratorType.SOLAR_PANEL_PERFECTHYBRID
-                && type != BlockStateEcoGenerator.EcoGeneratorType.SOLAR_PANEL_QUANTUM && type != BlockStateEcoGenerator.EcoGeneratorType.SOLAR_PANEL_SPECTRAL && type != BlockStateEcoGenerator.EcoGeneratorType.SOLAR_PANEL_PROTONIC
-                && type != BlockStateEcoGenerator.EcoGeneratorType.SOLAR_PANEL_SINGULAR && type != BlockStateEcoGenerator.EcoGeneratorType.SOLAR_PANEL_DIFFRACTIVE && type != BlockStateEcoGenerator.EcoGeneratorType.SOLAR_PANEL_PHOTONIC
-                && type != BlockStateEcoGenerator.EcoGeneratorType.SOLAR_PANEL_NEUTRON;
-
+        return false;
     }
 
     @Override
     public EnumFacing[] getValidRotations(World world, @Nonnull BlockPos pos) {
         TileEntity tile = world.getTileEntity(pos);
         EnumFacing[] valid = new EnumFacing[6];
-        if (tile instanceof TileEntityEcoBasicBlock) {
-            TileEntityEcoBasicBlock basicTile = (TileEntityEcoBasicBlock) tile;
+        if (tile instanceof TileEntityBasicBlock) {
+            TileEntityBasicBlock basicTile = (TileEntityBasicBlock) tile;
             for (EnumFacing dir : EnumFacing.VALUES) {
                 if (basicTile.canSetFacing(dir)) {
                     valid[dir.ordinal()] = dir;
@@ -422,8 +373,7 @@ public abstract class BlockEcoGenerator extends BlockEcoContainer {
     @Override
     public boolean rotateBlock(World world, @Nonnull BlockPos pos, @Nonnull EnumFacing axis) {
         TileEntity tile = world.getTileEntity(pos);
-        if (tile instanceof TileEntityEcoBasicBlock) {
-            TileEntityEcoBasicBlock basicTile = (TileEntityEcoBasicBlock) tile;
+        if (tile instanceof TileEntityBasicBlock basicTile) {
             if (basicTile.canSetFacing(axis)) {
                 basicTile.setFacing(axis);
                 return true;
@@ -432,21 +382,20 @@ public abstract class BlockEcoGenerator extends BlockEcoContainer {
         return false;
     }
 
-    public PropertyEnum<BlockStateEcoGenerator.EcoGeneratorType> getTypeProperty() {
+    public PropertyEnum<EcoGeneratorType> getTypeProperty() {
         return getGeneratorBlock().getProperty();
     }
 
-
     @Override
     public boolean hasComparatorInputOverride(IBlockState blockState) {
-        BlockStateEcoGenerator.EcoGeneratorType generatorType = BlockStateEcoGenerator.EcoGeneratorType.get(blockState);
-        return generatorType != null && generatorType.hasRedstoneOutput;
+        EcoGeneratorType type = EcoGeneratorType.get(blockState);
+        return type != null && type.hasRedstoneOutput;
     }
 
     @Override
     public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
-        BlockStateEcoGenerator.EcoGeneratorType generatorType = BlockStateEcoGenerator.EcoGeneratorType.get(blockState);
-        if (generatorType != null && generatorType.hasRedstoneOutput) {
+        EcoGeneratorType type = EcoGeneratorType.get(blockState);
+        if (type != null && type.hasRedstoneOutput) {
             TileEntity tile = worldIn.getTileEntity(pos);
             if (tile instanceof IComparatorSupport) {
                 return ((IComparatorSupport) tile).getRedstoneLevel();

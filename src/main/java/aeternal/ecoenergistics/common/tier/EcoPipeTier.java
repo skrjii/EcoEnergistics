@@ -1,9 +1,8 @@
 package aeternal.ecoenergistics.common.tier;
 
-import aeternal.ecoenergistics.config.EcoConfig;
-import mekanism.common.config.MekanismConfig;
+import aeternal.ecoenergistics.common.config.EcoConfig;
 
-public enum EcoPipeTier implements ITier {
+public enum EcoPipeTier implements MEEITier {
     ADVANCED(64000, 25600),
     HYBRID(256000, 102400),
     PERFECTHYBRID(512000, 409600),

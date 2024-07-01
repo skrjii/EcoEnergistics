@@ -8,7 +8,6 @@ public enum MoreDust {
     ACTIVATEDGLOWSTONE("ActivatedGlowstone",0xf2cd67),
     REFINEDLITHIUM("RefinedLithium",0xf2cd67);
 
-
     public final int tint;
     private String name;
 

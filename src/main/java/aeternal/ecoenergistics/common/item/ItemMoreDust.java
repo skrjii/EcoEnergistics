@@ -1,12 +1,13 @@
 package aeternal.ecoenergistics.common.item;
 
-import java.util.Locale;
-import javax.annotation.Nonnull;
-
 import aeternal.ecoenergistics.common.enums.MoreDust;
+import mekanism.common.base.IMetaItem;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+
+import javax.annotation.Nonnull;
+import java.util.Locale;
 
 public class ItemMoreDust extends ItemMEE implements IMetaItem {
 

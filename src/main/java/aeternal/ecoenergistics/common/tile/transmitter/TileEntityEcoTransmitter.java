@@ -5,26 +5,30 @@ import java.util.Collection;
 import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import aeternal.ecoenergistics.common.capabilities.EcoCapabilities;
+import aeternal.ecoenergistics.common.tier.IEcoAlloyInteraction;
+import aeternal.ecoenergistics.common.tier.MEEAlloyTier;
+import aeternal.ecoenergistics.common.transmitters.TransmitterEcoImpl;
 import mekanism.api.Coord4D;
-import mekanism.api.IAlloyInteraction;
 import mekanism.api.transmitters.DynamicNetwork;
 import mekanism.api.transmitters.DynamicNetwork.NetworkClientRequest;
 import mekanism.api.transmitters.IGridTransmitter;
 import mekanism.api.transmitters.TransmitterNetworkRegistry;
 import mekanism.common.capabilities.Capabilities;
 
+import mekanism.common.tile.transmitter.TileEntitySidedPipe.*;
 import mekanism.common.util.MekanismUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 
-public abstract class TileEntityEcoTransmitter<A, N extends DynamicNetwork<A, N, BUFFER>, BUFFER> extends TileEntityEcoSidedPipe implements IAlloyInteraction {
+public abstract class TileEntityEcoTransmitter<A, N extends DynamicNetwork<A, N, BUFFER>, BUFFER> extends TileEntityEcoSidedPipe implements IEcoAlloyInteraction {
 
-    public TransmitterEImpl<A, N, BUFFER> transmitterDelegate;
+    public TransmitterEcoImpl<A, N, BUFFER> transmitterDelegate;
 
     public boolean unloaded = true;
     public boolean dataRequest = false;
@@ -33,10 +37,10 @@ public abstract class TileEntityEcoTransmitter<A, N extends DynamicNetwork<A, N,
     private N lastClientNetwork = null;
 
     public TileEntityEcoTransmitter() {
-        transmitterDelegate = new TransmitterEImpl<>(this);
+        transmitterDelegate = new TransmitterEcoImpl<>(this);
     }
 
-    public TransmitterEImpl<A, N, BUFFER> getTransmitter() {
+    public TransmitterEcoImpl<A, N, BUFFER> getTransmitter() {
         return transmitterDelegate;
     }
 
@@ -156,9 +160,9 @@ public abstract class TileEntityEcoTransmitter<A, N extends DynamicNetwork<A, N,
         // The best way to do this is probably by making a method that updates the values for
         // the valid transmitters manually if the network is the same object.
         for (IGridTransmitter transmitter : transmitters) {
-            if (transmitter instanceof TransmitterEImpl) {
+            if (transmitter instanceof TransmitterEcoImpl) {
                 //Refresh the connections because otherwise sometimes they need to wait for a block update
-                ((TransmitterEImpl) transmitter).containingTile.refreshConnections();
+                ((TransmitterEcoImpl) transmitter).containingTile.refreshConnections();
             }
         }
     }
@@ -220,7 +224,7 @@ public abstract class TileEntityEcoTransmitter<A, N extends DynamicNetwork<A, N,
     }
 
     @Override
-    public void onAlloyInteraction(EntityPlayer player, EnumHand hand, ItemStack stack, int tierOrdinal) {
+    public void onAlloyInteraction(EntityPlayer player,ItemStack stack, MEEAlloyTier tierOrdinal) {
         if (getTransmitter().hasTransmitterNetwork()) {
             int upgraded = 0;
             List<IGridTransmitter<A, N, BUFFER>> list = new ArrayList<>(getTransmitter().getTransmitterNetwork().getTransmitters());
@@ -237,8 +241,8 @@ public abstract class TileEntityEcoTransmitter<A, N extends DynamicNetwork<A, N,
                 return 0;
             });
             for (IGridTransmitter<A, N, BUFFER> iter : list) {
-                if (iter instanceof TransmitterEImpl) {
-                    TileEntityEcoTransmitter t = ((TransmitterEImpl) iter).containingTile;
+                if (iter instanceof TransmitterEcoImpl) {
+                    TileEntityEcoTransmitter t = ((TransmitterEcoImpl) iter).containingTile;
                     if (t.upgrade(tierOrdinal)) {
                         upgraded++;
                         if (upgraded == 8) {
@@ -250,15 +254,12 @@ public abstract class TileEntityEcoTransmitter<A, N extends DynamicNetwork<A, N,
             if (upgraded > 0) {
                 if (!player.capabilities.isCreativeMode) {
                     stack.shrink(1);
-                    if (stack.getCount() == 0) {
-                        player.setHeldItem(hand, ItemStack.EMPTY);
-                    }
                 }
             }
         }
     }
 
-    public boolean upgrade(int tierOrdinal) {
+    public boolean upgrade(MEEAlloyTier tierOrdinal) {
         return false;
     }
 
@@ -283,15 +284,15 @@ public abstract class TileEntityEcoTransmitter<A, N extends DynamicNetwork<A, N,
 
     @Override
     public boolean hasCapability(@Nonnull Capability<?> capability, EnumFacing side) {
-        return capability == Capabilities.GRID_TRANSMITTER_CAPABILITY || capability == Capabilities.ALLOY_INTERACTION_CAPABILITY || super.hasCapability(capability, side);
+        return capability == Capabilities.GRID_TRANSMITTER_CAPABILITY || capability == EcoCapabilities.ALLOY_INTERACTION_CAPABILITY || super.hasCapability(capability, side);
     }
 
     @Override
     public <T> T getCapability(@Nonnull Capability<T> capability, EnumFacing side) {
         if (capability == Capabilities.GRID_TRANSMITTER_CAPABILITY) {
             return Capabilities.GRID_TRANSMITTER_CAPABILITY.cast(getTransmitter());
-        } else if (capability == Capabilities.ALLOY_INTERACTION_CAPABILITY) {
-            return Capabilities.ALLOY_INTERACTION_CAPABILITY.cast(this);
+        } else if (capability == EcoCapabilities.ALLOY_INTERACTION_CAPABILITY) {
+            return EcoCapabilities.ALLOY_INTERACTION_CAPABILITY.cast(this);
         }
         return super.getCapability(capability, side);
     }

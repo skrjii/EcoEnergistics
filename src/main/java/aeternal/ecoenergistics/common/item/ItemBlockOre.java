@@ -2,7 +2,8 @@ package aeternal.ecoenergistics.common.item;
 
 import java.util.List;
 import javax.annotation.Nonnull;
-import aeternal.ecoenergistics.api.EnumColor;
+
+import mekanism.api.EnumColor;
 import mekanism.client.MekKeyHandler;
 import mekanism.client.MekanismKeyHandler;
 import mekanism.common.util.LangUtils;
@@ -51,21 +52,12 @@ public class ItemBlockOre extends ItemBlock {
     @Nonnull
     @Override
     public String getTranslationKey(ItemStack itemstack) {
-        String name;
-        switch (itemstack.getItemDamage()) {
-            case 0:
-                name = "TitaniumOre";
-                break;
-            case 1:
-                name = "UraniumOre";
-                break;
-            case 2:
-                name = "IridiumOre";
-                break;
-            default:
-                name = "Unknown";
-                break;
-        }
+        String name = switch (itemstack.getItemDamage()) {
+            case 0 -> "TitaniumOre";
+            case 1 -> "UraniumOre";
+            case 2 -> "IridiumOre";
+            default -> "Unknown";
+        };
         return getTranslationKey() + "." + name;
     }
 }

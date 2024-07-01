@@ -229,4 +229,11 @@ tooltip.SolarStationCrystal=Avaritia integration module. Peak energy generation:
 tooltip.SolarStationNeutronium=Avaritia integration module. Peak energy generation: 129000000 RF/t
 tooltip.SolarStationInfinity=Avaritia integration module. Peak energy generation: 678000000 RF/t
 
+# Config Gui
+mekanismecoenergistics.configgui.ctgy.generation=General Settings
+mekanismecoenergistics.configgui.ctgy.machines=Machine Settings
+mekanismecoenergistics.configgui.ctgy.tier=Tier Settings
+mekanismecoenergistics.configgui.ctgy.storage=Energy Storage Settings
+mekanismecoenergistics.configgui.ctgy.integration=Integration Settings
+
 

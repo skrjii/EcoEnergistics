@@ -1,27 +1,24 @@
 package aeternal.ecoenergistics.common.block;
 
-import aeternal.ecoenergistics.EcoEnergistics;
-import aeternal.ecoenergistics.EcoUtils;
+import aeternal.ecoenergistics.client.render.particle.MekanismEcoParticleHelper;
+import aeternal.ecoenergistics.common.EcoEnergistics;
 import aeternal.ecoenergistics.common.EcoEnergisticsBlocks;
-import aeternal.ecoenergistics.common.base.ITierItem;
-import aeternal.ecoenergistics.common.block.property.PropertyConnection;
+import aeternal.ecoenergistics.common.base.EcoITierItem;
 import aeternal.ecoenergistics.common.block.states.BlockStateEcoTransmitter;
 import aeternal.ecoenergistics.common.block.states.BlockStateEcoTransmitter.EcoTransmitterType;
+import aeternal.ecoenergistics.common.block.states.BlockStateEcoTransmitter.EcoTransmitterType.Size;
 import aeternal.ecoenergistics.common.tier.MEETiers;
-import aeternal.ecoenergistics.common.tile.transmitter.TileEntityEcoMechanicalPipe;
-import aeternal.ecoenergistics.common.tile.transmitter.TileEntityEcoPressurizedTube;
-import aeternal.ecoenergistics.common.tile.transmitter.TileEntityEcoSidedPipe.ConnectionType;
-import aeternal.ecoenergistics.common.tile.transmitter.TileEntityEcoSidedPipe;
-import aeternal.ecoenergistics.common.tile.transmitter.TileEntityEcoUniversalCable;
+import aeternal.ecoenergistics.common.tile.transmitter.*;
+import aeternal.ecoenergistics.common.util.EcoEnergisticsUtils;
 import mekanism.api.IMekWrench;
-import mekanism.client.render.particle.MekanismParticleHelper;
 import mekanism.common.Mekanism;
 import mekanism.common.block.BlockTileDrops;
+import mekanism.common.block.property.PropertyConnection;
 import mekanism.common.integration.multipart.MultipartMekanism;
 import mekanism.common.integration.wrenches.Wrenches;
+import mekanism.common.tile.transmitter.TileEntitySidedPipe;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.MultipartUtils;
-import mekanism.common.util.MultipartUtils.AdvancedRayTraceResult;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -40,12 +37,10 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.obj.OBJModel.OBJProperty;
-import net.minecraftforge.client.model.obj.OBJModel.OBJState;
+import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -54,6 +49,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
+
 
 public class BlockEcoTransmitter extends BlockTileDrops implements ITileEntityProvider {
 
@@ -92,7 +88,7 @@ public class BlockEcoTransmitter extends BlockTileDrops implements ITileEntityPr
     }
 
     private static AxisAlignedBB getDefaultForTile(TileEntityEcoSidedPipe tile) {
-        if (tile == null || tile.getTransmitterType().getSize() == BlockStateEcoTransmitter.EcoTransmitterType.Size.SMALL) {
+        if (tile == null || tile.getTransmitterType().getSize() == EcoTransmitterType.Size.SMALL) {
             return smallDefault;
         }
         return largeDefault;
@@ -105,7 +101,7 @@ public class BlockEcoTransmitter extends BlockTileDrops implements ITileEntityPr
         if (box == null) {
             throw new IllegalStateException("box should not be null");
         }
-        if (tile.getTransmitterType().getSize() == BlockStateEcoTransmitter.EcoTransmitterType.Size.SMALL) {
+        if (tile.getTransmitterType().getSize() == Size.SMALL) {
             smallDefault = box;
         } else {
             largeDefault = box;
@@ -165,10 +161,10 @@ public class BlockEcoTransmitter extends BlockTileDrops implements ITileEntityPr
         if (tile != null) {
             return tile.getExtendedState(state);
         }
-        ConnectionType[] typeArray = new ConnectionType[]{ConnectionType.NORMAL, ConnectionType.NORMAL, ConnectionType.NORMAL,
-                ConnectionType.NORMAL, ConnectionType.NORMAL, ConnectionType.NORMAL};
+        TileEntitySidedPipe.ConnectionType[] typeArray = new TileEntitySidedPipe.ConnectionType[]{TileEntitySidedPipe.ConnectionType.NORMAL, TileEntitySidedPipe.ConnectionType.NORMAL, TileEntitySidedPipe.ConnectionType.NORMAL,
+                TileEntitySidedPipe.ConnectionType.NORMAL, TileEntitySidedPipe.ConnectionType.NORMAL, TileEntitySidedPipe.ConnectionType.NORMAL};
         PropertyConnection connectionProp = new PropertyConnection((byte) 0, (byte) 0, typeArray, true);
-        return ((IExtendedBlockState) state).withProperty(OBJProperty.INSTANCE, new OBJState(Collections.emptyList(), true)).withProperty(PropertyConnection.INSTANCE, connectionProp);
+        return ((IExtendedBlockState) state).withProperty(OBJModel.OBJProperty.INSTANCE, new OBJModel.OBJState(Collections.emptyList(), true)).withProperty(PropertyConnection.INSTANCE, connectionProp);
     }
 
     @Nonnull
@@ -210,7 +206,7 @@ public class BlockEcoTransmitter extends BlockTileDrops implements ITileEntityPr
             return null;
         }
         List<AxisAlignedBB> boxes = tile.getCollisionBoxes();
-        AdvancedRayTraceResult result = MultipartUtils.collisionRayTrace(pos, start, end, boxes);
+        MultipartUtils.AdvancedRayTraceResult result = MultipartUtils.collisionRayTrace(pos, start, end, boxes);
         if (result != null && result.valid()) {
             setDefaultForTile(tile, result.bounds);
         }
@@ -246,7 +242,7 @@ public class BlockEcoTransmitter extends BlockTileDrops implements ITileEntityPr
             if (!itemStack.hasTagCompound()) {
                 itemStack.setTagCompound(new NBTTagCompound());
             }
-            ITierItem tierItem = (ITierItem) itemStack.getItem();
+            EcoITierItem tierItem = (EcoITierItem) itemStack.getItem();
             tierItem.setBaseTier(itemStack, tileEntity.getBaseTier());
         }
         return itemStack;
@@ -255,10 +251,10 @@ public class BlockEcoTransmitter extends BlockTileDrops implements ITileEntityPr
     @Override
     @SideOnly(Side.CLIENT)
     public boolean addHitEffects(IBlockState state, World world, RayTraceResult target, ParticleManager manager) {
-        if (!target.typeOfHit.equals(Type.BLOCK)) {
+        if (!target.typeOfHit.equals(RayTraceResult.Type.BLOCK)) {
             return super.addHitEffects(state, world, target, manager);
         }
-        return MekanismParticleHelper.addBlockHitEffects(world, target.getBlockPos(), target.sideHit, manager) || super.addHitEffects(state, world, target, manager);
+        return MekanismEcoParticleHelper.addBlockHitEffects(world, target.getBlockPos(), target.sideHit, manager) || super.addHitEffects(state, world, target, manager);
     }
 
     @Override
@@ -266,10 +262,10 @@ public class BlockEcoTransmitter extends BlockTileDrops implements ITileEntityPr
         for (EcoTransmitterType type : EcoTransmitterType.values()) {
             if (type.hasTiers()) {
                 for (MEETiers tier : MEETiers.values()) {
-                    list.add(EcoUtils.getEcoTransmitter(type, tier, 1));
+                    list.add(EcoEnergisticsUtils.getEcoTransmitter(type, tier, 1));
                 }
             } else {
-                list.add(EcoUtils.getEcoTransmitter(type, MEETiers.ADVANCED, 1));
+                list.add(EcoEnergisticsUtils.getEcoTransmitter(type, MEETiers.ADVANCED, 1));
             }
         }
     }
@@ -303,10 +299,6 @@ public class BlockEcoTransmitter extends BlockTileDrops implements ITileEntityPr
 
     @Override
     public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer) {
-        EcoTransmitterType type = state.getValue(BlockStateEcoTransmitter.typeProperty);
-/*        if (layer == BlockRenderLayer.TRANSLUCENT && (type == TransmitterType.LOGISTICAL_TRANSPORTER || type == TransmitterType.DIVERSION_TRANSPORTER)) {
-            return true;
-        }*/
         return layer == BlockRenderLayer.CUTOUT;
     }
 
@@ -351,14 +343,10 @@ public class BlockEcoTransmitter extends BlockTileDrops implements ITileEntityPr
     @Override
     public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
         EcoTransmitterType type = EcoTransmitterType.get(meta);
-        switch (type) {
-            case UNIVERSAL_CABLE:
-                return new TileEntityEcoUniversalCable();
-            case MECHANICAL_PIPE:
-                return new TileEntityEcoMechanicalPipe();
-            case PRESSURIZED_TUBE:
-                return new TileEntityEcoPressurizedTube();
-        }
-        return null;
+        return switch (type) {
+            case UNIVERSAL_CABLE -> new TileEntityEcoUniversalCable();
+            case MECHANICAL_PIPE -> new TileEntityEcoMechanicalPipe();
+            case PRESSURIZED_TUBE -> new TileEntityEcoPressurizedTube();
+        };
     }
 }

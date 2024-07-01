@@ -1,10 +1,11 @@
 package aeternal.ecoenergistics.common;
 
-import aeternal.ecoenergistics.Constants;
+import aeternal.ecoenergistics.common.config.EcoConfig;
+import aeternal.ecoenergistics.common.enums.AvaritiaTiers;
 import aeternal.ecoenergistics.common.enums.Compressed;
 import aeternal.ecoenergistics.common.enums.Dust;
 import aeternal.ecoenergistics.common.enums.MoreDust;
-import aeternal.ecoenergistics.common.item.EcoEnergisticsItems;
+
 import mekanism.api.infuse.InfuseObject;
 import mekanism.api.infuse.InfuseRegistry;
 import mekanism.api.infuse.InfuseType;
@@ -23,24 +24,39 @@ public class Infusers {
     public static InfuseType uranium;
     public static InfuseType iridium;
 
+    public static InfuseType crystal;
+    public static InfuseType neutronium;
+    public static InfuseType infinity;
+
+
     public static void registerInfuseType() {
-        gold = new InfuseType("GOLD", new ResourceLocation(Constants.MOD_ID, "blocks/infuse/InfuseGold")).setTranslationKey("gold");
+        gold = new InfuseType("GOLD", new ResourceLocation(EcoEnergistics.MOD_ID, "blocks/infuse/InfuseGold")).setTranslationKey("gold");
         InfuseRegistry.registerInfuseType(gold);
-        glowstone = new InfuseType("GLOWSTONE", new ResourceLocation(Constants.MOD_ID, "blocks/infuse/InfuseGlowstone")).setTranslationKey("glowstone");
+        glowstone = new InfuseType("GLOWSTONE", new ResourceLocation(EcoEnergistics.MOD_ID, "blocks/infuse/InfuseGlowstone")).setTranslationKey("glowstone");
         InfuseRegistry.registerInfuseType(glowstone);
-        steel = new InfuseType("STEEL", new ResourceLocation(Constants.MOD_ID, "blocks/infuse/InfuseSteel")).setTranslationKey("steel");
+        steel = new InfuseType("STEEL", new ResourceLocation(EcoEnergistics.MOD_ID, "blocks/infuse/InfuseSteel")).setTranslationKey("steel");
         InfuseRegistry.registerInfuseType(steel);
-        lapis = new InfuseType("LAPIS", new ResourceLocation(Constants.MOD_ID, "blocks/infuse/InfuseLapis")).setTranslationKey("lapis");
+        lapis = new InfuseType("LAPIS", new ResourceLocation(EcoEnergistics.MOD_ID, "blocks/infuse/InfuseLapis")).setTranslationKey("lapis");
         InfuseRegistry.registerInfuseType(lapis);
-        emerald = new InfuseType("EMERALD", new ResourceLocation(Constants.MOD_ID, "blocks/infuse/InfuseEmerald")).setTranslationKey("emerald");
+        emerald = new InfuseType("EMERALD", new ResourceLocation(EcoEnergistics.MOD_ID, "blocks/infuse/InfuseEmerald")).setTranslationKey("emerald");
         InfuseRegistry.registerInfuseType(emerald);
-        titanium = new InfuseType("TITANIUM", new ResourceLocation(Constants.MOD_ID, "blocks/infuse/InfuseTitanium")).setTranslationKey("titanium");
+        titanium = new InfuseType("TITANIUM", new ResourceLocation(EcoEnergistics.MOD_ID, "blocks/infuse/InfuseTitanium")).setTranslationKey("titanium");
         InfuseRegistry.registerInfuseType(titanium);
-        uranium = new InfuseType("URANIUM", new ResourceLocation(Constants.MOD_ID, "blocks/infuse/InfuseUranium")).setTranslationKey("uranium");
+        uranium = new InfuseType("URANIUM", new ResourceLocation(EcoEnergistics.MOD_ID, "blocks/infuse/InfuseUranium")).setTranslationKey("uranium");
         InfuseRegistry.registerInfuseType(uranium);
-        iridium = new InfuseType("IRIDIUM", new ResourceLocation(Constants.MOD_ID, "blocks/infuse/InfuseIridium")).setTranslationKey("iridium");
+        iridium = new InfuseType("IRIDIUM", new ResourceLocation(EcoEnergistics.MOD_ID, "blocks/infuse/InfuseIridium")).setTranslationKey("iridium");
         InfuseRegistry.registerInfuseType(iridium);
+
+        if (EcoEnergistics.hooks.AvaritiaLoaded && EcoConfig.current().integration.AvaritiaEnable.val()){
+            crystal = new InfuseType("CRYSTAL", new ResourceLocation(EcoEnergistics.MOD_ID, "blocks/infuse/InfuseCrystal")).setTranslationKey("crystal");
+            InfuseRegistry.registerInfuseType(crystal);
+            neutronium = new InfuseType("NEUTRONIUM", new ResourceLocation(EcoEnergistics.MOD_ID, "blocks/infuse/InfuseNeutronium")).setTranslationKey("neutronium");
+            InfuseRegistry.registerInfuseType(neutronium);
+            infinity = new InfuseType("INFINITY", new ResourceLocation(EcoEnergistics.MOD_ID, "blocks/infuse/InfuseInfinity")).setTranslationKey("infinity");
+            InfuseRegistry.registerInfuseType(infinity);
+        }
     }
+
     public static void registerInfuseObject() {
         InfuseType gold = InfuseRegistry.get("GOLD");
         InfuseType glowstone = InfuseRegistry.get("GLOWSTONE");
@@ -96,6 +112,32 @@ public class Infusers {
             InfuseRegistry.registerInfuseObject(iridiumDust, new InfuseObject(iridium, 10));
             InfuseRegistry.registerInfuseObject(iridiumCompressed, new InfuseObject(iridium, 80));
         }
+
+        if (EcoEnergistics.hooks.AvaritiaLoaded && EcoConfig.current().integration.AvaritiaEnable.val()){
+            InfuseType crystal = InfuseRegistry.get("CRYSTAL");
+            InfuseType neutronium = InfuseRegistry.get("NEUTRONIUM");
+            InfuseType infinity = InfuseRegistry.get("INFINITY");
+
+            if (crystal != null) {
+                ItemStack crystalDust = new ItemStack(EcoEnergisticsItems.DustAvaritia, 1, 0);
+                ItemStack crystalCompressed = new ItemStack(EcoEnergisticsItems.CompressedAvaritia, 1, AvaritiaTiers.CRYSTALMATRIX.ordinal());
+                InfuseRegistry.registerInfuseObject(crystalDust, new InfuseObject(crystal, 10));
+                InfuseRegistry.registerInfuseObject(crystalCompressed, new InfuseObject(crystal, 80));
+            }
+            if (neutronium != null) {
+                ItemStack neutroniumDust = new ItemStack(EcoEnergisticsItems.DustAvaritia, 1, 1);
+                ItemStack neutroniumCompressed = new ItemStack(EcoEnergisticsItems.CompressedAvaritia, 1, 1);
+                InfuseRegistry.registerInfuseObject(neutroniumDust, new InfuseObject(neutronium, 10));
+                InfuseRegistry.registerInfuseObject(neutroniumCompressed, new InfuseObject(neutronium, 80));
+            }
+            if (infinity != null) {
+                ItemStack infinityDust = new ItemStack(EcoEnergisticsItems.DustAvaritia, 1, 2);
+                ItemStack infinityCompressed = new ItemStack(EcoEnergisticsItems.CompressedAvaritia, 1, 2);
+                InfuseRegistry.registerInfuseObject(infinityDust, new InfuseObject(infinity, 10));
+                InfuseRegistry.registerInfuseObject(infinityCompressed, new InfuseObject(infinity, 80));
+            }
+        }
+
     }
 
 }

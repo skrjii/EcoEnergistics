@@ -2,6 +2,7 @@ package aeternal.ecoenergistics.common.item;
 
 
 import aeternal.ecoenergistics.common.enums.Rods;
+import mekanism.common.base.IMetaItem;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;

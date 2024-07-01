@@ -5,6 +5,7 @@ import javax.annotation.Nonnull;
 
 
 import aeternal.ecoenergistics.common.enums.Dust;
+import mekanism.common.base.IMetaItem;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;

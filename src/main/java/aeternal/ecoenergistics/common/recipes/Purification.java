@@ -1,17 +1,20 @@
 package aeternal.ecoenergistics.common.recipes;
 
-import aeternal.ecoenergistics.Constants;
+
 import aeternal.ecoenergistics.common.EcoEnergisticsBlocks;
-import aeternal.ecoenergistics.common.item.EcoEnergisticsItems;
+
+import aeternal.ecoenergistics.common.EcoEnergisticsItems;
+import mekanism.common.block.states.BlockStateMachine;
+import mekanism.common.config.MekanismConfig;
 import mekanism.common.recipe.RecipeHandler;
 import net.minecraft.item.ItemStack;
 
 public class Purification {
     public static void InitCustomPurificationRecipes() {
-        if (Constants.PURIFICATION_ENABLED) {
-            ItemStack titaniumOre = new ItemStack(EcoEnergisticsBlocks.OreBlock,1,0);
-            ItemStack uraniummOre = new ItemStack(EcoEnergisticsBlocks.OreBlock,1,1);
-            ItemStack iridiumOre = new ItemStack(EcoEnergisticsBlocks.OreBlock,1,2);
+        if (MekanismConfig.current().general.machinesManager.isEnabled(BlockStateMachine.MachineType.PURIFICATION_CHAMBER)) {
+            ItemStack titaniumOre = new ItemStack(EcoEnergisticsBlocks.EcoOreBlock,1,0);
+            ItemStack uraniummOre = new ItemStack(EcoEnergisticsBlocks.EcoOreBlock,1,1);
+            ItemStack iridiumOre = new ItemStack(EcoEnergisticsBlocks.EcoOreBlock,1,2);
 
             ItemStack titaniumClump = new ItemStack(EcoEnergisticsItems.MoreClump,1,0);
             ItemStack titaniumClump2 = titaniumClump.copy();
