@@ -78,8 +78,8 @@ public class ItemBlockEcoGenerator extends ItemBlock implements IEnergizedItem, 
     @Nonnull
     @Override
     public String getTranslationKey(ItemStack itemstack) {
-        if (EcoGeneratorType.get(itemstack) != null){
-            return getTranslationKey() + "." +EcoGeneratorType.get(itemstack).getBlockName();
+        if (EcoGeneratorType.get(itemstack) != null) {
+            return getTranslationKey() + "." + EcoGeneratorType.get(itemstack).getBlockName();
         }
         return "KillMe!";
     }
@@ -112,7 +112,7 @@ public class ItemBlockEcoGenerator extends ItemBlock implements IEnergizedItem, 
                 list.add(EnumColor.AQUA + LangUtils.localize("tooltip.inventory") + ": " + EnumColor.GREY +
                         LangUtils.transYesNo(getInventory(itemstack) != null && getInventory(itemstack).tagCount() != 0));
             } else {
-                list.addAll(MekanismUtils.splitTooltip(type.getDescription(), itemstack));
+                list.addAll(MekanismUtils.splitTooltip(type.getDescription() +": "+ MekanismUtils.getEnergyDisplay(type.getOutput()), itemstack));
             }
         } else {
             if (!MekKeyHandler.getIsKeyPressed(MekanismKeyHandler.sneakKey)) {
