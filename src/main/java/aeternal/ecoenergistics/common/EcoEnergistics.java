@@ -2,6 +2,8 @@ package aeternal.ecoenergistics.common;
 
 import aeternal.ecoenergistics.common.block.states.BlockStateEcoGenerator.EcoGeneratorType;
 import aeternal.ecoenergistics.common.capabilities.EcoCapabilities;
+import aeternal.ecoenergistics.common.config.EcoConfig;
+import aeternal.ecoenergistics.common.enums.AvaritiaTiers;
 import aeternal.ecoenergistics.common.enums.Ore;
 import aeternal.ecoenergistics.common.integration.EcoHooks;
 import aeternal.ecoenergistics.common.world.GenHandler;
@@ -13,6 +15,7 @@ import mekanism.common.base.IModule;
 import mekanism.common.config.MekanismConfig;
 import mekanism.common.network.PacketSimpleGui;
 import mekanism.generators.common.MekanismGenerators;
+import morph.avaritia.init.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -76,6 +79,7 @@ public class EcoEnergistics implements IModule {
     public static void registerItems(RegistryEvent.Register<Item> event) {
         EcoEnergisticsItems.registerItems(event.getRegistry());
         EcoEnergisticsBlocks.registerItemBlocks(event.getRegistry());
+        EcoEnergisticsOreDict.registerOreDict();
     }
 
     @SubscribeEvent
@@ -103,6 +107,14 @@ public class EcoEnergistics implements IModule {
         GameRegistry.addSmelting(new ItemStack(EcoOreBlock, 1, Ore.TITANIUM.ordinal()), new ItemStack(EcoEnergisticsItems.MoreIngot, 1, 1), 0.0F);
         GameRegistry.addSmelting(new ItemStack(EcoOreBlock, 1, Ore.URANIUM.ordinal()), new ItemStack(EcoEnergisticsItems.MoreIngot, 1, 2), 0.0F);
         GameRegistry.addSmelting(new ItemStack(EcoOreBlock, 1, Ore.IRIDIUM.ordinal()), new ItemStack(EcoEnergisticsItems.MoreIngot, 1, 3), 0.0F);
+        if (EcoEnergistics.hooks.AvaritiaLoaded &&  EcoConfig.current().integration.AvaritiaEnable.val()) {
+            ItemStack crystalIngot = ModItems.crystal_matrix_ingot;
+            ItemStack neutroniumIngot = ModItems.neutronium_ingot;
+            ItemStack infinityIngot = ModItems.infinity_ingot;
+            GameRegistry.addSmelting(new ItemStack(EcoEnergisticsItems.DustAvaritia, 1, AvaritiaTiers.CRYSTALMATRIX.ordinal()), new ItemStack(crystalIngot.getItem(), 1,1), 0.0F);
+            GameRegistry.addSmelting(new ItemStack(EcoEnergisticsItems.DustAvaritia, 1, AvaritiaTiers.NEUTRONIUM.ordinal()), new ItemStack(neutroniumIngot.getItem(), 1,4), 0.0F);
+            GameRegistry.addSmelting(new ItemStack(EcoEnergisticsItems.DustAvaritia, 1, AvaritiaTiers.INFINITY.ordinal()), new ItemStack(infinityIngot.getItem(), 1,6), 0.0F);
+        }
     }
 
     @Mod.EventHandler

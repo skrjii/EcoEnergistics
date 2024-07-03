@@ -30,8 +30,8 @@ public class ItemDust extends ItemMEE implements IMetaItem {
     @Override
     public void getSubItems(@Nonnull CreativeTabs tabs, @Nonnull NonNullList<ItemStack> itemList) {
         if (isInCreativeTab(tabs)) {
-            for (int counter = 0; counter < Dust.values().length; counter++) {
-                itemList.add(new ItemStack(this, 1, counter));
+            for (Dust counter : Dust.values()) {
+                itemList.add(new ItemStack(this, 1, counter.ordinal()));
             }
         }
     }
@@ -39,9 +39,6 @@ public class ItemDust extends ItemMEE implements IMetaItem {
     @Nonnull
     @Override
     public String getTranslationKey(ItemStack item) {
-        if (item.getItemDamage() <= Dust.values().length - 1) {
-            return "item." + Dust.values()[item.getItemDamage()].getName().toLowerCase(Locale.ROOT) + "Dust";
-        }
-        return "Invalid";
+        return "item." + Dust.values()[item.getItemDamage()].getName().toLowerCase(Locale.ROOT) + "Dust";
     }
 }

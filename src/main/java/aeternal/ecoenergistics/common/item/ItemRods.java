@@ -30,8 +30,8 @@ public class ItemRods extends ItemMEE implements IMetaItem {
     @Override
     public void getSubItems(@Nonnull CreativeTabs tabs, @Nonnull NonNullList<ItemStack> itemList) {
         if (isInCreativeTab(tabs)) {
-            for (int counter = 0; counter < Rods.values().length; counter++) {
-                itemList.add(new ItemStack(this, 1, counter));
+            for (Rods counter : Rods.values()) {
+                itemList.add(new ItemStack(this, 1, counter.ordinal()));
             }
         }
     }
@@ -39,9 +39,6 @@ public class ItemRods extends ItemMEE implements IMetaItem {
     @Nonnull
     @Override
     public String getTranslationKey(ItemStack item) {
-        if (item.getItemDamage() <= Rods.values().length - 1) {
-            return "item." + Rods.values()[item.getItemDamage()].getName().toLowerCase(Locale.ROOT) + "Rod";
-        }
-        return "Invalid";
+        return "item." + Rods.values()[item.getItemDamage()].getName().toLowerCase(Locale.ROOT) + "Rod";
     }
 }

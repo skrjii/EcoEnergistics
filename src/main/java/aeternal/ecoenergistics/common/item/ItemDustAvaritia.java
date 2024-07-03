@@ -29,9 +29,7 @@ public class ItemDustAvaritia extends ItemMEE implements IMetaItem {
     public void getSubItems(@Nonnull CreativeTabs tabs, @Nonnull NonNullList<ItemStack> itemList) {
         if (isInCreativeTab(tabs)) {
             for (AvaritiaTiers tier : AvaritiaTiers.values()) {
-
                 itemList.add(new ItemStack(this, 1, tier.ordinal()));
-
             }
         }
     }
