@@ -1,8 +1,10 @@
 package aeternal.ecoenergistics.common.tile.transmitter;
 
 import aeternal.ecoenergistics.common.tier.EcoTubeTier;
+import aeternal.ecoenergistics.common.tier.MEEAlloyTier;
 import aeternal.ecoenergistics.common.tier.MEETiers;
 import aeternal.ecoenergistics.common.block.states.BlockStateEcoTransmitter.EcoTransmitterType;
+import mekanism.common.tile.transmitter.TileEntitySidedPipe.*;
 import io.netty.buffer.ByteBuf;
 import java.util.Collection;
 import javax.annotation.Nonnull;
@@ -287,8 +289,8 @@ public class TileEntityEcoPressurizedTube extends TileEntityEcoTransmitter<IGasH
     }
 
     @Override
-    public boolean upgrade(int tierOrdinal) {
-        if (tier.ordinal() < MEETiers.NEUTRON.ordinal() && tierOrdinal == tier.ordinal() + 1) {
+    public boolean upgrade(MEEAlloyTier tierOrdinal) {
+        if (tier.ordinal() < MEETiers.NEUTRON.ordinal() && tierOrdinal.ordinal() == tier.ordinal() + 1) {
             tier = EcoTubeTier.values()[tier.ordinal() + 1];
             markDirtyTransmitters();
             sendDesc = true;

@@ -3,7 +3,7 @@ package aeternal.ecoenergistics.common.world;
 import java.util.Random;
 
 import aeternal.ecoenergistics.common.EcoEnergisticsBlocks;
-import aeternal.ecoenergistics.config.EcoConfig;
+import aeternal.ecoenergistics.common.config.EcoConfig;
 import net.minecraft.block.state.pattern.BlockMatcher;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -22,19 +22,19 @@ public class GenHandler implements IWorldGenerator {
         if (!(chunkGenerator instanceof ChunkGeneratorHell) && !(chunkGenerator instanceof ChunkGeneratorEnd)) {
             for (int i = 0; i < EcoConfig.current().generators.titaniumPerChunk.val(); i++) {
                 BlockPos pos = new BlockPos(chunkX * 16 + random.nextInt(16), random.nextInt(60), (chunkZ * 16) + random.nextInt(16));
-                new WorldGenMinable(EcoEnergisticsBlocks.OreBlock.getStateFromMeta(0), EcoConfig.current().generators.titaniumMaxVeinSize.val(),
+                new WorldGenMinable(EcoEnergisticsBlocks.EcoOreBlock.getStateFromMeta(0), EcoConfig.current().generators.titaniumMaxVeinSize.val(),
                         BlockMatcher.forBlock(Blocks.STONE)).generate(world, random, pos);
             }
 
             for (int i = 0; i < EcoConfig.current().generators.uraniumPerChunk.val(); i++) {
                 BlockPos pos = new BlockPos(chunkX * 16 + random.nextInt(16), random.nextInt(30), (chunkZ * 16) + random.nextInt(16));
-                new WorldGenMinable(EcoEnergisticsBlocks.OreBlock.getStateFromMeta(1), EcoConfig.current().generators.uraniumMaxVeinSize.val(),
+                new WorldGenMinable(EcoEnergisticsBlocks.EcoOreBlock.getStateFromMeta(1), EcoConfig.current().generators.uraniumMaxVeinSize.val(),
                         BlockMatcher.forBlock(Blocks.STONE)).generate(world, random, pos);
             }
 
             for (int i = 0; i < EcoConfig.current().generators.iridiumPerChunk.val(); i++) {
                 BlockPos pos = new BlockPos(chunkX * 16 + random.nextInt(16), random.nextInt(15), (chunkZ * 16) + random.nextInt(16));
-                new WorldGenMinable(EcoEnergisticsBlocks.OreBlock.getStateFromMeta(2), EcoConfig.current().generators.iridiumMaxVeinSize.val(),
+                new WorldGenMinable(EcoEnergisticsBlocks.EcoOreBlock.getStateFromMeta(2), EcoConfig.current().generators.iridiumMaxVeinSize.val(),
                         BlockMatcher.forBlock(Blocks.STONE)).generate(world, random, pos);
             }
         }

@@ -1,7 +1,6 @@
 package aeternal.ecoenergistics.common.tile.transmitter;
 
-import aeternal.ecoenergistics.common.block.BlockEcoTransmitter;
-import aeternal.ecoenergistics.common.block.property.PropertyConnection;
+import aeternal.ecoenergistics.common.block.BlockEcoTransmitter;;
 import aeternal.ecoenergistics.common.block.states.BlockStateEcoTransmitter.EcoTransmitterType;
 import aeternal.ecoenergistics.common.block.states.BlockStateEcoTransmitter.EcoTransmitterType.Size;
 import aeternal.ecoenergistics.common.tier.MEETiers;
@@ -16,9 +15,11 @@ import mekanism.api.transmitters.ITransmitter;
 import mekanism.api.transmitters.TransmissionType;
 import mekanism.common.Mekanism;
 import mekanism.common.base.ITileNetwork;
+import mekanism.common.block.property.PropertyConnection;
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.integration.multipart.MultipartMekanism;
 import mekanism.common.integration.multipart.MultipartTileNetworkJoiner;
+import mekanism.common.tile.transmitter.TileEntitySidedPipe.ConnectionType;
 import mekanism.common.util.CapabilityUtils;
 import mekanism.common.util.MekanismUtils;
 import mekanism.common.util.MultipartUtils;
@@ -30,7 +31,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -49,7 +49,6 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
 public abstract class TileEntityEcoSidedPipe extends TileEntity implements ITileNetwork, IBlockableConnection, IConfigurable, ITransmitter, ITickable {
 
     public int delayTicks;
@@ -631,26 +630,4 @@ public abstract class TileEntityEcoSidedPipe extends TileEntity implements ITile
         return super.getCapability(capability, facing);
     }
 
-    public enum ConnectionType implements IStringSerializable {
-        NORMAL,
-        PUSH,
-        PULL,
-        NONE;
-
-        public ConnectionType next() {
-            if (ordinal() == values().length - 1) {
-                return NORMAL;
-            }
-            return values()[ordinal() + 1];
-        }
-
-        @Override
-        public String getName() {
-            return name().toLowerCase(Locale.ROOT);
-        }
-
-        public String translationKey() {
-            return "mekanism.pipe.connectiontype." + getName();
-        }
-    }
 }

@@ -1,11 +1,15 @@
 package aeternal.ecoenergistics.common.recipes;
 
-import aeternal.ecoenergistics.Constants;
+
+import aeternal.ecoenergistics.common.EcoEnergistics;
+import aeternal.ecoenergistics.common.EcoEnergisticsItems;
+import aeternal.ecoenergistics.common.config.EcoConfig;
 import aeternal.ecoenergistics.common.enums.Ingot;
-import aeternal.ecoenergistics.common.item.EcoEnergisticsItems;
 import mekanism.api.infuse.InfuseRegistry;
 import mekanism.api.infuse.InfuseType;
 import mekanism.common.MekanismItems;
+import mekanism.common.block.states.BlockStateMachine;
+import mekanism.common.config.MekanismConfig;
 import mekanism.common.recipe.RecipeHandler;
 import net.minecraft.item.ItemStack;
 
@@ -13,13 +17,12 @@ import static aeternal.ecoenergistics.common.Infusers.*;
 
 public class Infuser {
     public static void InitCustomInfuserRecipes() {
-        if (Constants.INFUSION_ENABLED) {
+        if (MekanismConfig.current().general.machinesManager.isEnabled(BlockStateMachine.MachineType.METALLURGIC_INFUSER)) {
             InfuseType carbon = InfuseRegistry.get("CARBON");
             InfuseType diamond = InfuseRegistry.get("DIAMOND");
             InfuseType obsidian = InfuseRegistry.get("OBSIDIAN");
             InfuseType redstone = InfuseRegistry.get("REDSTONE");
-/*            InfuseType steel = InfuseRegistry.get("STEEL");*/
-
+            /*            InfuseType steel = InfuseRegistry.get("STEEL");*/
 
 
             ItemStack advancedAlloy = new ItemStack(EcoEnergisticsItems.MoreAlloy, 1, 0);
@@ -32,14 +35,14 @@ public class Infuser {
             ItemStack diffractiveAlloy = new ItemStack(EcoEnergisticsItems.MoreAlloy, 1, 7);
             ItemStack photonicAlloy = new ItemStack(EcoEnergisticsItems.MoreAlloy, 1, 8);
             ItemStack neutronAlloy = new ItemStack(EcoEnergisticsItems.MoreAlloy, 1, 9);
-            ItemStack activeGlowstoneIngot = new ItemStack(EcoEnergisticsItems.MoreIngot,1, Ingot.ACTIVATEDGLOWSTONE.ordinal());
-            ItemStack GlowstoneIngot = new ItemStack(MekanismItems.Ingot,1,3);
+            ItemStack activeGlowstoneIngot = new ItemStack(EcoEnergisticsItems.MoreIngot, 1, Ingot.ACTIVATEDGLOWSTONE.ordinal());
+            ItemStack GlowstoneIngot = new ItemStack(MekanismItems.Ingot, 1, 3);
 
-            ItemStack lithiumDust = new ItemStack(MekanismItems.OtherDust, 1,4);
-            ItemStack refinedlithiumDust = new ItemStack(EcoEnergisticsItems.MoreDust, 1,3);
+            ItemStack lithiumDust = new ItemStack(MekanismItems.OtherDust, 1, 4);
+            ItemStack refinedlithiumDust = new ItemStack(EcoEnergisticsItems.MoreDust, 1, 3);
 
-            ItemStack hdperod = new ItemStack(MekanismItems.Polyethene, 1,1);
-            ItemStack steelrod = new ItemStack(EcoEnergisticsItems.MoreRod, 1,0);
+            ItemStack hdperod = new ItemStack(MekanismItems.Polyethene, 1, 1);
+            ItemStack steelrod = new ItemStack(EcoEnergisticsItems.MoreRod, 1, 0);
 
             // Metallurgic Infuser Recipes
             //Alloys
@@ -62,9 +65,19 @@ public class Infuser {
 
             //Dusts
             RecipeHandler.addMetallurgicInfuserRecipe(iridium, 20, lithiumDust, refinedlithiumDust);
+
+            if (EcoEnergistics.hooks.AvaritiaLoaded && EcoConfig.current().integration.AvaritiaEnable.val()){
+                ItemStack crystalAlloy = new ItemStack(EcoEnergisticsItems.AlloyAvaritia, 1, 0);
+                ItemStack neutroniumAlloy = new ItemStack(EcoEnergisticsItems.AlloyAvaritia, 1, 1);
+                ItemStack infinityAlloy = new ItemStack(EcoEnergisticsItems.AlloyAvaritia, 1, 2);
+
+                // Metallurgic Infuser Recipes
+                //Alloys
+                RecipeHandler.addMetallurgicInfuserRecipe(crystal, 80, neutronAlloy, crystalAlloy);
+                RecipeHandler.addMetallurgicInfuserRecipe(neutronium, 160, crystalAlloy, neutroniumAlloy);
+                RecipeHandler.addMetallurgicInfuserRecipe(infinity, 10, neutroniumAlloy, infinityAlloy);
+            }
+
         }
-
-
     }
-
 }

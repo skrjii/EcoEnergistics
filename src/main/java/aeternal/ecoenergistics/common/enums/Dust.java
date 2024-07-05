@@ -7,8 +7,6 @@ public enum Dust {
     URANIUM("Uranium", 0xaf8e77),
     IRIDIUM("Iridium",0xaf8e77);
 
-
-
     public final int tint;
     private String name;
 

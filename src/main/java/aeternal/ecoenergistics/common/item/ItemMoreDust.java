@@ -1,12 +1,13 @@
 package aeternal.ecoenergistics.common.item;
 
-import java.util.Locale;
-import javax.annotation.Nonnull;
-
 import aeternal.ecoenergistics.common.enums.MoreDust;
+import mekanism.common.base.IMetaItem;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+
+import javax.annotation.Nonnull;
+import java.util.Locale;
 
 public class ItemMoreDust extends ItemMEE implements IMetaItem {
 
@@ -28,8 +29,8 @@ public class ItemMoreDust extends ItemMEE implements IMetaItem {
     @Override
     public void getSubItems(@Nonnull CreativeTabs tabs, @Nonnull NonNullList<ItemStack> itemList) {
         if (isInCreativeTab(tabs)) {
-            for (int counter = 0; counter < MoreDust.values().length; counter++) {
-                itemList.add(new ItemStack(this, 1, counter));
+            for (MoreDust counter : MoreDust.values()) {
+                itemList.add(new ItemStack(this, 1, counter.ordinal()));
             }
         }
     }
@@ -37,9 +38,6 @@ public class ItemMoreDust extends ItemMEE implements IMetaItem {
     @Nonnull
     @Override
     public String getTranslationKey(ItemStack item) {
-        if (item.getItemDamage() <= MoreDust.values().length - 1) {
-            return "item." + MoreDust.values()[item.getItemDamage()].getName().toLowerCase(Locale.ROOT) + "Dust";
-        }
-        return "Invalid";
+        return "item." + MoreDust.values()[item.getItemDamage()].getName().toLowerCase(Locale.ROOT) + "Dust";
     }
 }

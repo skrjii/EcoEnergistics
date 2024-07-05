@@ -1,7 +1,7 @@
 package aeternal.ecoenergistics.common.item;
 
-
 import aeternal.ecoenergistics.common.enums.Compressed;
+import mekanism.common.base.IMetaItem;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -29,8 +29,8 @@ public class ItemCompressed extends ItemMEE implements IMetaItem {
     @Override
     public void getSubItems(@Nonnull CreativeTabs tabs, @Nonnull NonNullList<ItemStack> itemList) {
         if (isInCreativeTab(tabs)) {
-            for (int counter = 0; counter < Compressed.values().length; counter++) {
-                itemList.add(new ItemStack(this, 1, counter));
+            for (Compressed counter : Compressed.values()) {
+                itemList.add(new ItemStack(this, 1, counter.ordinal()));
             }
         }
     }
@@ -38,9 +38,6 @@ public class ItemCompressed extends ItemMEE implements IMetaItem {
     @Nonnull
     @Override
     public String getTranslationKey(ItemStack item) {
-        if (item.getItemDamage() <= Compressed.values().length - 1) {
-            return "item." + Compressed.values()[item.getItemDamage()].getName().toLowerCase(Locale.ROOT) + "Compressed";
-        }
-        return "Invalid";
+        return "item." + Compressed.values()[item.getItemDamage()].getName().toLowerCase(Locale.ROOT) + "Compressed";
     }
 }

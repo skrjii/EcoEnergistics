@@ -2,6 +2,7 @@ package aeternal.ecoenergistics.common.tile.transmitter;
 
 import aeternal.ecoenergistics.common.block.states.BlockStateEcoTransmitter.EcoTransmitterType;
 import aeternal.ecoenergistics.common.tier.EcoPipeTier;
+import aeternal.ecoenergistics.common.tier.MEEAlloyTier;
 import aeternal.ecoenergistics.common.tier.MEETiers;
 import io.netty.buffer.ByteBuf;
 import java.util.Collection;
@@ -14,6 +15,7 @@ import mekanism.common.base.IFluidHandlerWrapper;
 
 import mekanism.common.capabilities.CapabilityWrapperManager;
 
+import mekanism.common.tile.transmitter.TileEntitySidedPipe.*;
 import mekanism.common.transmitters.grid.FluidNetwork;
 import mekanism.common.util.CapabilityUtils;
 import mekanism.common.util.PipeUtils;
@@ -251,8 +253,8 @@ public class TileEntityEcoMechanicalPipe extends TileEntityEcoTransmitter<IFluid
     }
 
     @Override
-    public boolean upgrade(int tierOrdinal) {
-        if (tier.ordinal() < MEETiers.NEUTRON.ordinal() && tierOrdinal == tier.ordinal() + 1) {
+    public boolean upgrade(MEEAlloyTier tierOrdinal) {
+        if (tier.ordinal() < MEETiers.NEUTRON.ordinal() && tierOrdinal.ordinal() == tier.ordinal()) {
             tier = EcoPipeTier.values()[tier.ordinal() + 1];
             markDirtyTransmitters();
             sendDesc = true;

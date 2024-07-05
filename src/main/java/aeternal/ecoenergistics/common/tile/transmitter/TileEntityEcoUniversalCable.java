@@ -1,9 +1,11 @@
 package aeternal.ecoenergistics.common.tile.transmitter;
 
 import aeternal.ecoenergistics.common.block.states.BlockStateEcoTransmitter.EcoTransmitterType;
+import aeternal.ecoenergistics.common.integration.forgeenergy.EcoForgeEnergyCableIntegration;
+import aeternal.ecoenergistics.common.integration.tesla.EcoTeslaCableIntegration;
 import aeternal.ecoenergistics.common.tier.EcoCableTier;
+import aeternal.ecoenergistics.common.tier.MEEAlloyTier;
 import aeternal.ecoenergistics.common.tier.MEETiers;
-import aeternal.ecoenergistics.common.transmitterintegration.ForgeEnergyCableIntegration;
 import cofh.redstoneflux.api.IEnergyProvider;
 import cofh.redstoneflux.api.IEnergyReceiver;
 import ic2.api.energy.EnergyNet;
@@ -19,12 +21,11 @@ import mekanism.common.base.EnergyAcceptorWrapper;
 import mekanism.common.capabilities.Capabilities;
 import mekanism.common.capabilities.CapabilityWrapperManager;
 import mekanism.common.integration.MekanismHooks;
-
 import mekanism.common.integration.forgeenergy.ForgeEnergyIntegration;
 import mekanism.common.integration.ic2.IC2Integration;
 import mekanism.common.integration.redstoneflux.RFIntegration;
-import mekanism.common.integration.tesla.TeslaCableIntegration;
 import mekanism.common.integration.tesla.TeslaIntegration;
+import mekanism.common.tile.transmitter.TileEntitySidedPipe.ConnectionType;
 import mekanism.common.transmitters.grid.EnergyNetwork;
 import mekanism.common.util.CableUtils;
 import mekanism.common.util.CapabilityUtils;
@@ -54,8 +55,8 @@ public class TileEntityEcoUniversalCable extends TileEntityEcoTransmitter<Energy
     public double lastWrite = 0;
 
     public EnergyStack buffer = new EnergyStack(0);
-    private CapabilityWrapperManager teslaManager = new CapabilityWrapperManager<>(getClass(), TeslaCableIntegration.class);
-    private CapabilityWrapperManager forgeEnergyManager = new CapabilityWrapperManager<>(getClass(), ForgeEnergyCableIntegration.class);
+    private CapabilityWrapperManager teslaManager = new CapabilityWrapperManager<>(getClass(), EcoTeslaCableIntegration.class);
+    private CapabilityWrapperManager forgeEnergyManager = new CapabilityWrapperManager<>(getClass(), EcoForgeEnergyCableIntegration.class);
 
     @Override
     public MEETiers getBaseTier() {
@@ -116,6 +117,7 @@ public class TileEntityEcoUniversalCable extends TileEntityEcoTransmitter<Energy
 
     /**
      * Takes a certain amount of energy and returns how much was actually taken
+     *
      * @param toDraw Amount to take
      * @return Amount actually taken
      */
@@ -298,8 +300,8 @@ public class TileEntityEcoUniversalCable extends TileEntityEcoTransmitter<Energy
     }
 
     @Override
-    public boolean upgrade(int tierOrdinal) {
-        if (tier.ordinal() < MEETiers.NEUTRON.ordinal() && tierOrdinal == tier.ordinal() + 1) {
+    public boolean upgrade(MEEAlloyTier tierOrdinal) {
+        if (tier.ordinal() < MEETiers.NEUTRON.ordinal() && tierOrdinal.ordinal() == tier.ordinal() + 1) {
             tier = EcoCableTier.values()[tier.ordinal() + 1];
             markDirtyTransmitters();
             sendDesc = true;

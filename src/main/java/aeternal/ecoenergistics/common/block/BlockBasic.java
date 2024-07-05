@@ -1,7 +1,6 @@
 package aeternal.ecoenergistics.common.block;
 
-import aeternal.ecoenergistics.EcoEnergistics;
-
+import aeternal.ecoenergistics.common.EcoEnergistics;
 import aeternal.ecoenergistics.common.block.states.BlockStateBasic;
 import aeternal.ecoenergistics.common.block.states.BlockStateBasic.EnumBasicType;
 import net.minecraft.block.Block;

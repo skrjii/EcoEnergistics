@@ -1,14 +1,11 @@
 package aeternal.ecoenergistics.common.block.states;
 
-import java.util.Locale;
-import javax.annotation.Nonnull;
-
-import aeternal.ecoenergistics.Constants;
+import aeternal.ecoenergistics.common.EcoEnergistics;
 import aeternal.ecoenergistics.common.block.BlockEcoTransmitter;
-import aeternal.ecoenergistics.common.block.property.PropertyConnection;
 import aeternal.ecoenergistics.common.tier.MEETiers;
 import mekanism.api.transmitters.TransmissionType;
 import mekanism.common.block.property.PropertyColor;
+import mekanism.common.block.property.PropertyConnection;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
@@ -16,9 +13,12 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.model.obj.OBJModel.OBJProperty;
+import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
+
+import javax.annotation.Nonnull;
+import java.util.Locale;
 
 public class BlockStateEcoTransmitter extends ExtendedBlockState {
 
@@ -26,14 +26,13 @@ public class BlockStateEcoTransmitter extends ExtendedBlockState {
     public static final PropertyEnum<MEETiers> tierProperty = PropertyEnum.create("tier", MEETiers.class);
 
     public BlockStateEcoTransmitter(BlockEcoTransmitter block) {
-        super(block, new IProperty[]{typeProperty, tierProperty}, new IUnlistedProperty[]{OBJProperty.INSTANCE, PropertyColor.INSTANCE, PropertyConnection.INSTANCE});
+        super(block, new IProperty[]{typeProperty, tierProperty}, new IUnlistedProperty[]{OBJModel.OBJProperty.INSTANCE, PropertyColor.INSTANCE, PropertyConnection.INSTANCE});
     }
 
     public enum EcoTransmitterType implements IStringSerializable {
         UNIVERSAL_CABLE("UniversalCable", Size.SMALL, TransmissionType.ENERGY, false, true),
         MECHANICAL_PIPE("MechanicalPipe", Size.LARGE, TransmissionType.FLUID, false, true),
         PRESSURIZED_TUBE("PressurizedTube", Size.SMALL, TransmissionType.GAS, false, true);
-
 
         private String unlocalizedName;
         private Size size;
@@ -48,7 +47,6 @@ public class BlockStateEcoTransmitter extends ExtendedBlockState {
             transparencyRender = transparency;
             tiers = b;
         }
-
         public static EcoTransmitterType get(int meta) {
             return EcoTransmitterType.values()[meta];
         }
@@ -102,15 +100,15 @@ public class BlockStateEcoTransmitter extends ExtendedBlockState {
 
             if (type.tiers) {
                 MEETiers tier = state.getValue(tierProperty);
-                if (tier == MEETiers.NEUTRON) {
-                }
                 nameOverride = type.getName() + "_" + tier.getName();
             }
             if (builder.length() == 0) {
                 builder.append("normal");
             }
-            ResourceLocation baseLocation = new ResourceLocation(Constants.MOD_ID, nameOverride != null ? nameOverride : type.getName());
+            ResourceLocation baseLocation = new ResourceLocation(EcoEnergistics.MOD_ID, nameOverride != null ? nameOverride : type.getName());
             return new ModelResourceLocation(baseLocation, builder.toString());
         }
     }
+
 }
+

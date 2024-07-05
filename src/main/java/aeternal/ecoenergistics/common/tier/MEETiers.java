@@ -2,8 +2,7 @@ package aeternal.ecoenergistics.common.tier;
 
 import java.util.Locale;
 
-import aeternal.ecoenergistics.api.EnumColor;
-;
+import mekanism.api.EnumColor;
 import mekanism.common.util.LangUtils;
 import net.minecraft.util.IStringSerializable;
 

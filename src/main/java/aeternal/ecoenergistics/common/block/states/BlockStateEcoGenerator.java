@@ -1,9 +1,11 @@
 package aeternal.ecoenergistics.common.block.states;
 
-import aeternal.ecoenergistics.Constants;
+import aeternal.ecoenergistics.common.EcoEnergistics;
 import aeternal.ecoenergistics.common.EcoEnergisticsBlocks;
 import aeternal.ecoenergistics.common.block.BlockEcoGenerator;
-import aeternal.ecoenergistics.common.tile.solar.panel.*;
+import aeternal.ecoenergistics.common.config.EcoConfig;
+import aeternal.ecoenergistics.common.tile.panelsolar.*;
+import aeternal.ecoenergistics.common.tile.stationsolar.*;
 import mekanism.common.base.IBlockType;
 import mekanism.common.block.states.BlockStateFacing;
 import mekanism.common.block.states.BlockStateUtils;
@@ -25,6 +27,9 @@ import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -38,37 +43,57 @@ public class BlockStateEcoGenerator extends ExtendedBlockState {
     }
 
     public enum EcoGeneratorBlock {
-        GENERATOR_BLOCK_ECO;
+        GENERATOR_BLOCK_ECO,
+        GENERATOR_BLOCK_ECO2,
+        GENERATOR_BLOCK_AVARITIA;
 
         PropertyEnum<EcoGeneratorType> generatorTypeProperty;
 
         public PropertyEnum<EcoGeneratorType> getProperty() {
             if (generatorTypeProperty == null) {
-                generatorTypeProperty = PropertyEnum.create("type", EcoGeneratorType.class, input -> input != null && input.blockType == this);
+                generatorTypeProperty = PropertyEnum.create("type", EcoGeneratorType.class, input -> input != null && input.blockType == this && input.isValidMachine());
             }
             return generatorTypeProperty;
         }
 
         public Block getBlock() {
-            if (this == EcoGeneratorBlock.GENERATOR_BLOCK_ECO) {
-                return EcoEnergisticsBlocks.EcoGenerator;
-            }
-            return null;
+            return switch (this) {
+                case GENERATOR_BLOCK_ECO -> EcoEnergisticsBlocks.EcoGenerator;
+                case GENERATOR_BLOCK_ECO2 -> EcoEnergisticsBlocks.EcoGeneratorAdd;
+                case GENERATOR_BLOCK_AVARITIA -> EcoEnergisticsBlocks.AvaritiaGenerator;
+            };
         }
     }
 
     public enum EcoGeneratorType implements IStringSerializable, IBlockType {
-        SOLAR_PANEL_ADVANCED(EcoGeneratorBlock.GENERATOR_BLOCK_ECO, 0, "SolarPanelAdvanced", 1, 192000, TileEntitySolarPanelAdvanced::new, true, Plane.HORIZONTAL, false),
-        SOLAR_PANEL_HYBRID(EcoGeneratorBlock.GENERATOR_BLOCK_ECO, 1, "SolarPanelHybrid", 1, 384000, TileEntitySolarPanelHybrid::new, true, Plane.HORIZONTAL, false),
-        SOLAR_PANEL_PERFECTHYBRID(EcoGeneratorBlock.GENERATOR_BLOCK_ECO, 2, "SolarPanelPerfectHybrid", 1, 768000, TileEntitySolarPanelPerfectHybrid::new, true, Plane.HORIZONTAL, false),
-        SOLAR_PANEL_QUANTUM(EcoGeneratorBlock.GENERATOR_BLOCK_ECO, 3, "SolarPanelQuantum", 1, 1536000, TileEntitySolarPanelQuantum::new, true, Plane.HORIZONTAL, false),
-        SOLAR_PANEL_SPECTRAL(EcoGeneratorBlock.GENERATOR_BLOCK_ECO, 4, "SolarPanelSpectral", 1, 3072000, TileEntitySolarPanelSpectral::new, true, Plane.HORIZONTAL, false),
-        SOLAR_PANEL_PROTONIC(EcoGeneratorBlock.GENERATOR_BLOCK_ECO, 5, "SolarPanelProtonic", 1, 6144000, TileEntitySolarPanelProtonic::new, true, Plane.HORIZONTAL, false),
-        SOLAR_PANEL_SINGULAR(EcoGeneratorBlock.GENERATOR_BLOCK_ECO, 6, "SolarPanelSingular", 1, 12288000, TileEntitySolarPanelSingular::new, true, Plane.HORIZONTAL, false),
-        SOLAR_PANEL_DIFFRACTIVE(EcoGeneratorBlock.GENERATOR_BLOCK_ECO, 7, "SolarPanelDiffractive", 1, 24576000, TileEntitySolarPanelDiffractive::new, true, Plane.HORIZONTAL, false),
-        SOLAR_PANEL_PHOTONIC(EcoGeneratorBlock.GENERATOR_BLOCK_ECO, 8, "SolarPanelPhotonic", 1, 49152000, TileEntitySolarPanelPhotonic::new, true, Plane.HORIZONTAL, false),
-        SOLAR_PANEL_NEUTRON(EcoGeneratorBlock.GENERATOR_BLOCK_ECO, 9, "SolarPanelNeutron", 1, 58982000, TileEntitySolarPanelNeutron::new, true, Plane.HORIZONTAL, false);
+        SOLAR_PANEL_ADVANCED(EcoGeneratorBlock.GENERATOR_BLOCK_ECO, 0, "SolarPanelAdvanced", 0, 192000, TileEntitySolarPanelAdvanced::new, true, Plane.HORIZONTAL, false),
+        SOLAR_PANEL_HYBRID(EcoGeneratorBlock.GENERATOR_BLOCK_ECO, 1, "SolarPanelHybrid", 0, 384000, TileEntitySolarPanelHybrid::new, true, Plane.HORIZONTAL, false),
+        SOLAR_PANEL_PERFECTHYBRID(EcoGeneratorBlock.GENERATOR_BLOCK_ECO, 2, "SolarPanelPerfectHybrid", 0, 768000, TileEntitySolarPanelPerfectHybrid::new, true, Plane.HORIZONTAL, false),
+        SOLAR_PANEL_QUANTUM(EcoGeneratorBlock.GENERATOR_BLOCK_ECO, 3, "SolarPanelQuantum", 0, 1536000, TileEntitySolarPanelQuantum::new, true, Plane.HORIZONTAL, false),
+        SOLAR_PANEL_SPECTRAL(EcoGeneratorBlock.GENERATOR_BLOCK_ECO, 4, "SolarPanelSpectral", 0, 3072000, TileEntitySolarPanelSpectral::new, true, Plane.HORIZONTAL, false),
+        SOLAR_PANEL_PROTONIC(EcoGeneratorBlock.GENERATOR_BLOCK_ECO, 5, "SolarPanelProtonic", 0, 6144000, TileEntitySolarPanelProtonic::new, true, Plane.HORIZONTAL, false),
+        SOLAR_PANEL_SINGULAR(EcoGeneratorBlock.GENERATOR_BLOCK_ECO, 6, "SolarPanelSingular", 0, 12288000, TileEntitySolarPanelSingular::new, true, Plane.HORIZONTAL, false),
+        SOLAR_PANEL_DIFFRACTIVE(EcoGeneratorBlock.GENERATOR_BLOCK_ECO, 7, "SolarPanelDiffractive", 0, 24576000, TileEntitySolarPanelDiffractive::new, true, Plane.HORIZONTAL, false),
+        SOLAR_PANEL_PHOTONIC(EcoGeneratorBlock.GENERATOR_BLOCK_ECO, 8, "SolarPanelPhotonic", 0, 49152000, TileEntitySolarPanelPhotonic::new, true, Plane.HORIZONTAL, false),
+        SOLAR_PANEL_NEUTRON(EcoGeneratorBlock.GENERATOR_BLOCK_ECO, 9, "SolarPanelNeutron", 0, 58982000, TileEntitySolarPanelNeutron::new, true, Plane.HORIZONTAL, false),
 
+        SOLAR_STATION_ADVANCED(EcoGeneratorBlock.GENERATOR_BLOCK_ECO2, 0, "SolarStationAdvanced", 0, 800000, TileEntitySolarStationAdv::new, true, Plane.HORIZONTAL, false, true),
+        SOLAR_STATION_HYBRID(EcoGeneratorBlock.GENERATOR_BLOCK_ECO2, 1, "SolarStationHybrid", 0, 2400000, TileEntitySolarStationHybrid::new, true, Plane.HORIZONTAL, false, true),
+        SOLAR_STATION_PERFECTHYBRID(EcoGeneratorBlock.GENERATOR_BLOCK_ECO2, 2, "SolarStationPerfectHybrid", 0, 7200000, TileEntitySolarStationPerfectHybrid::new, true, Plane.HORIZONTAL, false, true),
+        SOLAR_STATION_QUANTUM(EcoGeneratorBlock.GENERATOR_BLOCK_ECO2, 3, "SolarStationQuantum", 0, 21600000, TileEntitySolarStationQuantum::new, true, Plane.HORIZONTAL, false, true),
+        SOLAR_STATION_SPECTRAL(EcoGeneratorBlock.GENERATOR_BLOCK_ECO2, 4, "SolarStationSpectral", 0, 6480000, TileEntitySolarStationSpectral::new, true, Plane.HORIZONTAL, false, true),
+        SOLAR_STATION_PROTONIC(EcoGeneratorBlock.GENERATOR_BLOCK_ECO2, 5, "SolarStationProtonic", 0, 8640000, TileEntitySolarStationProtonic::new, true, Plane.HORIZONTAL, false, true),
+        SOLAR_STATION_SINGULAR(EcoGeneratorBlock.GENERATOR_BLOCK_ECO2, 6, "SolarStationSingular", 0, 34560000, TileEntitySolarStationSingular::new, true, Plane.HORIZONTAL, false, true),
+        SOLAR_STATION_DIFFRACTIVE(EcoGeneratorBlock.GENERATOR_BLOCK_ECO2, 7, "SolarStationDiffractive", 0, 138240000, TileEntitySolarStationDiffractive::new, true, Plane.HORIZONTAL, false, true),
+        SOLAR_STATION_PHOTONIC(EcoGeneratorBlock.GENERATOR_BLOCK_ECO2, 8, "SolarStationPhotonic", 0, 552960000, TileEntitySolarStationPhotonic::new, true, Plane.HORIZONTAL, false, true),
+        SOLAR_STATION_NEUTRON(EcoGeneratorBlock.GENERATOR_BLOCK_ECO2, 9, "SolarStationNeutron", 0, 663552000, TileEntitySolarStationNeutron::new, true, Plane.HORIZONTAL, false, true),
+
+        AVARITIA_SOLAR_PANEL_CRYSTAL(EcoGeneratorBlock.GENERATOR_BLOCK_AVARITIA, 0, "SolarPanelCrystal", 0, 5320000, TileEntitySolarPanelCrystal::new, true, Plane.HORIZONTAL, false),
+        AVARITIA_SOLAR_PANEL_NEUTRON(EcoGeneratorBlock.GENERATOR_BLOCK_AVARITIA, 1, "SolarPanelNeutronium", 0, 212800000, TileEntitySolarPanelNeutronium::new, true, Plane.HORIZONTAL, false),
+        AVARITIA_SOLAR_PANEL_INFINITY(EcoGeneratorBlock.GENERATOR_BLOCK_AVARITIA, 2, "SolarPanelInfinity", 0, 1119888000, TileEntitySolarPanelInfinity::new, true, Plane.HORIZONTAL, false),
+        AVARITIA_SOLAR_STATION_CRYSTAL(EcoGeneratorBlock.GENERATOR_BLOCK_AVARITIA, 3, "SolarStationCrystal", 0, 21280000, TileEntitySolarStationCrystal::new, true, Plane.HORIZONTAL, false, true),
+        AVARITIA_SOLAR_STATION_NEUTRON(EcoGeneratorBlock.GENERATOR_BLOCK_AVARITIA, 4, "SolarStationNeutronium", 0, 851200000, TileEntitySolarStationNeutronium::new, true, Plane.HORIZONTAL, false, true),
+        AVARITIA_SOLAR_STATION_INFINITY(EcoGeneratorBlock.GENERATOR_BLOCK_AVARITIA, 5, "SolarStationInfinity", 0, Integer.MAX_VALUE, TileEntitySolarStationInfinity::new, true, Plane.HORIZONTAL, false, true);
 
         public EcoGeneratorBlock blockType;
         public int meta;
@@ -80,14 +105,20 @@ public class BlockStateEcoGenerator extends ExtendedBlockState {
         public Predicate<EnumFacing> facingPredicate;
         public boolean activable;
         public boolean hasRedstoneOutput;
+        public boolean isStation;
 
         EcoGeneratorType(EcoGeneratorBlock block, int m, String name, int gui, double energy, Supplier<TileEntity> tileClass, boolean model, Predicate<EnumFacing> predicate,
-                      boolean hasActiveTexture) {
-            this(block, m, name, gui, energy, tileClass, model, predicate, hasActiveTexture, false);
+                         boolean hasActiveTexture) {
+            this(block, m, name, gui, energy, tileClass, model, predicate, hasActiveTexture, false, false);
         }
 
         EcoGeneratorType(EcoGeneratorBlock block, int m, String name, int gui, double energy, Supplier<TileEntity> tileClass, boolean model, Predicate<EnumFacing> predicate,
-                      boolean hasActiveTexture, boolean hasRedstoneOutput) {
+                         boolean hasActiveTexture, boolean isStation) {
+            this(block, m, name, gui, energy, tileClass, model, predicate, hasActiveTexture, false, isStation);
+        }
+
+        EcoGeneratorType(EcoGeneratorBlock block, int m, String name, int gui, double energy, Supplier<TileEntity> tileClass, boolean model, Predicate<EnumFacing> predicate,
+                         boolean hasActiveTexture, boolean hasRedstoneOutput, boolean isStation) {
             blockType = block;
             meta = m;
             blockName = name;
@@ -98,6 +129,22 @@ public class BlockStateEcoGenerator extends ExtendedBlockState {
             facingPredicate = predicate;
             activable = hasActiveTexture;
             this.hasRedstoneOutput = hasRedstoneOutput;
+            this.isStation = isStation;
+        }
+
+        private static final List<EcoGeneratorType> VALID_MACHINES = new ArrayList<>();
+
+        static {
+            Arrays.stream(EcoGeneratorType.values()).filter(EcoGeneratorType::isValidMachine).forEach(VALID_MACHINES::add);
+        }
+
+        public static List<EcoGeneratorType> getValidMachines() {
+            return VALID_MACHINES;
+        }
+
+
+        public boolean isValidMachine() {
+            return true;
         }
 
         public static EcoGeneratorType get(IBlockState state) {
@@ -127,6 +174,37 @@ public class BlockStateEcoGenerator extends ExtendedBlockState {
             return get(Block.getBlockFromItem(stack.getItem()), stack.getItemDamage());
         }
 
+        public double getOutput() {
+            return switch (this) {
+                case SOLAR_PANEL_ADVANCED -> PanelSloarConfig.AdvancedGen_OUT.getValue();
+                case SOLAR_PANEL_HYBRID -> PanelSloarConfig.HybridGen_OUT.getValue();
+                case SOLAR_PANEL_PERFECTHYBRID -> PanelSloarConfig.PerfectHybridGen_OUT.getValue();
+                case SOLAR_PANEL_QUANTUM -> PanelSloarConfig.QuantumGen_OUT.getValue();
+                case SOLAR_PANEL_SPECTRAL -> PanelSloarConfig.SpectralGen_OUT.getValue();
+                case SOLAR_PANEL_PROTONIC -> PanelSloarConfig.ProtonicGen_OUT.getValue();
+                case SOLAR_PANEL_SINGULAR -> PanelSloarConfig.SingularGen_OUT.getValue();
+                case SOLAR_PANEL_DIFFRACTIVE -> PanelSloarConfig.DiffractiveGen_OUT.getValue();
+                case SOLAR_PANEL_PHOTONIC -> PanelSloarConfig.PhotonicGen_OUT.getValue();
+                case SOLAR_PANEL_NEUTRON -> PanelSloarConfig.NeutronGen_OUT.getValue();
+                case SOLAR_STATION_ADVANCED ->StationSolarConfig.AdvancedGen_OUT.getValue();
+                case SOLAR_STATION_HYBRID -> StationSolarConfig.HybridGen_OUT.getValue();
+                case SOLAR_STATION_PERFECTHYBRID -> StationSolarConfig.PerfectHybridGen_OUT.getValue();
+                case SOLAR_STATION_QUANTUM -> StationSolarConfig.QuantumGen_OUT.getValue();
+                case SOLAR_STATION_SPECTRAL -> StationSolarConfig.SpectralGen_OUT.getValue();
+                case SOLAR_STATION_PROTONIC -> StationSolarConfig.ProtonicGen_OUT.getValue();
+                case SOLAR_STATION_SINGULAR -> StationSolarConfig.SingularGen_OUT.getValue();
+                case SOLAR_STATION_DIFFRACTIVE -> StationSolarConfig.DiffractiveGen_OUT.getValue();
+                case SOLAR_STATION_PHOTONIC -> StationSolarConfig.PhotonicGen_OUT.getValue();
+                case SOLAR_STATION_NEUTRON -> StationSolarConfig.NeutronGen_OUT.getValue();
+                case AVARITIA_SOLAR_PANEL_CRYSTAL -> PanelSloarConfig.CrystalGen_OUT.getValue();
+                case AVARITIA_SOLAR_PANEL_NEUTRON -> PanelSloarConfig.NeutroniumGen_OUT.getValue();
+                case AVARITIA_SOLAR_PANEL_INFINITY -> PanelSloarConfig.InfinityGen_OUT.getValue();
+                case AVARITIA_SOLAR_STATION_CRYSTAL -> StationSolarConfig.CrystalGen_OUT.getValue();
+                case AVARITIA_SOLAR_STATION_NEUTRON -> StationSolarConfig.NeutroniumGen_OUT.getValue();
+                case AVARITIA_SOLAR_STATION_INFINITY -> StationSolarConfig.InfinityGen_OUT.getValue();
+            };
+        }
+
         @Override
         public String getBlockName() {
             return blockName;
@@ -134,7 +212,7 @@ public class BlockStateEcoGenerator extends ExtendedBlockState {
 
         @Override
         public boolean isEnabled() {
-            return true;
+            return EcoConfig.current().generators.EcoMachinesManager.isEnabled(this);
         }
 
         public TileEntity create() {
@@ -151,7 +229,7 @@ public class BlockStateEcoGenerator extends ExtendedBlockState {
         }
 
         public ItemStack getStack() {
-            return new ItemStack(EcoEnergisticsBlocks.EcoGenerator, 1, meta);
+            return new ItemStack(blockType.getBlock(), 1, meta);
         }
 
         public boolean canRotateTo(EnumFacing side) {
@@ -166,6 +244,7 @@ public class BlockStateEcoGenerator extends ExtendedBlockState {
             return activable;
         }
     }
+
 
     public static class GeneratorBlockStateMapper extends StateMapperBase {
 
@@ -199,7 +278,7 @@ public class BlockStateEcoGenerator extends ExtendedBlockState {
             if (builder.length() == 0) {
                 builder.append("normal");
             }
-            ResourceLocation baseLocation = new ResourceLocation(Constants.MOD_ID, nameOverride != null ? nameOverride : type.getName());
+            ResourceLocation baseLocation = new ResourceLocation(EcoEnergistics.MOD_ID, nameOverride != null ? nameOverride : type.getName());
 
             return new ModelResourceLocation(baseLocation, builder.toString());
         }

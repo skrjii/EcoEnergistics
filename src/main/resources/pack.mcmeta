@@ -1,6 +1,6 @@
 {
-    "pack": {
-        "pack_format": 1,
-        "description": "Resources used for Mekanism Eco Energistics"
-    }
+	"pack": {
+		"description": "Resources used for Mekanism Eco Energistics",
+		"pack_format": 3
+	}
 }

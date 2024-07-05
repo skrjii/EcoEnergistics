@@ -3,8 +3,8 @@ package aeternal.ecoenergistics.common.item;
 import java.util.List;
 import javax.annotation.Nonnull;
 
-import aeternal.ecoenergistics.EcoEnergistics;
-import aeternal.ecoenergistics.common.base.ITierItem;
+import aeternal.ecoenergistics.common.EcoEnergistics;
+import aeternal.ecoenergistics.common.base.EcoITierItem;
 import aeternal.ecoenergistics.common.tier.EcoCableTier;
 import aeternal.ecoenergistics.common.tier.EcoPipeTier;
 import aeternal.ecoenergistics.common.tier.EcoTubeTier;
@@ -38,7 +38,7 @@ import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemBlockEcoTransmitter extends ItemBlockMultipartAble implements ITierItem {
+public class ItemBlockEcoTransmitter extends ItemBlockMultipartAble implements EcoITierItem {
 
     public Block metaBlock;
 

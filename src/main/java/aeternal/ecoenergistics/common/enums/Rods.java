@@ -5,8 +5,6 @@ import java.util.Locale;
 public enum Rods {
     STEEL("Steel", 0xaf8e77);
 
-
-
     public final int tint;
     private String name;
 

@@ -1,10 +1,13 @@
 package aeternal.ecoenergistics.client.render.item;
 
-import aeternal.ecoenergistics.client.render.item.panel.*;
+import aeternal.ecoenergistics.client.render.item.panelsolar.*;
+import aeternal.ecoenergistics.client.render.item.stationsolar.*;
+import aeternal.ecoenergistics.common.EcoEnergistics;
 import aeternal.ecoenergistics.common.block.states.BlockStateEcoGenerator.EcoGeneratorType;
+import aeternal.ecoenergistics.common.config.EcoConfig;
 import mekanism.client.render.item.ItemLayerWrapper;
 import mekanism.client.render.item.SubTypeItemRenderer;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms.TransformType;
+import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -24,58 +27,78 @@ public class RenderEcoGeneratorItem extends SubTypeItemRenderer<EcoGeneratorType
         return true;
     }
 
+
     @Override
-    protected void renderBlockSpecific(@Nonnull ItemStack stack, TransformType transformType) {
-        EcoGeneratorType generatorType = EcoGeneratorType.get(stack);
-        if (generatorType != null) {
-            switch (generatorType) {
-                case SOLAR_PANEL_ADVANCED:
-                    RenderSolarPanelAdvItem.renderStack(stack, transformType);
-                    break;
-                    case SOLAR_PANEL_HYBRID:
-                    RenderSolarPanelHybridItem.renderStack(stack, transformType);
-                    break;
-                case SOLAR_PANEL_PERFECTHYBRID:
-                    RenderSolarPanelPerfectHybridItem.renderStack(stack, transformType);
-                    break;
-                case SOLAR_PANEL_QUANTUM:
-                    RenderSolarPanelQuantumItem.renderStack(stack, transformType);
-                    break;
-                case SOLAR_PANEL_SPECTRAL:
-                    RenderSolarPanelSpectralItem.renderStack(stack, transformType);
-                    break;
-                case SOLAR_PANEL_PROTONIC:
-                    RenderSolarPanelProtonicItem.renderStack(stack, transformType);
-                    break;
-                case SOLAR_PANEL_SINGULAR:
-                    RenderSolarPanelSingularItem.renderStack(stack, transformType);
-                    break;
-                case SOLAR_PANEL_DIFFRACTIVE:
-                    RenderSolarPanelDiffractiveItem.renderStack(stack, transformType);
-                    break;
-                case SOLAR_PANEL_PHOTONIC:
-                    RenderSolarPanelPhotonicItem.renderStack(stack, transformType);
-                    break;
-                case SOLAR_PANEL_NEUTRON:
-                    RenderSolarPanelNeutronItem.renderStack(stack, transformType);
-                    break;
-
-
+    protected void renderBlockSpecific(@Nonnull ItemStack stack, ItemCameraTransforms.TransformType transformType) {
+        EcoGeneratorType type = EcoGeneratorType.get(stack);
+        if (type != null) {
+            if (type == EcoGeneratorType.SOLAR_PANEL_ADVANCED) {
+                RenderSolarPanelAdvItem.renderStack(stack, transformType);
+            } else if (type == EcoGeneratorType.SOLAR_PANEL_HYBRID) {
+                RenderSolarPanelHybridItem.renderStack(stack, transformType);
+            } else if (type == EcoGeneratorType.SOLAR_PANEL_PERFECTHYBRID) {
+                RenderSolarPanelPerfectHybridItem.renderStack(stack, transformType);
+            } else if (type == EcoGeneratorType.SOLAR_PANEL_QUANTUM) {
+                RenderSolarPanelQuantumItem.renderStack(stack, transformType);
+            } else if (type == EcoGeneratorType.SOLAR_PANEL_SPECTRAL) {
+                RenderSolarPanelSpectralItem.renderStack(stack, transformType);
+            } else if (type == EcoGeneratorType.SOLAR_PANEL_PROTONIC) {
+                RenderSolarPanelProtonicItem.renderStack(stack, transformType);
+            } else if (type == EcoGeneratorType.SOLAR_PANEL_SINGULAR) {
+                RenderSolarPanelSingularItem.renderStack(stack, transformType);
+            } else if (type == EcoGeneratorType.SOLAR_PANEL_DIFFRACTIVE) {
+                RenderSolarPanelDiffractiveItem.renderStack(stack, transformType);
+            } else if (type == EcoGeneratorType.SOLAR_PANEL_PHOTONIC) {
+                RenderSolarPanelPhotonicItem.renderStack(stack, transformType);
+            } else if (type == EcoGeneratorType.SOLAR_PANEL_NEUTRON) {
+                RenderSolarPanelNeutronItem.renderStack(stack, transformType);
+            } else if (type == EcoGeneratorType.SOLAR_STATION_ADVANCED) {
+                RenderSolarStationAdvItem.renderStack(stack, transformType);
+            } else if (type == EcoGeneratorType.SOLAR_STATION_HYBRID) {
+                RenderSolarStationHybridItem.renderStack(stack, transformType);
+            } else if (type == EcoGeneratorType.SOLAR_STATION_PERFECTHYBRID) {
+                RenderSolarStationPerfectHybridItem.renderStack(stack, transformType);
+            } else if (type == EcoGeneratorType.SOLAR_STATION_QUANTUM) {
+                RenderSolarStationQuantumItem.renderStack(stack, transformType);
+            } else if (type == EcoGeneratorType.SOLAR_STATION_SPECTRAL) {
+                RenderSolarStationSpectralItem.renderStack(stack, transformType);
+            } else if (type == EcoGeneratorType.SOLAR_STATION_PROTONIC) {
+                RenderSolarStationProtonicItem.renderStack(stack, transformType);
+            } else if (type == EcoGeneratorType.SOLAR_STATION_SINGULAR) {
+                RenderSolarStationSingularItem.renderStack(stack, transformType);
+            } else if (type == EcoGeneratorType.SOLAR_STATION_DIFFRACTIVE) {
+                RenderSolarStationDiffractiveItem.renderStack(stack, transformType);
+            } else if (type == EcoGeneratorType.SOLAR_STATION_PHOTONIC) {
+                RenderSolarStationPhotonicItem.renderStack(stack, transformType);
+            } else if (type == EcoGeneratorType.SOLAR_STATION_NEUTRON) {
+                RenderSolarStationNeutronItem.renderStack(stack, transformType);
+            }
+            if (EcoEnergistics.hooks.AvaritiaLoaded && EcoConfig.current().integration.AvaritiaEnable.val()){
+                if (type == EcoGeneratorType.AVARITIA_SOLAR_PANEL_CRYSTAL) {
+                    RenderSolarPanelCrystalItem.renderStack(stack, transformType);
+                }else if (type == EcoGeneratorType.AVARITIA_SOLAR_PANEL_NEUTRON) {
+                    RenderSolarPanelNeutroniumItem.renderStack(stack, transformType);
+                }else if (type == EcoGeneratorType.AVARITIA_SOLAR_PANEL_INFINITY) {
+                    RenderSolarPanelInfinityItem.renderStack(stack, transformType);
+                }else if (type == EcoGeneratorType.AVARITIA_SOLAR_STATION_CRYSTAL) {
+                    RenderSolarStationCrystalItem.renderStack(stack, transformType);
+                }else if (type == EcoGeneratorType.AVARITIA_SOLAR_STATION_NEUTRON) {
+                    RenderSolarStationNeutroniumItem.renderStack(stack, transformType);
+                }else if (type == EcoGeneratorType.AVARITIA_SOLAR_STATION_INFINITY) {
+                    RenderSolarStationInfinityItem.renderStack(stack, transformType);
+                }
             }
         }
-
     }
 
-
     @Override
-    protected void renderItemSpecific(@Nonnull ItemStack stack, TransformType transformType) {
-
+    protected void renderItemSpecific(@Nonnull ItemStack stack, ItemCameraTransforms.TransformType transformType) {
     }
 
     @Nullable
     @Override
-    protected ItemLayerWrapper getModel(EcoGeneratorType generatorType) {
-        return modelMap.get(generatorType);
+    protected ItemLayerWrapper getModel(EcoGeneratorType type) {
+        return modelMap.get(type);
     }
 
     @Nullable
@@ -84,3 +107,4 @@ public class RenderEcoGeneratorItem extends SubTypeItemRenderer<EcoGeneratorType
         return EcoGeneratorType.get(stack);
     }
 }
+
