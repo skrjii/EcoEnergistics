@@ -45,9 +45,9 @@ public class Enrichment {
             ItemStack iridiumDust = iridiumDusts.get(0).copy();
             ItemStack iridiumDust2 = iridiumDust.copy();
             iridiumDust2.setCount(iridiumDust2.getCount() *2);
-
-            RecipeHandler.addEnrichmentChamberRecipe(lapisDusts.get(0).copy(), new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, 0));
-            RecipeHandler.addEnrichmentChamberRecipe(emeraldDusts.get(0).copy(), new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, 1));
+            //conflicting with existing Mek recipes
+            /*RecipeHandler.addEnrichmentChamberRecipe(lapisDusts.get(0).copy(), new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, 0));
+            RecipeHandler.addEnrichmentChamberRecipe(emeraldDusts.get(0).copy(), new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, 1));*/
             RecipeHandler.addEnrichmentChamberRecipe(new ItemStack(EcoEnergisticsItems.MoreDust, 1, MoreDust.ACTIVATEDGLOWSTONE.ordinal()), new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, 2));
             RecipeHandler.addEnrichmentChamberRecipe(goldDusts.get(0).copy(), new ItemStack(EcoEnergisticsItems.MoreCompressed, 1, 3));
 
